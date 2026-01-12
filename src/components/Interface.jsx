@@ -12,7 +12,7 @@ const Section = (props) => {
 
 export const Interface = () => {
     return (
-        <div className="flex flex-col w-full text-zinc-900 z-10 overflow-x-hidden">
+        <div className="flex flex-col w-full text-white z-10 overflow-x-hidden">
             {/* Navigation Header */}
             <nav className="fixed top-0 left-0 w-full px-6 md:px-12 py-6 md:py-8 flex justify-between items-center z-50 pointer-events-auto">
                 <div className="flex items-baseline gap-2">
@@ -44,9 +44,9 @@ export const Interface = () => {
                         initial={{ y: "100%" }}
                         whileInView={{ y: 0 }}
                         transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-                        className="text-6xl md:text-8xl font-serif italic tracking-tighter mb-2 text-zinc-800"
+                        className="text-6xl md:text-8xl font-serif italic tracking-tighter mb-2 text-white"
                     >
-                        Ferrari
+                        Executive
                     </motion.h1>
                 </div>
                 <div className="overflow-hidden">
@@ -54,9 +54,9 @@ export const Interface = () => {
                         initial={{ y: "100%" }}
                         whileInView={{ y: 0 }}
                         transition={{ duration: 1, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
-                        className="text-4xl md:text-6xl font-light tracking-widest uppercase text-red-600 mb-8 md:mb-12"
+                        className="text-4xl md:text-6xl font-light tracking-widest uppercase text-zinc-500 mb-8 md:mb-12"
                     >
-                        SF90 Stradale
+                        Luxury Sedan
                     </motion.h2>
                 </div>
 
@@ -68,7 +68,7 @@ export const Interface = () => {
                 >
                     <div className="h-[1px] w-12 md:w-24 bg-zinc-800/50"></div>
                     <p className="text-[10px] md:text-sm font-mono tracking-[0.2em] uppercase text-zinc-600">
-                        The Supercar Parking Experience
+                        The Premium Parking Experience
                     </p>
                 </motion.div>
             </Section>
@@ -80,29 +80,32 @@ export const Interface = () => {
                     whileInView={{ opacity: 1 }}
                     className="text-right"
                 >
-                    <h3 className="text-6xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-zinc-200 to-zinc-400 outline-text tracking-tighter opacity-20">0-100</h3>
-                    <p className="text-2xl md:text-4xl font-serif italic text-red-600">2.5 Seconds</p>
+                    <h3 className="text-6xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-zinc-200 to-zinc-400 outline-text tracking-tighter opacity-20">Comfort</h3>
+                    <p className="text-2xl md:text-4xl font-serif italic text-zinc-400">Pure Serenity</p>
                 </motion.div>
             </div>
 
+            <div className="h-screen w-screen" />
+            <div className="h-screen w-screen" />
+
             {/* Page 3: Intelligent System */}
             <Section align="right">
-                <div className="backdrop-blur-md bg-white/60 p-6 md:p-12 border border-white/40 shadow-xl rounded-sm">
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-4 md:mb-6 text-zinc-800">
-                        Precision Arrival
+                <div className="backdrop-blur-xl bg-black/40 p-6 md:p-12 border border-white/10 shadow-3xl rounded-sm">
+                    <h2 className="text-3xl md:text-5xl font-serif italic mb-4 md:mb-6 text-white">
+                        Autonomous Precision
                     </h2>
-                    <p className="text-zinc-600 leading-relaxed mb-6 md:mb-8 font-light text-base md:text-lg max-w-lg">
-                        The SF90 Stradale requests entry. The architecture responds.
-                        Sensors align the vehicle with millimeter accuracy on the polished concrete floor.
+                    <p className="text-zinc-400 leading-relaxed mb-6 md:mb-8 font-light text-base md:text-lg max-w-lg">
+                        The Luxury Sedan approaches. The architecture responds.
+                        Ultrasonic sensors and LiDAR align the vehicle with millimeter accuracy on the polished concrete floor.
                     </p>
-                    <ul className="space-y-3 md:space-y-4 text-[10px] md:text-sm font-mono text-zinc-500 tracking-widest uppercase border-t border-zinc-200 pt-6 md:pt-8 mt-6">
+                    <ul className="space-y-3 md:space-y-4 text-[10px] md:text-sm font-mono text-zinc-500 tracking-widest uppercase border-t border-white/10 pt-6 md:pt-8 mt-6">
                         <li className="flex justify-between">
                             <span>Engine Status</span>
-                            <span className="text-zinc-900">Standby</span>
+                            <span className="text-white">Standby</span>
                         </li>
                         <li className="flex justify-between">
                             <span>Battery</span>
-                            <span className="text-zinc-900">98%</span>
+                            <span className="text-white">98%</span>
                         </li>
                         <li className="flex justify-between">
                             <span>Parking Zone</span>
@@ -114,25 +117,32 @@ export const Interface = () => {
 
             {/* Page 4: Spacer */}
             <div className="h-[50vh] md:h-screen flex items-center justify-center pointer-events-none">
-                <h1 className="text-8xl md:text-[15rem] font-serif italic text-zinc-900/5">ROSSO</h1>
+                <h1 className="text-8xl md:text-[15rem] font-serif italic text-zinc-900/5">LUXURY</h1>
             </div>
+
+            <div className="h-screen w-screen" />
+            <div className="h-screen w-screen" />
 
             {/* Page 5: Parked State */}
             <Section align="left">
                 <div className="mt-20 md:mt-32">
                     <p className="text-[10px] font-mono mb-4 text-red-600 tracking-widest uppercase">System Status</p>
-                    <h2 className="text-5xl md:text-7xl font-sans font-thin text-zinc-800 mb-2 leading-none">
+                    <h2 className="text-5xl md:text-7xl font-sans font-thin text-white mb-2 leading-none">
                         Locked
                     </h2>
-                    <h2 className="text-5xl md:text-7xl font-serif italic text-zinc-400 mb-8 md:mb-12 leading-none">
+                    <h2 className="text-5xl md:text-7xl font-serif italic text-zinc-500 mb-8 md:mb-12 leading-none">
                         & Secured
                     </h2>
 
-                    <button className="w-full md:w-auto border border-zinc-800 bg-zinc-900 text-white hover:bg-zinc-800 px-8 md:px-12 py-4 uppercase tracking-widest font-mono text-[10px] md:text-xs transition-all shadow-lg pointer-events-auto">
+                    <button className="w-full md:w-auto border border-white/20 bg-white text-black hover:bg-red-600 hover:text-white hover:border-red-600 px-8 md:px-12 py-4 uppercase tracking-widest font-mono text-[10px] md:text-xs transition-all shadow-lg pointer-events-auto">
                         Retrieve Vehicle
                     </button>
                 </div>
             </Section>
+
+            {/* Extra Spacing for the cinematic finale */}
+            <div className="h-screen w-screen" />
+            <div className="h-screen w-screen" />
 
             {/* Final Cinematic Title - RIGHT PARKING */}
             <div className="h-screen w-screen flex flex-col items-center justify-center pointer-events-none sticky top-0 overflow-hidden px-6">
@@ -175,12 +185,12 @@ export const Interface = () => {
                     </div>
 
                     <div>
-                        <h4 className="text-[10px] font-mono tracking-[0.3em] uppercase text-red-500 mb-4 md:mb-6">Specifications</h4>
+                        <h4 className="text-[10px] font-mono tracking-[0.3em] uppercase text-zinc-500 mb-4 md:mb-6">Specifications</h4>
                         <ul className="space-y-3 md:space-y-4 text-xs md:text-sm text-zinc-500 font-light">
-                            <li><a href="#" className="hover:text-white transition-colors">SF90 Performance</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">E-Drive Systems</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Aerodynamics</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Rossi Corsa Finish</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Sedan Comfort</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Autonomous Drive</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Safety Systems</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Interior Luxury</a></li>
                         </ul>
                     </div>
 
