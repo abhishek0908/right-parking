@@ -1,47 +1,17 @@
-import { useRef, useState, useMemo, createContext } from 'react'
+import { useRef, useState, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useScroll, Html, useGLTF, Instances, Instance } from '@react-three/drei'
+import { useScroll, Html, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
 // 1. Professional Loading: Load GLB ONCE with DRACO support
 const DRACO_URL = 'https://www.gstatic.com/draco/versioned/decoders/1.5.7/'
 useGLTF.preload('/luxury-sedan.glb', DRACO_URL)
 
-// Context for instancing background cars
-const CarInstancesContext = createContext()
-
-export const ParkedCarsProvider = ({ children }) => {
-    const { nodes } = useGLTF('/luxury-sedan.glb', DRACO_URL)
-
-    const carMesh = useMemo(() => {
-        let mesh = null
-        Object.values(nodes).forEach(node => {
-            if (node.isMesh) mesh = node
-        })
-        return mesh
-    }, [nodes])
-
-    if (!carMesh) return <>{children}</>
-
-    return (
-        <Instances
-            range={100}
-            geometry={carMesh.geometry}
-            material={carMesh.material}
-        >
-            <CarInstancesContext.Provider value={null}>
-                {children}
-            </CarInstancesContext.Provider>
-        </Instances>
-    )
-}
-
 /**
  * Optimized Hero Car
  */
 export const CarModel = ({ color = "#d40000", isMainCar = false, ...props }) => {
     const { scene } = useGLTF('/luxury-sedan.glb', DRACO_URL)
-    const tiltGroup = useRef()
 
     const model = useMemo(() => {
         const clone = scene.clone()
@@ -60,7 +30,7 @@ export const CarModel = ({ color = "#d40000", isMainCar = false, ...props }) => 
 
     return (
         <group {...props}>
-            <group ref={tiltGroup} name="tilt-group">
+            <group name="tilt-group">
                 <primitive
                     object={model}
                     scale={[4.0, 4.0, 4.0]}
@@ -68,22 +38,6 @@ export const CarModel = ({ color = "#d40000", isMainCar = false, ...props }) => 
                     rotation={[0, -Math.PI / 2, 0]}
                 />
             </group>
-        </group>
-    )
-}
-
-/**
- * Super-fast Instanced Car
- */
-export const ParkedCar = ({ color = "#ffffff", ...props }) => {
-    return (
-        <group {...props}>
-            <Instance
-                color={color}
-                scale={[4.0, 4.0, 4.0]}
-                position={[0, 1, 0]}
-                rotation={[0, -Math.PI / 2, 0]}
-            />
         </group>
     )
 }
