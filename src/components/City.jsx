@@ -1,23 +1,26 @@
 import { useRef } from 'react'
 import { Html, Instances, Instance } from '@react-three/drei'
+import { useThree } from '@react-three/fiber'
 
 // Dedicated components for instanced parts
-const PillarInternal = ({ position }) => (
+const PillarInternal = ({ position, isMobile }) => (
     <group position={position}>
         <Instance />
-        {/* Safety Stripes */}
-        <group position={[0, -2, 0]}>
-            <mesh position={[0, 0, 0.76]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
-            <mesh position={[0, 0, -0.76]} rotation={[0, Math.PI, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
-            <mesh position={[0.76, 0, 0]} rotation={[0, Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
-            <mesh position={[-0.76, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
-        </group>
+        {/* Safety Stripes - REMOVED ON MOBILE */}
+        {!isMobile && (
+            <group position={[0, -2, 0]}>
+                <mesh position={[0, 0, 0.76]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+                <mesh position={[0, 0, -0.76]} rotation={[0, Math.PI, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+                <mesh position={[0.76, 0, 0]} rotation={[0, Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+                <mesh position={[-0.76, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+            </group>
+        )}
         {/* Overhead Lamp */}
         <mesh position={[0, 5.8, 0]}>
             <boxGeometry args={[3, 0.1, 0.8]} />
-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={3} />
+            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={isMobile ? 1 : 3} />
         </mesh>
-        <pointLight position={[0, 5.5, 0]} intensity={12} distance={20} color="#ffffff" castShadow={false} />
+        <pointLight position={[0, 5.5, 0]} intensity={isMobile ? 6 : 12} distance={isMobile ? 15 : 20} color="#ffffff" castShadow={false} />
     </group>
 )
 
@@ -66,10 +69,14 @@ const ParkingRows = ({ type }) => {
 }
 
 export const City = () => {
+    const { size } = useThree()
+    const isMobile = size.width < 768
+    const pillarCount = isMobile ? 4 : 8 // 4 pairs instead of 8 on mobile
+
     return (
         <group position={[0, -0.01, 0]}>
             {/* Optimized Floor */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+            <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow={!isMobile}>
                 <planeGeometry args={[600, 600]} />
                 <meshStandardMaterial color="#1a1a1b" roughness={0.1} metalness={0.2} />
             </mesh>
@@ -85,18 +92,22 @@ export const City = () => {
                 <boxGeometry args={[1.5, 12, 1.5]} />
                 <meshStandardMaterial color="#b1b5bd" roughness={0.4} metalness={0.2} />
 
-                {Array.from({ length: 8 }).map((_, i) => (
+                {Array.from({ length: pillarCount }).map((_, i) => (
                     <group key={i}>
-                        <PillarInternal position={[-12, 6, -40 + i * 20]} />
-                        <PillarInternal position={[18, 6, -40 + i * 20]} />
+                        <PillarInternal position={[-12, 6, -40 + i * (isMobile ? 40 : 20)]} isMobile={isMobile} />
+                        <PillarInternal position={[18, 6, -40 + i * (isMobile ? 40 : 20)]} isMobile={isMobile} />
                     </group>
                 ))}
             </Instances>
 
             <ParkingRows type="L" />
             <ParkingRows type="R" />
-            <ParkingRows type="LL" />
-            <ParkingRows type="RR" />
+            {!isMobile && (
+                <>
+                    <ParkingRows type="LL" />
+                    <ParkingRows type="RR" />
+                </>
+            )}
         </group>
     )
 }

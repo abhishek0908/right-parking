@@ -82,20 +82,20 @@ export const Experience = () => {
             </gridHelper>
 
             {/* -- LIGHTING -- */}
-            <ambientLight intensity={0.5} color="#ffffff" />
+            <ambientLight intensity={isMobile ? 0.8 : 0.5} color="#ffffff" />
 
-            {/* Sharp entry rim light - The ONLY shadow caster */}
+            {/* Sharp entry rim light - The ONLY shadow caster (Disabled on mobile) */}
             <directionalLight
                 position={[50, 40, 100]}
-                intensity={4.0}
+                intensity={isMobile ? 3.0 : 4.0}
                 color="#ffffff"
-                castShadow
+                castShadow={!isMobile}
                 shadow-bias={-0.0001}
-                shadow-mapSize={[1024, 1024]}
+                shadow-mapSize={isMobile ? [512, 512] : [1024, 1024]}
             />
 
             {/* Environment Reflections */}
-            <Environment preset="city" environmentIntensity={1.0} />
+            <Environment preset="city" environmentIntensity={isMobile ? 0.6 : 1.0} />
 
             {/* -- FOG -- */}
             <fog attach="fog" args={['#09090b', 20, 200]} />
