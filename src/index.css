@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Clean, Swiss style */
+  line-height: 1.5;
+  font-weight: 300;
+  color-scheme: dark;
+  color: #e5e5e5;
+  background-color: #0b0b0d;
+  /* Deep Matte Charcoal */
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: #0b0b0d;
+}
+
+/* Elegant Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 2px;
+}
+
+.title-serif {
+  font-family: 'Times New Roman', serif;
+  /* Mont Fort uses mix of serif headers */
+  font-style: italic;
+}
