@@ -1,45 +1,27 @@
 import { ParkedCar, ParkedCarsProvider } from './Car'
 import { useRef } from 'react'
-import { Html } from '@react-three/drei'
+import { Html, Instances, Instance } from '@react-three/drei'
 
-const Pillar = ({ position }) => (
+const PillarInstance = ({ position }) => (
     <group position={position}>
-        <mesh castShadow receiveShadow>
-            <boxGeometry args={[1.5, 12, 1.5]} />
-            <meshStandardMaterial
-                color="#b1b5bd"
-                roughness={0.4}
-                metalness={0.2}
-            />
-        </mesh>
-        {/* Safety Stripes */}
-        <mesh position={[0, -2, 0.76]}>
-            <planeGeometry args={[1.5, 2]} />
-            <meshStandardMaterial color="#fbbf24" />
-        </mesh>
-        <mesh position={[0, -2, -0.76]} rotation={[0, Math.PI, 0]}>
-            <planeGeometry args={[1.5, 2]} />
-            <meshStandardMaterial color="#fbbf24" />
-        </mesh>
-        <mesh position={[0.76, -2, 0]} rotation={[0, Math.PI / 2, 0]}>
-            <planeGeometry args={[1.5, 2]} />
-            <meshStandardMaterial color="#fbbf24" />
-        </mesh>
-        <mesh position={[-0.76, -2, 0]} rotation={[0, -Math.PI / 2, 0]}>
-            <planeGeometry args={[1.5, 2]} />
-            <meshStandardMaterial color="#fbbf24" />
-        </mesh>
-
+        <Instance name="column" />
+        {/* Safety Stripes - Reusing planes */}
+        <group position={[0, -2, 0]}>
+            <mesh position={[0, 0, 0.76]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+            <mesh position={[0, 0, -0.76]} rotation={[0, Math.PI, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+            <mesh position={[0.76, 0, 0]} rotation={[0, Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+            <mesh position={[-0.76, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+        </group>
         {/* Overhead Lamp */}
         <mesh position={[0, 5.8, 0]}>
             <boxGeometry args={[3, 0.1, 0.8]} />
             <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={3} />
         </mesh>
-        <pointLight position={[0, 5.5, 0]} intensity={18} distance={22} color="#ffffff" />
+        {/* pointLight without shadow caster is fine for static local lights */}
+        <pointLight position={[0, 5.5, 0]} intensity={12} distance={20} color="#ffffff" castShadow={false} />
     </group>
 )
 
-// Car colors for parking spots - Premium Metallic Palette
 const PARKED_CAR_COLORS = [
     '#1a1a1a', '#f8f9fa', '#4a4e69', '#22333b',
     '#5e548e', '#9a8c98', '#252422', '#eb5e28',
@@ -52,7 +34,7 @@ const ParkingSpace = ({ position, filled, spotIndex }) => {
 
     return (
         <group position={position}>
-            {/* Parking Lines - Sharp Red & White */}
+            {/* Parking Lines */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-1.7, 0, 0]}>
                 <planeGeometry args={[0.05, 6]} />
                 <meshStandardMaterial color="#ffffff" opacity={0.6} transparent />
@@ -66,13 +48,12 @@ const ParkingSpace = ({ position, filled, spotIndex }) => {
                 <meshStandardMaterial color="#ef4444" emissive="#ef4444" emissiveIntensity={0.5} />
             </mesh>
 
-            {/* Spot Numbering (Simplified) */}
+            {/* Spot Numbering */}
             <mesh position={[0, 0.01, 2.4]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[0.8, 0.4]} />
                 <meshStandardMaterial color="#333" roughness={0.1} metalness={0.5} />
             </mesh>
 
-            {/* Parked Car - Using Super-fast Instancing */}
             {filled && (
                 <ParkedCar
                     color={color}
@@ -94,13 +75,8 @@ const ParkingRows = ({ type }) => {
 
     return Array.from({ length: config.count }).map((_, i) => {
         const z = config.pos[2] + i * config.gap
-        const isEntrance = type.length === 1 && i > 6 && i < 10
-        const filled = !isEntrance && (
-            type === 'L' ? i % 3 !== 0 :
-                type === 'R' ? i % 2 === 0 :
-                    type === 'LL' ? i % 4 !== 0 : i % 5 !== 0
-        )
         const spotIdx = type === 'L' ? i : type === 'R' ? i + 20 : type === 'LL' ? i + 40 : i + 55
+        const filled = (type === 'L' && i === 5) || (type === 'R' && i === 12)
 
         return (
             <ParkingSpace
@@ -129,21 +105,19 @@ export const City = () => {
                     <meshStandardMaterial color="#121212" roughness={0.5} />
                 </mesh>
 
-                {/* Central Lane Line */}
-                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[3.5, 0.02, 50]}>
-                    <planeGeometry args={[0.1, 200]} />
-                    <meshStandardMaterial color="#ffffff" opacity={0.2} transparent />
-                </mesh>
+                {/* Instanced Pillars */}
+                <Instances range={20}>
+                    <boxGeometry args={[1.5, 12, 1.5]} />
+                    <meshStandardMaterial color="#b1b5bd" roughness={0.4} metalness={0.2} />
 
-                {/* Pillars - Reduced count for performance */}
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <group key={i}>
-                        <Pillar position={[-12, 6, -40 + i * 20]} />
-                        <Pillar position={[18, 6, -40 + i * 20]} />
-                    </group>
-                ))}
+                    {Array.from({ length: 8 }).map((_, i) => (
+                        <group key={i}>
+                            <PillarInstance position={[-12, 6, -40 + i * 20]} />
+                            <PillarInstance position={[18, 6, -40 + i * 20]} />
+                        </group>
+                    ))}
+                </Instances>
 
-                {/* Parking Rows */}
                 <ParkingRows type="L" />
                 <ParkingRows type="R" />
                 <ParkingRows type="LL" />
@@ -152,5 +126,3 @@ export const City = () => {
         </ParkedCarsProvider>
     )
 }
-
-
