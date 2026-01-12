@@ -1,4 +1,4 @@
-import { CarModel } from './Car'
+import { ParkedCar, ParkedCarsProvider } from './Car'
 import { useRef } from 'react'
 import { Html } from '@react-three/drei'
 
@@ -72,12 +72,11 @@ const ParkingSpace = ({ position, filled, spotIndex }) => {
                 <meshStandardMaterial color="#333" roughness={0.1} metalness={0.5} />
             </mesh>
 
-            {/* Parked Car */}
+            {/* Parked Car - Using Super-fast Instancing */}
             {filled && (
-                <CarModel
+                <ParkedCar
                     color={color}
                     rotation={[0, Math.PI / 2, 0]}
-                    scale={[1.0, 1.0, 1.0]}
                     position={[0, 0, 0]}
                 />
             )}
@@ -85,108 +84,73 @@ const ParkingSpace = ({ position, filled, spotIndex }) => {
     )
 }
 
+const ParkingRows = ({ type }) => {
+    const config = {
+        L: { pos: [-5, 0.02, -60], count: 20, gap: 8 },
+        R: { pos: [12, 0.02, -60], count: 20, gap: 8 },
+        LL: { pos: [-18, 0.02, -40], count: 15, gap: 8 },
+        RR: { pos: [25, 0.02, -40], count: 15, gap: 8 },
+    }[type]
+
+    return Array.from({ length: config.count }).map((_, i) => {
+        const z = config.pos[2] + i * config.gap
+        const isEntrance = type.length === 1 && i > 6 && i < 10
+        const filled = !isEntrance && (
+            type === 'L' ? i % 3 !== 0 :
+                type === 'R' ? i % 2 === 0 :
+                    type === 'LL' ? i % 4 !== 0 : i % 5 !== 0
+        )
+        const spotIdx = type === 'L' ? i : type === 'R' ? i + 20 : type === 'LL' ? i + 40 : i + 55
+
+        return (
+            <ParkingSpace
+                key={`${type}${i}`}
+                position={[config.pos[0], config.pos[1], z]}
+                filled={filled}
+                spotIndex={spotIdx}
+            />
+        )
+    })
+}
+
 export const City = () => {
     return (
-        <group position={[0, -0.01, 0]}>
-            {/* Ultra-Clean Polished Concrete Floor */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-                <planeGeometry args={[600, 600]} />
-                <meshStandardMaterial
-                    color="#1a1a1b"
-                    roughness={0.05}
-                    metalness={0.4}
-                    envMapIntensity={0.8}
-                />
-            </mesh>
+        <ParkedCarsProvider>
+            <group position={[0, -0.01, 0]}>
+                {/* Optimized Floor */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+                    <planeGeometry args={[600, 600]} />
+                    <meshStandardMaterial color="#1a1a1b" roughness={0.1} metalness={0.2} />
+                </mesh>
 
-            {/* Main Road Visual - High Contrast */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[3.5, 0.01, 50]}>
-                <planeGeometry args={[12, 200]} />
-                <meshStandardMaterial color="#121212" roughness={0.2} />
-            </mesh>
+                {/* Main Road Visual */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[3.5, 0.01, 50]}>
+                    <planeGeometry args={[12, 200]} />
+                    <meshStandardMaterial color="#121212" roughness={0.5} />
+                </mesh>
 
-            {/* Central Lane Line */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[3.5, 0.02, 50]}>
-                <planeGeometry args={[0.1, 200]} />
-                <meshStandardMaterial color="#ffffff" opacity={0.3} transparent />
-            </mesh>
+                {/* Central Lane Line */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[3.5, 0.02, 50]}>
+                    <planeGeometry args={[0.1, 200]} />
+                    <meshStandardMaterial color="#ffffff" opacity={0.2} transparent />
+                </mesh>
 
-            {/* Entry Threshold Line */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[3.5, 0.02, 5]}>
-                <planeGeometry args={[12, 0.2]} />
-                <meshStandardMaterial color="#ef4444" />
-            </mesh>
+                {/* Pillars - Reduced count for performance */}
+                {Array.from({ length: 8 }).map((_, i) => (
+                    <group key={i}>
+                        <Pillar position={[-12, 6, -40 + i * 20]} />
+                        <Pillar position={[18, 6, -40 + i * 20]} />
+                    </group>
+                ))}
 
-            {/* Ceiling - making it feel enclosed */}
-            <mesh position={[0, 15, 0]} rotation={[Math.PI / 2, 0, 0]} receiveShadow>
-                <planeGeometry args={[400, 400]} />
-                <meshStandardMaterial
-                    color="#09090b"
-                    roughness={0.9}
-                />
-            </mesh>
-
-            {/* Pillars with Lights */}
-            {Array.from({ length: 12 }).map((_, i) => (
-                <group key={i}>
-                    <Pillar position={[-10, 6, -50 + i * 10]} />
-                    <Pillar position={[15, 6, -50 + i * 10]} />
-                </group>
-            ))}
-
-            {/* Main Road Text Markings */}
-            {[15, -15].map((zPos, i) => (
-                <group key={i} position={[3.5, 0.02, zPos]} rotation={[-Math.PI / 2, 0, 0]}>
-                    <mesh>
-                        <planeGeometry args={[12, 4]} />
-                        <meshStandardMaterial
-                            transparent
-                            opacity={0.15}
-                            color="#ffffff"
-                        />
-                    </mesh>
-                    <Html
-                        transform
-                        position={[0, 0, 0]}
-                        scale={0.5}
-                        style={{ pointerEvents: 'none', userSelect: 'none' }}
-                    >
-                        <div className="flex flex-col items-center select-none text-white whitespace-nowrap">
-                            <div className="text-[140px] font-black italic tracking-tighter opacity-80 leading-none">
-                                RIGHT <span className="opacity-40 font-thin">PARKING</span>
-                            </div>
-                            <div className="h-[4px] w-[800px] bg-red-600/60 mt-6 shadow-[0_0_20px_rgba(220,38,38,0.5)]"></div>
-                        </div>
-                    </Html>
-                </group>
-            ))}
-
-            {/* Left Row - Denser */}
-            {Array.from({ length: 20 }).map((_, i) => {
-                const z = -60 + i * 8
-                const isEntrance = i > 6 && i < 10;
-                return <ParkingSpace position={[-5, 0.02, z]} key={`L${i}`} filled={!isEntrance && (i % 3 !== 0)} spotIndex={i} />
-            })}
-
-            {/* Right Row - Denser */}
-            {Array.from({ length: 20 }).map((_, i) => {
-                const z = -60 + i * 8
-                const isEntrance = i > 6 && i < 10;
-                return <ParkingSpace position={[12, 0.02, z]} key={`R${i}`} filled={!isEntrance && (i % 2 === 0)} spotIndex={i + 20} />
-            })}
-
-            {/* Far Left Row - Wall side */}
-            {Array.from({ length: 15 }).map((_, i) => {
-                const z = -40 + i * 8
-                return <ParkingSpace position={[-18, 0.02, z]} key={`LL${i}`} filled={i % 4 !== 0} spotIndex={i + 40} />
-            })}
-
-            {/* Far Right Row - Wall side */}
-            {Array.from({ length: 15 }).map((_, i) => {
-                const z = -40 + i * 8
-                return <ParkingSpace position={[25, 0.02, z]} key={`RR${i}`} filled={i % 5 !== 0} spotIndex={i + 55} />
-            })}
-        </group>
+                {/* Parking Rows */}
+                <ParkingRows type="L" />
+                <ParkingRows type="R" />
+                <ParkingRows type="LL" />
+                <ParkingRows type="RR" />
+            </group>
+        </ParkedCarsProvider>
     )
 }
+
 

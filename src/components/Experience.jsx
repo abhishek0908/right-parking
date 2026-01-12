@@ -31,12 +31,12 @@ export const Experience = () => {
         const parkingLookAt = new THREE.Vector3(-2, 1.0, -5)
 
         // Final: Hero shot in the spot
-        const parkedPos = new THREE.Vector3(8 * mobileOffset, 4 * mobileOffset, -5 + (isMobile ? 4 : 0))
-        const parkedLookAt = new THREE.Vector3(-5, 0.8, -17)
+        const parkedPos = new THREE.Vector3(8 * mobileOffset, 4 * mobileOffset, -12 + (isMobile ? 4 : 0))
+        const parkedLookAt = new THREE.Vector3(-5, 0.8, -12)
 
         // Overview: Wide-angle finale
-        const birdEyePos = new THREE.Vector3(-5, isMobile ? 120 : 100, -17)
-        const birdEyeLookAt = new THREE.Vector3(-5, 0, -17.1)
+        const birdEyePos = new THREE.Vector3(-5, isMobile ? 120 : 100, -12)
+        const birdEyeLookAt = new THREE.Vector3(-5, 0, -12.1)
 
         let targetPos, targetLookAt
 
@@ -110,9 +110,10 @@ export const Experience = () => {
             {/* -- POST PROCESSING -- */}
             <EffectComposer disableNormalPass>
                 <Bloom
-                    luminanceThreshold={1.0}
-                    intensity={0.4}
-                    radius={0.8}
+                    luminanceThreshold={1.2}
+                    intensity={0.3}
+                    radius={0.4}
+                    mipmapBlur
                 />
 
                 {/* Subtle Noise for texture */}
