@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { useLayoutEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Home } from './pages/Home';
+import { Services } from './pages/Services';
 import { About } from './pages/About';
 import { Technology } from './pages/Technology';
 import { Contact } from './pages/Contact';
@@ -25,6 +26,11 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
+        <Route path="/services" element={
+          <PageWrapper>
+            <Services />
+          </PageWrapper>
+        } />
         <Route path="/about" element={
           <PageWrapper>
             <About />
