@@ -46,7 +46,7 @@ export const Interface = () => {
                         transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
                         className="text-6xl md:text-8xl font-serif italic tracking-tighter mb-2 text-white"
                     >
-                        Executive
+                        Brabus 850
                     </motion.h1>
                 </div>
                 <div className="overflow-hidden">
@@ -56,7 +56,7 @@ export const Interface = () => {
                         transition={{ duration: 1, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
                         className="text-4xl md:text-6xl font-light tracking-widest uppercase text-zinc-500 mb-8 md:mb-12"
                     >
-                        Luxury Sedan
+                        Performance
                     </motion.h2>
                 </div>
 
@@ -80,8 +80,8 @@ export const Interface = () => {
                     whileInView={{ opacity: 1 }}
                     className="text-right"
                 >
-                    <h3 className="text-6xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-zinc-200 to-zinc-400 outline-text tracking-tighter opacity-20">Comfort</h3>
-                    <p className="text-2xl md:text-4xl font-serif italic text-zinc-400">Pure Serenity</p>
+                    <h3 className="text-6xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-zinc-200 to-zinc-400 outline-text tracking-tighter opacity-20">Velocity</h3>
+                    <p className="text-2xl md:text-4xl font-serif italic text-zinc-400">Extreme Precision</p>
                 </motion.div>
             </div>
 
@@ -92,11 +92,11 @@ export const Interface = () => {
             <Section align="right">
                 <div className="backdrop-blur-xl bg-black/40 p-6 md:p-12 border border-white/10 shadow-3xl rounded-sm">
                     <h2 className="text-3xl md:text-5xl font-serif italic mb-4 md:mb-6 text-white">
-                        Autonomous Precision
+                        V8 Biturbo Control
                     </h2>
                     <p className="text-zinc-400 leading-relaxed mb-6 md:mb-8 font-light text-base md:text-lg max-w-lg">
-                        The Luxury Sedan approaches. The architecture responds.
-                        Ultrasonic sensors and LiDAR align the vehicle with millimeter accuracy on the polished concrete floor.
+                        The Brabus 850 approaches with silenced authority. The architecture responds.
+                        Equipped with 850 horsepower, it requires millimeter accuracy on the polished concrete floor.
                     </p>
                     <ul className="space-y-3 md:space-y-4 text-[10px] md:text-sm font-mono text-zinc-500 tracking-widest uppercase border-t border-white/10 pt-6 md:pt-8 mt-6">
                         <li className="flex justify-between">
@@ -187,10 +187,10 @@ export const Interface = () => {
                     <div>
                         <h4 className="text-[10px] font-mono tracking-[0.3em] uppercase text-zinc-500 mb-4 md:mb-6">Specifications</h4>
                         <ul className="space-y-3 md:space-y-4 text-xs md:text-sm text-zinc-500 font-light">
-                            <li><a href="#" className="hover:text-white transition-colors">Sedan Comfort</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Autonomous Drive</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Safety Systems</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Interior Luxury</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">V8 6.0 Biturbo</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">850 HP Output</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Active Aerodynamics</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Brabus Interior</a></li>
                         </ul>
                     </div>
 

@@ -57,8 +57,8 @@ export const Experience = () => {
             targetLookAt = new THREE.Vector3().lerpVectors(parkedLookAt, birdEyeLookAt, t)
         }
 
-        // Adjust FOV for mobile
-        state.camera.fov = isMobile ? 45 : 30
+        // Adjust FOV for a wider, more cinematic look
+        state.camera.fov = isMobile ? 55 : 42
         state.camera.updateProjectionMatrix()
 
         // Apply camera position with delta-based damping for smoothness
@@ -90,12 +90,12 @@ export const Experience = () => {
                 intensity={isMobile ? 3.0 : 4.0}
                 color="#ffffff"
                 castShadow={!isMobile}
-                shadow-bias={-0.0001}
-                shadow-mapSize={isMobile ? [512, 512] : [1024, 1024]}
+                shadow-bias={-0.0005}
+                shadow-mapSize={isMobile ? [512, 512] : [2048, 2048]}
             />
 
             {/* Environment Reflections */}
-            <Environment preset="city" environmentIntensity={isMobile ? 0.6 : 1.0} />
+            <Environment preset="city" environmentIntensity={isMobile ? 0.8 : 1.5} />
 
             {/* -- FOG -- */}
             <fog attach="fog" args={['#09090b', 20, 200]} />
@@ -119,7 +119,6 @@ export const Experience = () => {
             {!isMobile && (
                 <EffectComposer disableNormalPass>
                     <Bloom luminanceThreshold={1.2} intensity={0.3} radius={0.4} mipmapBlur />
-                    <Noise opacity={0.03} />
                     <Vignette eskil={false} offset={0.2} darkness={0.7} />
                 </EffectComposer>
             )}

@@ -5,24 +5,46 @@ import * as THREE from 'three'
 
 // 1. Professional Loading: Load GLB ONCE with DRACO support
 const DRACO_URL = 'https://www.gstatic.com/draco/versioned/decoders/1.5.7/'
-useGLTF.preload('/luxury-sedan.glb', DRACO_URL)
+const MODEL_PATH = '/mersedes-benz_s-class_w223_brabus_850.glb'
+useGLTF.preload(MODEL_PATH, DRACO_URL)
 
 /**
  * Optimized Hero Car
  */
-export const CarModel = ({ color = "#d40000", isMainCar = false, ...props }) => {
-    const { scene } = useGLTF('/luxury-sedan.glb', DRACO_URL)
+export const CarModel = ({ color = "#111111", isMainCar = false, ...props }) => {
+    const { scene } = useGLTF(MODEL_PATH, DRACO_URL)
 
     const model = useMemo(() => {
         const clone = scene.clone()
         clone.traverse((child) => {
             if (child.isMesh) {
-                child.material = child.material.clone()
-                child.material.color.set(color)
-                child.material.roughness = 0.2
-                child.material.metalness = 0.8
+                // Ensure shadows
                 child.castShadow = isMainCar
                 child.receiveShadow = isMainCar
+
+                // Optimization: Use original materials but slightly enhance them for the scene
+                if (child.material) {
+                    child.material = child.material.clone()
+
+                    // If the mesh seems to be the car body/paint, we can apply the theme color
+                    const name = child.name.toLowerCase()
+                    const matName = child.material.name.toLowerCase()
+
+                    if (name.includes('body') || name.includes('paint') || matName.includes('paint') || matName.includes('body')) {
+                        child.material.color.set(color)
+                        child.material.roughness = 0.2
+                        child.material.metalness = 0.8
+                        child.material.side = THREE.FrontSide
+                    }
+
+                    // Ensure glass is actually transparent and reflective
+                    if (name.includes('glass') || matName.includes('glass')) {
+                        child.material.transparent = true
+                        child.material.opacity = 0.2
+                        child.material.metalness = 1
+                        child.material.roughness = 0.05
+                    }
+                }
             }
         })
         return clone
@@ -33,9 +55,9 @@ export const CarModel = ({ color = "#d40000", isMainCar = false, ...props }) => 
             <group name="tilt-group">
                 <primitive
                     object={model}
-                    scale={[4.0, 4.0, 4.0]}
-                    position={[0, 1, 0]}
-                    rotation={[0, -Math.PI / 2, 0]}
+                    scale={[1, 1, 1]}
+                    position={[0, 0, 0]}
+                    rotation={[0, 0, 0]}
                 />
             </group>
         </group>
@@ -54,7 +76,7 @@ export const Car = () => {
         const offset = scroll.offset
 
         let x = 3, z = 35, rotY = Math.PI, tilt = 0
-        const yBase = 0.5
+        const yBase = 0.05 // Adjusted for better road contact
         const smoothstep = (t) => t * t * (3 - 2 * t)
 
         if (offset < 0.4) {
@@ -77,7 +99,7 @@ export const Car = () => {
         } else {
             x = isMobile ? -3 : -5
             z = -12
-            rotY = Math.PI / 2
+            rotY = 1.5 * Math.PI // Stay facing -X (left)
             if (!showTag) setShowTag(true)
         }
 
@@ -96,32 +118,41 @@ export const Car = () => {
     })
 
     return (
-        <group ref={group} position={[3, 0.3, 25]} rotation={[0, Math.PI, 0]}>
-            <CarModel color="#d40000" scale={[1.2, 1.2, 1.2]} isMainCar />
+        <group ref={group} position={[3.5, 0.05, 150]} rotation={[0, Math.PI, 0]}>
+            <CarModel color="#0a0a0a" scale={[3.2, 3.2, 3.2]} isMainCar />
 
             <spotLight
-                position={[0.5, 0.4, 2.5]}
-                intensity={20}
+                position={[1.2, 0.8, 2.5]}
+                intensity={40}
                 angle={0.6}
                 penumbra={0.5}
                 color="#fff"
                 castShadow={false}
             />
             <spotLight
-                position={[-0.5, 0.4, 2.5]}
-                intensity={20}
+                position={[-1.2, 0.8, 2.5]}
+                intensity={40}
                 angle={0.6}
                 penumbra={0.5}
                 color="#fff"
                 castShadow={false}
             />
 
-            <Html position={[0, 2.8, 0]} center style={{ opacity: showTag ? 1 : 0, transition: 'opacity 0.6s', pointerEvents: 'none' }}>
-                <div className="bg-white/90 backdrop-blur-md border-l-4 border-zinc-800 p-4 shadow-2xl rounded-lg">
-                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest mb-1">Vehicle Match</div>
-                    <div className="text-zinc-900 text-xl font-serif italic">Executive Luxury Sedan</div>
+            <Html position={[0, 3.5, 0]} center style={{ opacity: showTag ? 1 : 0, transition: 'opacity 0.6s', pointerEvents: 'none' }}>
+                <div className="bg-white/90 backdrop-blur-md border-l-4 border-zinc-900 p-5 shadow-2xl rounded-lg min-w-[280px]">
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="text-zinc-500 text-[10px] uppercase tracking-[0.2em] font-bold">Premium Match</div>
+                        <div className="bg-zinc-900 text-white text-[9px] px-2 py-0.5 rounded-full">BRABUS</div>
+                    </div>
+                    <div className="text-zinc-900 text-2xl font-serif italic mb-1">Mercedes-Benz S-Class</div>
+                    <div className="text-zinc-600 text-[12px] font-medium tracking-tight">BRABUS 850 Edition</div>
+                    <div className="mt-4 pt-4 border-t border-zinc-200 flex justify-between text-[10px] text-zinc-400 font-mono">
+                        <span>VIN: W223-B850-001</span>
+                        <span>STATUS: READY</span>
+                    </div>
                 </div>
             </Html>
         </group>
     )
 }
+
