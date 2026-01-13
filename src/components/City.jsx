@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Instances, Instance, useScroll } from '@react-three/drei'
+import { Instances, Instance, useScroll, useTexture } from '@react-three/drei'
 import { useThree, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -43,10 +43,10 @@ export const ParkingGate = ({ position }) => {
                 <meshStandardMaterial color="#27272a" metalness={0.8} roughness={0.4} />
             </mesh>
 
-            {/* Top Cap */}
+            {/* Top Cap - Blue Glow */}
             <mesh position={[0, 2.05, 0]}>
                 <boxGeometry args={[0.9, 0.1, 0.9]} />
-                <meshStandardMaterial color="#ef4444" emissive="#ef4444" emissiveIntensity={1} />
+                <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={1} />
             </mesh>
 
             {/* 🔑 HINGE GROUP (rotation on Z axis) */}
@@ -60,22 +60,53 @@ export const ParkingGate = ({ position }) => {
                     <meshStandardMaterial color="#ffffff" />
                 </mesh>
 
-                {/* Red stripes along X */}
+                {/* Blue stripes along X */}
                 {[1, 2, 3, 4, 5, 6, 7].map((i) => (
                     <mesh key={i} position={[-i * 1.2, 0, 0]}>
                         <boxGeometry args={[0.4, 0.16, 0.16]} />
-                        <meshStandardMaterial color="#ef4444" />
+                        <meshStandardMaterial color="#3b82f6" />
                     </mesh>
                 ))}
             </group>
 
-            {/* Indicator */}
+            {/* Indicator - Blue */}
             <pointLight
                 position={[0, 2.2, 0]}
                 intensity={4}
-                color="#ef4444"
+                color="#3b82f6"
                 distance={6}
             />
+        </group>
+    )
+}
+
+/**
+ * EV Charging Station
+ */
+export const ChargingStation = ({ position, rotation = [0, 0, 0] }) => {
+    return (
+        <group position={position} rotation={rotation}>
+            {/* Main Body - Scaled up */}
+            <mesh position={[0, 1.75, 0]}>
+                <boxGeometry args={[0.8, 3.5, 0.6]} />
+                <meshStandardMaterial color="#27272a" metalness={0.8} roughness={0.2} />
+            </mesh>
+            {/* Screen Area - Larger */}
+            <mesh position={[0, 2.6, 0.31]}>
+                <planeGeometry args={[0.5, 0.8]} />
+                <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={3} />
+            </mesh>
+            {/* Status Light */}
+            <mesh position={[0, 3.2, 0.31]}>
+                <sphereGeometry args={[0.06, 16, 16]} />
+                <meshStandardMaterial color="#10b981" emissive="#10b981" emissiveIntensity={5} />
+            </mesh>
+            {/* Cable/Plug Detail */}
+            <mesh position={[0.42, 1.75, 0]}>
+                <boxGeometry args={[0.1, 1.5, 0.2]} />
+                <meshStandardMaterial color="#111" />
+            </mesh>
+            <pointLight position={[0, 2.6, 0.5]} intensity={2} color="#3b82f6" distance={5} />
         </group>
     )
 }
@@ -112,41 +143,41 @@ const PillarInternal = ({ position, isMobile }) => (
         <Instance />
         {!isMobile && (
             <group position={[0, -2, 0]}>
-                <mesh position={[0, 0, 0.76]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
-                <mesh position={[0, 0, -0.76]} rotation={[0, Math.PI, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
-                <mesh position={[0.76, 0, 0]} rotation={[0, Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
-                <mesh position={[-0.76, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#fbbf24" /></mesh>
+                <mesh position={[0, 0, 0.76]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
+                <mesh position={[0, 0, -0.76]} rotation={[0, Math.PI, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
+                <mesh position={[0.76, 0, 0]} rotation={[0, Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
+                <mesh position={[-0.76, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
             </group>
         )}
         <mesh position={[0, 5.8, 0]}>
             <boxGeometry args={[3, 0.1, 0.8]} />
-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={isMobile ? 1 : 3} />
+            <meshStandardMaterial color="#ffffff" emissive="#60a5fa" emissiveIntensity={isMobile ? 1 : 5} />
         </mesh>
-        <pointLight position={[0, 5.5, 0]} intensity={isMobile ? 6 : 12} distance={isMobile ? 15 : 20} color="#ffffff" castShadow={false} />
+        <pointLight position={[0, 5.5, 0]} intensity={isMobile ? 8 : 15} distance={isMobile ? 15 : 20} color="#60a5fa" castShadow={false} />
     </group>
 )
 
 const ParkingSpace = ({ position }) => {
     return (
         <group position={position}>
-            {/* Horizontal Side Lines (Now Depth lines) */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -1.7]}>
-                <planeGeometry args={[6, 0.05]} />
-                <meshStandardMaterial color="#ffffff" opacity={0.6} transparent />
+            {/* Horizontal Side Lines (Blue Glow) */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -2.5]}>
+                <planeGeometry args={[10, 0.08]} />
+                <meshStandardMaterial color="#60a5fa" opacity={0.6} transparent emissive="#60a5fa" emissiveIntensity={0.2} />
             </mesh>
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 1.7]}>
-                <planeGeometry args={[6, 0.05]} />
-                <meshStandardMaterial color="#ffffff" opacity={0.6} transparent />
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 2.5]}>
+                <planeGeometry args={[10, 0.08]} />
+                <meshStandardMaterial color="#60a5fa" opacity={0.6} transparent emissive="#60a5fa" emissiveIntensity={0.2} />
             </mesh>
-            {/* Back Line (Now the Side limit) */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-3, 0, 0]}>
-                <planeGeometry args={[0.05, 3.45]} />
-                <meshStandardMaterial color="#ef4444" emissive="#ef4444" emissiveIntensity={0.5} />
+            {/* Back Line (Cyan limit) */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-5, 0, 0]}>
+                <planeGeometry args={[0.08, 5.08]} />
+                <meshStandardMaterial color="#22d3ee" emissive="#22d3ee" emissiveIntensity={0.5} />
             </mesh>
-            {/* Ground Decal/Shadow */}
-            <mesh position={[-2.4, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-                <planeGeometry args={[0.4, 0.8]} />
-                <meshStandardMaterial color="#333" roughness={0.1} metalness={0.5} />
+            {/* Ground Decal - Blue tinted */}
+            <mesh position={[-4, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+                <planeGeometry args={[0.8, 1.2]} />
+                <meshStandardMaterial color="#1e3a8a" roughness={0.1} metalness={0.5} />
             </mesh>
         </group>
     )
@@ -154,10 +185,10 @@ const ParkingSpace = ({ position }) => {
 
 const ParkingRows = ({ type }) => {
     const config = {
-        L: { pos: [-5, 0.02, -60], count: 20, gap: 8 },
-        R: { pos: [12, 0.02, -60], count: 20, gap: 8 },
-        LL: { pos: [-18, 0.02, -40], count: 15, gap: 8 },
-        RR: { pos: [25, 0.02, -40], count: 15, gap: 8 },
+        L: { pos: [-7, 0.02, -60], count: 20, gap: 11 },
+        R: { pos: [14, 0.02, -60], count: 20, gap: 11 },
+        LL: { pos: [-22, 0.02, -40], count: 15, gap: 11 },
+        RR: { pos: [29, 0.02, -40], count: 15, gap: 11 },
     }[type]
 
     return Array.from({ length: config.count }).map((_, i) => {
@@ -175,36 +206,89 @@ export const City = () => {
     const { size } = useThree()
     const isMobile = size.width < 768
     const pillarCount = isMobile ? 4 : 8
+    const scroll = useScroll()
+
+    // Load the logo texture
+    const logoTexture = useTexture('/logo.jpeg')
 
     return (
         <group position={[0, -0.01, 0]}>
+            {/* Ground - Deep Blue Concrete */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow={!isMobile}>
                 <planeGeometry args={[1200, 1200]} />
-                <meshStandardMaterial color="#1a1a1b" roughness={0.1} metalness={0.2} />
+                <meshStandardMaterial color="#0f172a" roughness={0.3} metalness={0.2} />
             </mesh>
 
+            {/* Ceiling - Mall Indoor feel - Fades out for Bird Eye View */}
+            <mesh
+                rotation={[Math.PI / 2, 0, 0]}
+                position={[0, 12, 0]}
+                visible={scroll.offset < 0.9} // Hide when zooming out for bird eye
+            >
+                <planeGeometry args={[200, 400]} />
+                <meshStandardMaterial color="#020617" metalness={0.8} roughness={0.2} />
+            </mesh>
+
+            {/* Walls - Blue tinted obsidian */}
+            <mesh position={[-35, 6, 0]} rotation={[0, Math.PI / 2, 0]}>
+                <planeGeometry args={[400, 12]} />
+                <meshStandardMaterial color="#020617" />
+            </mesh>
+            <mesh position={[45, 6, 0]} rotation={[0, -Math.PI / 2, 0]}>
+                <planeGeometry args={[400, 12]} />
+                <meshStandardMaterial color="#020617" />
+            </mesh>
+            <mesh position={[0, 6, -80]} rotation={[0, 0, 0]}>
+                <planeGeometry args={[100, 12]} />
+                <meshStandardMaterial color="#020617" />
+            </mesh>
+
+            {/* Road/Aisle */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[3.5, 0.01, 50]}>
-                <planeGeometry args={[12, 400]} />
+                <planeGeometry args={[14, 400]} />
                 <meshStandardMaterial color="#121212" roughness={0.5} />
             </mesh>
 
-            {/* Entry Security Checkpoint (Placed slightly before parking starts) */}
+            {/* Logo in the middle of parking aisle */}
+            <group position={[3.5, 0.02, 40]}>
+                {/* Outer Glow/Ring */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                    <circleGeometry args={[5, 64]} />
+                    <meshStandardMaterial
+                        color="#ffffff"
+                        emissive="#ffffff"
+                        emissiveIntensity={0.2}
+                        transparent
+                        opacity={0.6}
+                    />
+                </mesh>
+                {/* Logo Texture */}
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]}>
+                    <circleGeometry args={[4.8, 64]} />
+                    <meshBasicMaterial map={logoTexture} transparent={true} />
+                </mesh>
+            </group>
 
-            {/* Entry Security Checkpoint (Placed at the very start of the facility) */}
+            {/* Entry Security Checkpoint */}
             <ParkingGate position={[9.5, 0, 110]} />
 
-            {/* Security Cameras focused on the entrance */}
+            {/* Security Cameras */}
             <SecurityCamera position={[9, 4, 112]} rotation={[0.2, -Math.PI / 4, 0]} />
             <SecurityCamera position={[-2.5, 4, 112]} rotation={[0.2, Math.PI / 4, 0]} />
-            <SecurityCamera position={[3.5, 8, -15]} rotation={[0.5, Math.PI, 0]} />
+            <SecurityCamera position={[3.5, 8, -15]} rotation={[0.5, Math.PI, 1]} />
 
+            {/* Pillars with lighting */}
             <Instances range={40}>
-                <boxGeometry args={[1.5, 12, 1.5]} />
-                <meshStandardMaterial color="#b1b5bd" roughness={0.4} metalness={0.2} />
+                <boxGeometry args={[2, 12, 2]} />
+                <meshStandardMaterial color="#27272a" roughness={0.4} metalness={0.2} />
                 {Array.from({ length: pillarCount }).map((_, i) => (
                     <group key={i}>
-                        <PillarInternal position={[-12, 6, -40 + i * (isMobile ? 40 : 20)]} isMobile={isMobile} />
-                        <PillarInternal position={[18, 6, -40 + i * (isMobile ? 40 : 20)]} isMobile={isMobile} />
+                        <PillarInternal position={[-15, 6, -40 + i * (isMobile ? 40 : 20)]} isMobile={isMobile} />
+                        <PillarInternal position={[22, 6, -40 + i * (isMobile ? 40 : 20)]} isMobile={isMobile} />
+
+                        {/* Charging Stations near pillars - Repositioned for larger footprint */}
+                        <ChargingStation position={[-13.2, 0, -40 + i * (isMobile ? 40 : 20)]} rotation={[0, Math.PI / 2, 0]} />
+                        <ChargingStation position={[20.2, 0, -40 + i * (isMobile ? 40 : 20)]} rotation={[0, -Math.PI / 2, 0]} />
                     </group>
                 ))}
             </Instances>

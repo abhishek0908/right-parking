@@ -30,12 +30,12 @@ export const Experience = () => {
         const parkingLookAt = new THREE.Vector3(-2, 1.0, -5)
 
         // Final: Hero shot in the spot
-        const parkedPos = new THREE.Vector3(isMobile ? 12 : 8, isMobile ? 5 : 4, -12 + (isMobile ? 8 : 0))
-        const parkedLookAt = new THREE.Vector3(-5, 0.8, -12)
+        const parkedPos = new THREE.Vector3(isMobile ? 12 : 6, isMobile ? 5 : 4, -5 + (isMobile ? 8 : 0))
+        const parkedLookAt = new THREE.Vector3(-7, 0.8, -5)
 
         // Overview: Wide-angle finale
-        const birdEyePos = new THREE.Vector3(-5, isMobile ? 120 : 100, -12)
-        const birdEyeLookAt = new THREE.Vector3(-5, 0, -12.1)
+        const birdEyePos = new THREE.Vector3(-7, isMobile ? 120 : 100, -5)
+        const birdEyeLookAt = new THREE.Vector3(-7, 0, -5.1)
 
         let targetPos, targetLookAt
 
@@ -73,22 +73,22 @@ export const Experience = () => {
 
     return (
         <>
-            {/* Deep Dark Atmosphere */}
-            <color attach="background" args={['#09090b']} />
+            {/* Deep Dark Blue Atmosphere */}
+            <color attach="background" args={['#020617']} />
 
-            {/* Technical grid */}
-            <gridHelper args={[600, 60, '#ffffff', '#ffffff']} position={[0, 0.01, 0]}>
-                <meshBasicMaterial opacity={0.03} transparent />
+            {/* Technical grid - Blue Tint */}
+            <gridHelper args={[600, 60, '#3b82f6', '#3b82f6']} position={[0, 0.01, 0]}>
+                <meshBasicMaterial opacity={0.05} transparent />
             </gridHelper>
 
             {/* -- LIGHTING -- */}
-            <ambientLight intensity={isMobile ? 0.8 : 0.5} color="#ffffff" />
+            <ambientLight intensity={isMobile ? 0.8 : 0.6} color="#bfdbfe" />
 
-            {/* Sharp entry rim light - The ONLY shadow caster (Disabled on mobile) */}
+            {/* Sharp entry rim light - Cyan/Blue Tint */}
             <directionalLight
                 position={[50, 40, 100]}
-                intensity={isMobile ? 3.0 : 4.0}
-                color="#ffffff"
+                intensity={isMobile ? 3.0 : 5.0}
+                color="#60a5fa"
                 castShadow={!isMobile}
                 shadow-bias={-0.0005}
                 shadow-mapSize={isMobile ? [512, 512] : [2048, 2048]}
@@ -97,8 +97,8 @@ export const Experience = () => {
             {/* Environment Reflections */}
             <Environment preset="city" environmentIntensity={isMobile ? 0.8 : 1.5} />
 
-            {/* -- FOG -- */}
-            <fog attach="fog" args={['#09090b', 20, 200]} />
+            {/* -- FOG (Blue) -- */}
+            <fog attach="fog" args={['#020617', 20, 200]} />
 
             <group position={[0, 0, 0]}>
                 <Car />

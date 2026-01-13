@@ -89,16 +89,16 @@ export const Car = () => {
         } else if (offset < 0.8) {
             const t = (offset - 0.4) / 0.4
             const ease = smoothstep(t)
-            const targetX = isMobile ? -3 : -5
+            const targetX = isMobile ? -5 : -7
             x = THREE.MathUtils.lerp(isMobile ? 2.5 : 3.5, targetX, ease)
-            z = THREE.MathUtils.lerp(10, -12, ease)
+            z = THREE.MathUtils.lerp(10, -5, ease)
             const steer = Math.sin(t * Math.PI) * 0.6
             rotY = Math.PI + ease * (Math.PI / 2)
             tilt = -steer * 0.1
             if (showTag) setShowTag(false)
         } else {
-            x = isMobile ? -3 : -5
-            z = -12
+            x = isMobile ? -5 : -7
+            z = -5
             rotY = 1.5 * Math.PI // Stay facing -X (left)
             if (!showTag) setShowTag(true)
         }
@@ -119,14 +119,14 @@ export const Car = () => {
 
     return (
         <group ref={group} position={[3.5, 0.05, 150]} rotation={[0, Math.PI, 0]}>
-            <CarModel color="#0a0a0a" scale={[3.2, 3.2, 3.2]} isMainCar />
+            <CarModel color="#1e40af" scale={[3.2, 3.2, 3.2]} isMainCar />
 
             <spotLight
                 position={[1.2, 0.8, 2.5]}
                 intensity={40}
                 angle={0.6}
                 penumbra={0.5}
-                color="#fff"
+                color="#60a5fa"
                 castShadow={false}
             />
             <spotLight
@@ -134,21 +134,21 @@ export const Car = () => {
                 intensity={40}
                 angle={0.6}
                 penumbra={0.5}
-                color="#fff"
+                color="#60a5fa"
                 castShadow={false}
             />
 
             <Html position={[0, 3.5, 0]} center style={{ opacity: showTag ? 1 : 0, transition: 'opacity 0.6s', pointerEvents: 'none' }}>
-                <div className="bg-white/90 backdrop-blur-md border-l-4 border-zinc-900 p-5 shadow-2xl rounded-lg min-w-[280px]">
+                <div className="bg-blue-50/90 backdrop-blur-md border-l-4 border-blue-600 p-5 shadow-2xl rounded-lg min-w-[280px]">
                     <div className="flex items-center justify-between mb-2">
-                        <div className="text-zinc-500 text-[10px] uppercase tracking-[0.2em] font-bold">Premium Match</div>
-                        <div className="bg-zinc-900 text-white text-[9px] px-2 py-0.5 rounded-full">BRABUS</div>
+                        <div className="text-blue-500 text-[10px] uppercase tracking-[0.2em] font-bold">Premium Match</div>
+                        <div className="bg-blue-600 text-white text-[9px] px-2 py-0.5 rounded-full">ELECTRIC</div>
                     </div>
-                    <div className="text-zinc-900 text-2xl font-serif italic mb-1">Mercedes-Benz S-Class</div>
-                    <div className="text-zinc-600 text-[12px] font-medium tracking-tight">BRABUS 850 Edition</div>
-                    <div className="mt-4 pt-4 border-t border-zinc-200 flex justify-between text-[10px] text-zinc-400 font-mono">
+                    <div className="text-blue-950 text-2xl font-serif italic mb-1">Mercedes-Benz S-Class</div>
+                    <div className="text-blue-700 text-[12px] font-medium tracking-tight">BRABUS 850 Edition | EV Ready</div>
+                    <div className="mt-4 pt-4 border-t border-blue-200 flex justify-between text-[10px] text-blue-400 font-mono">
                         <span>VIN: W223-B850-001</span>
-                        <span>STATUS: READY</span>
+                        <span>STATUS: CHARGING</span>
                     </div>
                 </div>
             </Html>
