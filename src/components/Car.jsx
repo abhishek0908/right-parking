@@ -71,7 +71,7 @@ export const Car = () => {
     const bodyTilt = useRef(0)
 
     useFrame((state, delta) => {
-        if (!group.current) return
+        if (!group.current || !scroll) return
         const isMobile = state.size.width < 768
         const offset = scroll.offset
 
@@ -79,8 +79,14 @@ export const Car = () => {
         const yBase = 0.05 // Adjusted for better road contact
         const smoothstep = (t) => t * t * (3 - 2 * t)
 
-        if (offset < 0.4) {
-            const t = offset / 0.4
+        if (offset < 0.1) {
+            // Hero Phase: Brief static start
+            z = 150
+            x = isMobile ? 2.5 : 3.5
+            rotY = Math.PI
+            if (showTag) setShowTag(false)
+        } else if (offset < 0.6) {
+            const t = (offset - 0.1) / 0.5
             const ease = smoothstep(t)
             z = 150 - ease * 140
             x = isMobile ? 2.5 : 3.5

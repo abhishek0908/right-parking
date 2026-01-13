@@ -17,14 +17,14 @@ export const ParkingGate = ({ position }) => {
 
         let targetRotation = 0
 
-        // Gate logic: Open at the very start of the drive (z=110 area)
-        if (offset > 0.05 && offset < 0.15) {
-            const t = (offset - 0.05) / 0.1
+        // Gate logic: Open during Philosophy section (slower transition)
+        if (offset > 0.08 && offset < 0.25) {
+            const t = (offset - 0.08) / 0.17
             targetRotation = -(Math.PI / 2) * t // Rotate UP
-        } else if (offset >= 0.15 && offset <= 0.4) {
+        } else if (offset >= 0.25 && offset <= 0.5) {
             targetRotation = -(Math.PI / 2)
-        } else if (offset > 0.4 && offset < 0.5) {
-            const t = 1 - (offset - 0.4) / 0.1
+        } else if (offset > 0.5 && offset < 0.6) {
+            const t = 1 - (offset - 0.5) / 0.1
             targetRotation = -(Math.PI / 2) * t
         }
 
@@ -446,8 +446,8 @@ export const City = () => {
 
             {/* Floor Space Info Board - Relocated to the RIGHT side near the gate, pushed slightly backward */}
             <FloorSpaceBoard
-                position={[16, 0.5, 100]}
-                rotation={[0, Math.PI + Math.PI / 4, 0]}
+                position={[20, 0, 100]}
+                rotation={[0, Math.PI + Math.PI / 2, 0]}
             />
 
             {/* Pillars with lighting */}

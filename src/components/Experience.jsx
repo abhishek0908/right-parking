@@ -11,6 +11,7 @@ export const Experience = () => {
     const isMobile = size.width < 768
 
     useFrame((state, delta) => {
+        if (!scroll) return
         const offset = scroll.offset
 
         // Smoothstep for smooth camera transitions
@@ -39,8 +40,11 @@ export const Experience = () => {
 
         let targetPos, targetLookAt
 
-        if (offset < 0.4) {
-            const t = smoothstep(offset / 0.4)
+        if (offset < 0.1) {
+            targetPos = startPos
+            targetLookAt = startLookAt
+        } else if (offset < 0.6) {
+            const t = smoothstep((offset - 0.1) / 0.5)
             targetPos = new THREE.Vector3().lerpVectors(startPos, followPos, t)
             targetLookAt = new THREE.Vector3().lerpVectors(startLookAt, followLookAt, t)
         } else if (offset < 0.8) {
@@ -62,7 +66,7 @@ export const Experience = () => {
         state.camera.updateProjectionMatrix()
 
         // Apply camera position with delta-based damping for smoothness
-        const dampFactor = 1 - Math.pow(0.1, delta)
+        const dampFactor = 1 - Math.pow(0.01, delta)
         state.camera.position.lerp(targetPos, dampFactor)
 
         // Smooth lookAt with delta-based damping
