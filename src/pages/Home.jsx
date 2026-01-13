@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
     return (
@@ -29,14 +30,15 @@ export const Home = () => {
                     </p>
 
                     <div className="flex flex-col md:flex-row gap-6 justify-center">
-                        <motion.a
-                            href="/services"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-blue-600 text-white px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest hover:bg-blue-700 transition-all shadow-[0_0_30px_rgba(37,99,235,0.4)]"
-                        >
-                            Launch Experience
-                        </motion.a>
+                        <Link to="/services">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-blue-600 text-white px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest hover:bg-blue-700 transition-all shadow-[0_0_30px_rgba(37,99,235,0.4)]"
+                            >
+                                Launch Experience
+                            </motion.button>
+                        </Link>
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
