@@ -372,7 +372,7 @@ const ParkingRows = ({ type }) => {
 export const City = () => {
     const { size } = useThree()
     const isMobile = size.width < 768
-    const pillarCount = isMobile ? 4 : 8
+    const pillarCount = isMobile ? 1 : 3
     const scroll = useScroll()
 
     // Load the logo texture
@@ -446,7 +446,7 @@ export const City = () => {
 
             {/* Floor Space Info Board - Relocated to the RIGHT side near the gate, pushed slightly backward */}
             <FloorSpaceBoard
-                position={[20, 0, 100]}
+                position={[30, 2, 50]}
                 rotation={[0, Math.PI + Math.PI / 2, 0]}
             />
 

@@ -5,7 +5,7 @@ import * as THREE from 'three'
 
 // 1. Professional Loading: Load GLB ONCE with DRACO support
 const DRACO_URL = 'https://www.gstatic.com/draco/versioned/decoders/1.5.7/'
-const MODEL_PATH = '/mersedes-benz-compressed.glb'
+const MODEL_PATH = '/luxury-sedan.glb'
 useGLTF.preload(MODEL_PATH, DRACO_URL)
 
 /**
