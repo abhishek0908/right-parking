@@ -1,60 +1,79 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Footer } from '../components/layout/Footer';
 
 export const Home = () => {
     return (
-        <div className="bg-[#09090b] min-h-screen flex flex-col items-center justify-center text-white relative overflow-hidden">
-            {/* Background Ambience */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-blue-600/5 rounded-full blur-[150px]" />
+        <div className="bg-[#09090b] min-h-screen text-white relative">
+            {/* Background Ambience - More sophisticated */}
+            <div className="fixed inset-0 pointer-events-none select-none z-0">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-blue-600/5 rounded-full blur-[150px]" />
+                <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
             </div>
 
-            <main className="z-10 text-center px-6">
+            <main className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6 pt-32 pb-20 max-w-7xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1 }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <p className="text-blue-500 font-mono text-xs md:text-sm tracking-[0.4em] uppercase mb-6">
-                        The Next Generation
-                    </p>
-                    <div className="flex justify-center mb-6">
-                        <img src="/logo.jpeg" alt="RightParking Logo" className="h-24 w-auto md:h-32 rounded-2xl object-contain border-2 border-white/10 shadow-[0_0_40px_rgba(37,99,235,0.3)]" />
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-400 font-mono text-[10px] tracking-[0.4em] uppercase mb-10">
+                        <span className="w-1 h-1 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_#3b82f6]" />
+                        The Future of Urban Infrastructure
                     </div>
-                    <h1 className="text-7xl md:text-[10rem] font-serif italic tracking-tighter leading-none mb-6">
-                        Right<span className="text-zinc-600">Parking</span>
+
+                    <div className="flex justify-center mb-10 overflow-hidden rounded-3xl group">
+                        <motion.div
+                            initial={{ scale: 1.2, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 2, ease: "easeOut" }}
+                            className="relative"
+                        >
+                            <img
+                                src="/logo.svg"
+                                alt="RightParking Logo"
+                                className="h-32 w-auto md:h-44 rounded-3xl object-contain border border-white/10 shadow-[0_0_60px_rgba(37,99,235,0.15)] group-hover:scale-105 transition-transform duration-700"
+                            />
+                            <div className="absolute inset-0 bg-blue-500/10 blur-3xl rounded-full -z-10 opacity-50" />
+                        </motion.div>
+                    </div>
+
+                    <h1 className="text-7xl md:text-[11rem] font-serif italic tracking-tighter-premium leading-[0.85] mb-8 text-gradient">
+                        Right<span className="text-zinc-800 font-serif">Parking</span>
                     </h1>
-                    <p className="text-zinc-400 text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto mb-12">
-                        Experience the future of automated infrastructure.
-                        Seamless, ticketless, and completely invisible.
+
+                    <p className="text-zinc-400 text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed">
+                        Experience automated parking that works in the background.
+                        <span className="text-zinc-200"> Seamlessly integrated.</span>
+                        <span className="text-zinc-200"> Ticketless.</span>
+                        <span className="text-zinc-200"> Intelligent.</span>
                     </p>
 
-                    <div className="flex flex-col md:flex-row gap-6 justify-center">
+                    <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
                         <Link to="/services">
                             <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-blue-600 text-white px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest hover:bg-blue-700 transition-all shadow-[0_0_30px_rgba(37,99,235,0.4)]"
+                                whileHover={{ scale: 1.05, translateY: -2 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="group bg-blue-600 text-white px-10 py-5 rounded-full font-mono text-[10px] uppercase tracking-[0.2em] hover:bg-blue-700 transition-all blue-glow relative overflow-hidden"
                             >
-                                Launch Experience
+                                <span className="relative z-10 flex items-center gap-3">
+                                    Launch Interface
+                                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                                </span>
                             </motion.button>
                         </Link>
                         <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-zinc-900 border border-white/10 text-zinc-300 px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest hover:bg-white/5 transition-all"
+                            whileHover={{ scale: 1.05, translateY: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="bg-zinc-900 border border-white/10 text-zinc-300 px-10 py-5 rounded-full font-mono text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 hover:border-white/20 transition-all"
                         >
-                            View Blueprint
+                            System Architecture
                         </motion.button>
                     </div>
                 </motion.div>
             </main>
 
-            <footer className="absolute bottom-10 left-0 w-full text-center">
-                <p className="text-zinc-600 font-mono text-[10px] tracking-widest">
-                    INITIALIZING SYSTEM V2.0 // STATUS: READY
-                </p>
-            </footer>
+            <Footer />
         </div>
     );
 };

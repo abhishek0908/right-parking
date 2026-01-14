@@ -376,7 +376,7 @@ export const City = () => {
     const scroll = useScroll()
 
     // Load the logo texture
-    const logoTexture = useTexture('/logo.jpeg')
+    const logoTexture = useTexture('/logo.svg')
 
     return (
         <group position={[0, -0.01, 0]}>

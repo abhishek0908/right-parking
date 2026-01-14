@@ -18,10 +18,10 @@ export const About = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-8xl font-serif italic tracking-tighter mb-8 leading-[0.9]"
+                        className="text-5xl md:text-8xl font-serif italic tracking-tighter-premium mb-8 leading-[0.9] text-gradient"
                     >
                         Building India’s <br />
-                        Future of <span className="text-blue-500">Parking</span>
+                        Future of <span className="text-blue-500 font-serif">Parking</span>
                     </motion.h1>
                     <motion.h2
                         initial={{ opacity: 0 }}

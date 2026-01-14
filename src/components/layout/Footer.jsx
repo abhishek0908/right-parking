@@ -1,59 +1,86 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const Footer = () => {
-    return (
-        <footer className="w-full bg-zinc-950 text-white px-6 md:px-24 py-16 md:py-24 relative z-50 border-t border-white/5">
-            <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-24 mb-20">
-                    <div className="col-span-1 md:col-span-2">
-                        <h2 className="text-3xl md:text-5xl font-serif italic mb-8 tracking-tighter">RightParking.</h2>
-                        <p className="text-zinc-400 max-w-sm leading-relaxed font-light text-base md:text-lg">
-                            Pioneering the next generation of automated parking infrastructure.
-                            Where engineering excellence meets architectural vision.
-                        </p>
-                    </div>
+    const currentYear = new Date().getFullYear();
 
-                    <div className="space-y-8">
-                        <div>
-                            <h4 className="text-[10px] font-mono tracking-[0.4em] uppercase text-blue-500 mb-6">Explore</h4>
-                            <ul className="space-y-4 text-xs md:text-sm text-zinc-500 font-light">
-                                <li><Link to="/" className="hover:text-blue-400 transition-all hover:pl-2">Home</Link></li>
-                                <li><Link to="/about" className="hover:text-blue-400 transition-all hover:pl-2">About Our Vision</Link></li>
-                                <li><Link to="/technology" className="hover:text-blue-400 transition-all hover:pl-2">The Stack</Link></li>
-                                <li><Link to="/contact" className="hover:text-blue-400 transition-all hover:pl-2">Connect</Link></li>
-                            </ul>
+    return (
+        <footer className="w-full bg-zinc-950 text-white px-6 md:px-12 py-16 md:py-24 relative z-50 border-t border-white/5 overflow-hidden">
+            {/* Background Ambient Glow */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-20">
+                    <div className="md:col-span-5">
+                        <Link to="/" className="flex items-center gap-3 mb-8 group w-fit">
+                            <img src="/logo.svg" alt="RightParking Logo" className="h-10 w-auto rounded-lg object-contain" />
+                            <span className="text-2xl font-serif italic font-bold tracking-tighter-premium">RightParking</span>
+                        </Link>
+                        <p className="text-zinc-400 max-w-sm leading-relaxed font-light text-base md:text-lg mb-8">
+                            Redefining urban mobility through invisible, automated infrastructure.
+                            Our systems operate at the intersection of precision engineering and seamless UX.
+                        </p>
+                        <div className="flex gap-4">
+                            {['Twitter', 'LinkedIn', 'Instagram'].map(social => (
+                                <a key={social} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-zinc-500 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/5 transition-all text-xs font-mono">
+                                    {social[0]}
+                                </a>
+                            ))}
                         </div>
                     </div>
 
-                    <div className="space-y-8">
-                        <div>
-                            <h4 className="text-[10px] font-mono tracking-[0.4em] uppercase text-blue-500 mb-6">Social</h4>
-                            <ul className="space-y-4 text-xs md:text-sm text-zinc-500 font-light">
-                                <li><a href="#" className="hover:text-white transition-all hover:pl-2">Instagram</a></li>
-                                <li><a href="#" className="hover:text-white transition-all hover:pl-2">LinkedIn</a></li>
-                                <li><a href="#" className="hover:text-white transition-all hover:pl-2">Twitter / X</a></li>
-                            </ul>
+                    <div className="md:col-span-2 md:col-start-7">
+                        <h4 className="text-[10px] font-mono tracking-[0.4em] uppercase text-blue-500 mb-8">Platform</h4>
+                        <ul className="space-y-4 text-sm text-zinc-500">
+                            <li><NavLink path="/" label="Overview" /></li>
+                            <li><NavLink path="/services" label="Solutions" /></li>
+                            <li><NavLink path="/technology" label="Core Tech" /></li>
+                            <li><NavLink path="/about" label="Identity" /></li>
+                        </ul>
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <h4 className="text-[10px] font-mono tracking-[0.4em] uppercase text-blue-500 mb-8">Resources</h4>
+                        <ul className="space-y-4 text-sm text-zinc-500">
+                            <li><NavLink path="/documentation" label="Blueprints" /></li>
+                            <li><NavLink path="/contact" label="Support" /></li>
+                            <li><NavLink path="/privacy" label="Privacy" /></li>
+                            <li><NavLink path="/terms" label="Terms" /></li>
+                        </ul>
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <h4 className="text-[10px] font-mono tracking-[0.4em] uppercase text-blue-500 mb-8">Status</h4>
+                        <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                                <span className="text-[10px] font-mono tracking-widest text-emerald-500 uppercase">All Systems Nominal</span>
+                            </div>
+                            <p className="text-[9px] text-zinc-500 leading-tight">
+                                Autonomous parking networks operating at 99.9% efficiency.
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
-                        <p className="text-[10px] font-mono tracking-widest text-zinc-600 uppercase">
-                            © 2026 RightParking – Built for the Future
-                        </p>
-                        <div className="flex gap-8 text-[10px] font-mono tracking-widest text-zinc-600 uppercase">
-                            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-                            <a href="#" className="hover:text-white transition-colors">Terms</a>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse shadow-[0_0_8px_rgba(37,99,235,1)]"></div>
-                        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-zinc-500">Systems Operational</span>
+                <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-zinc-600">
+                    <p className="text-[10px] font-mono tracking-widest uppercase">
+                        © {currentYear} RIGHTPARKING AEROSPACE & INFRASTRUCTURE GROUP
+                    </p>
+                    <div className="flex items-center gap-8 font-mono text-[9px] tracking-[0.2em] uppercase">
+                        <span className="text-zinc-800">COORDINATES: 28.6139° N, 77.2090° E</span>
+                        <div className="w-[1px] h-4 bg-white/5" />
+                        <span className="text-zinc-400">ENCRYPTION: AES-256</span>
                     </div>
                 </div>
             </div>
         </footer>
     );
 };
+
+const NavLink = ({ path, label }) => (
+    <Link to={path} className="hover:text-blue-400 transition-all duration-300 flex items-center group">
+        <span className="w-0 group-hover:w-2 h-[1px] bg-blue-500 mr-0 group-hover:mr-2 transition-all opacity-0 group-hover:opacity-100" />
+        {label}
+    </Link>
+);

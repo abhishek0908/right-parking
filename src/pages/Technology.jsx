@@ -19,7 +19,7 @@ export const Technology = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-6xl md:text-9xl font-serif italic tracking-tighter mb-12"
+                        className="text-6xl md:text-9xl font-serif italic tracking-tighter-premium mb-12 text-gradient"
                     >
                         Technology.
                     </motion.h1>
