@@ -3,7 +3,7 @@ import { Footer } from '../components/layout/Footer';
 
 export const About = () => {
     return (
-        <div className="bg-[#09090b] min-h-screen text-white pt-32">
+        <div className="bg-[var(--bg-dark)] min-h-screen text-[var(--text-main)] pt-32 transition-colors duration-300">
             <main className="max-w-7xl mx-auto px-6 md:px-12 pb-24">
                 {/* 1.1 Hero Section */}
                 <div className="mb-32">
@@ -27,7 +27,7 @@ export const About = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-2xl md:text-3xl text-zinc-400 font-light tracking-wide mb-12"
+                        className="text-2xl md:text-3xl text-[var(--text-muted)] font-light tracking-wide mb-12"
                     >
                         Ticketless. Manpowerless. Seamlessly Managed.
                     </motion.h2>
@@ -35,7 +35,7 @@ export const About = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="text-lg md:text-xl text-zinc-500 font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-6"
+                        className="text-lg md:text-xl text-[var(--text-muted)] font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-6"
                     >
                         Right Parking is transforming how India parks by building intelligent, automated parking infrastructure that operates without tickets, without cash, and without friction.
                     </motion.p>
@@ -45,22 +45,22 @@ export const About = () => {
                 <div className="mb-32 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
                         <h2 className="text-4xl md:text-5xl font-serif italic mb-6">Invisible Infrastructure That <span className="text-blue-500">Simply Works</span></h2>
-                        <p className="text-zinc-400 leading-relaxed mb-6">
+                        <p className="text-[var(--text-muted)] leading-relaxed mb-6">
                             Right Parking replaces outdated parking systems with self-operating infrastructure.
                             Just seamless entry, guided parking, automatic billing, and real-time control.
                         </p>
                     </div>
-                    <div className="bg-zinc-900/40 p-8 rounded-[2rem] border border-white/5">
+                    <div className="bg-[var(--surface)] p-8 rounded-[2rem] border border-[var(--border)]">
                         <ul className="space-y-4">
                             {["No paper tickets", "No manual cash collection", "Minimal on-ground manpower"].map((item, i) => (
-                                <li key={i} className="flex items-center gap-4 text-white font-mono text-sm uppercase tracking-widest">
+                                <li key={i} className="flex items-center gap-4 text-[var(--text-main)] font-mono text-sm uppercase tracking-widest">
                                     <span className="w-1.5 h-1.5 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]" />
                                     {item}
                                 </li>
                             ))}
                         </ul>
-                        <div className="mt-8 pt-8 border-t border-white/5">
-                            <p className="text-zinc-500 font-mono text-xs uppercase tracking-widest mb-2">Our Core Promise</p>
+                        <div className="mt-8 pt-8 border-t border-[var(--border)]">
+                            <p className="text-[var(--text-muted)] font-mono text-xs uppercase tracking-widest mb-2">Our Core Promise</p>
                             <p className="text-xl italic font-serif">We don’t just manage parking. We build self-operating ecosystems that run silently in the background.</p>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ export const About = () => {
                 <div className="mb-32">
                     <div className="mb-12">
                         <h2 className="text-3xl md:text-5xl font-serif italic mb-4">India’s Parking Challenge</h2>
-                        <p className="text-zinc-500">Parking is treated as an afterthought—yet it directly impacts traffic flow, safety, and city efficiency.</p>
+                        <p className="text-[var(--text-muted)]">Parking is treated as an afterthought—yet it directly impacts traffic flow, safety, and city efficiency.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {[
@@ -80,9 +80,9 @@ export const About = () => {
                             "High manpower dependency",
                             "Frustrating driver experiences"
                         ].map((item, i) => (
-                            <div key={i} className="bg-red-950/10 border border-red-500/10 p-6 rounded-2xl">
+                            <div key={i} className="bg-red-500/5 border border-red-500/10 p-6 rounded-2xl">
                                 <span className="block text-red-500/50 font-mono text-xs mb-2">0{i + 1}</span>
-                                <p className="text-zinc-300">{item}</p>
+                                <p className="text-[var(--text-muted)]">{item}</p>
                             </div>
                         ))}
                     </div>
@@ -99,20 +99,20 @@ export const About = () => {
                             { step: "Exit", title: "Seamless", desc: "Your session closes seamlessly and the barrier opens automatically." }
                         ].map((item, i) => (
                             <div key={i} className="relative pt-8 border-t border-blue-500/20">
-                                <span className="absolute top-0 left-0 -translate-y-1/2 w-4 h-4 bg-[#09090b] border-2 border-blue-500 rounded-full" />
+                                <span className="absolute top-0 left-0 -translate-y-1/2 w-4 h-4 bg-[var(--bg-dark)] border-2 border-blue-500 rounded-full" />
                                 <h3 className="text-xl font-serif italic mb-2">{item.step}</h3>
-                                <p className="text-xs font-mono text-blue-500 uppercase tracking-widest mb-4">{item.title}</p>
-                                <p className="text-zinc-400 text-sm leading-relaxed">{item.desc}</p>
+                                <p className="text-[var(--text-muted)] font-mono text-[10px] text-blue-500 uppercase tracking-widest mb-4">{item.title}</p>
+                                <p className="text-[var(--text-muted)] text-sm leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* 1.5 Presence */}
-                <div className="mb-32 bg-zinc-900/30 rounded-[3rem] p-12 text-center border border-white/5 relative overflow-hidden">
+                <div className="mb-32 bg-[var(--surface)] rounded-[3rem] p-12 text-center border border-[var(--border)] relative overflow-hidden">
                     <div className="absolute inset-0 bg-blue-600/5 blur-[100px]" />
                     <h2 className="text-3xl md:text-5xl font-serif italic mb-6 relative z-10">Proven on Ground</h2>
-                    <p className="text-zinc-400 max-w-2xl mx-auto mb-12 relative z-10">
+                    <p className="text-[var(--text-muted)] max-w-2xl mx-auto mb-12 relative z-10">
                         Right Parking actively operates infrastructure across Public parking zones, Commercial complexes, and Urban assets.
                         Cities trust us with their most overlooked yet critical infrastructure.
                     </p>
@@ -123,7 +123,7 @@ export const About = () => {
                             { label: "Parking Bays", val: "10,000+" }
                         ].map((stat, i) => (
                             <div key={i}>
-                                <div className="text-5xl md:text-7xl font-sans font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 mb-2">{stat.val}</div>
+                                <div className="text-5xl md:text-7xl font-sans font-black text-transparent bg-clip-text bg-gradient-to-b from-[var(--text-main)] to-[var(--text-muted)] mb-2">{stat.val}</div>
                                 <div className="text-blue-500 font-mono text-xs tracking-widest uppercase">{stat.label}</div>
                             </div>
                         ))}
@@ -138,9 +138,9 @@ export const About = () => {
                             "Automated Barriers", "FASTag Integration", "Smart Sensors", "Wayfinding Displays",
                             "EV Charging", "CCTV Surveillance", "Reserved Parking", "Digital Payments", "Emergency Support"
                         ].map((item, i) => (
-                            <div key={i} className="p-6 bg-zinc-900/20 border border-white/5 rounded-xl flex items-center gap-3 hover:bg-zinc-900/40 transition-colors">
+                            <div key={i} className="p-6 bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center gap-3 hover:bg-[var(--surface)]/80 transition-colors">
                                 <div className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
-                                <span className="text-sm text-zinc-300 font-medium">{item}</span>
+                                <span className="text-sm text-[var(--text-muted)] font-medium">{item}</span>
                             </div>
                         ))}
                     </div>
@@ -149,8 +149,8 @@ export const About = () => {
                 {/* 1.7 End-to-End Ownership */}
                 <div className="mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 bg-blue-900/10 p-12 rounded-[2rem] border border-blue-500/20">
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-serif italic mb-6">From Empty Land to Smart Asset</h2>
-                        <ul className="space-y-4 text-zinc-400">
+                        <h2 className="text-3xl md:text-4xl font-serif italic mb-6 text-[var(--text-main)]">From Empty Land to Smart Asset</h2>
+                        <ul className="space-y-4 text-[var(--text-muted)]">
                             {["Site assessment & design", "Complete technology installation", "Operations & maintenance", "Revenue management & reporting"].map((item, i) => (
                                 <li key={i} className="flex items-center gap-3">
                                     <span className="text-blue-500">✓</span> {item}
@@ -181,9 +181,9 @@ export const About = () => {
                             { t: "Real Estate", d: "Enhancing footfall, visitor experience, and monetization." },
                             { t: "Everyday Drivers", d: "Making parking predictable, cashless, and stress-free." }
                         ].map((item, i) => (
-                            <div key={i} className="bg-zinc-900 border border-white/5 p-8 rounded-3xl hover:border-blue-500/50 transition-colors group">
+                            <div key={i} className="bg-[var(--surface)] border border-[var(--border)] p-8 rounded-3xl hover:border-blue-500/50 transition-colors group">
                                 <h3 className="text-2xl font-serif italic mb-4 group-hover:text-blue-500 transition-colors">{item.t}</h3>
-                                <p className="text-zinc-500 leading-relaxed">{item.d}</p>
+                                <p className="text-[var(--text-muted)] leading-relaxed">{item.d}</p>
                             </div>
                         ))}
                     </div>
@@ -196,25 +196,25 @@ export const About = () => {
                         <h2 className="text-4xl md:text-6xl font-serif italic mb-6">Your Spot Is Waiting</h2>
                         <ul className="space-y-4 mb-8">
                             {["Pre-book parking", "Enter without stopping", "Get live slot guidance", "Pay automatically"].map((item, i) => (
-                                <li key={i} className="flex items-center gap-4 text-zinc-400">
-                                    <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-blue-500 text-xs font-bold">{i + 1}</div>
+                                <li key={i} className="flex items-center gap-4 text-[var(--text-muted)]">
+                                    <div className="w-8 h-8 rounded-full bg-[var(--surface)] flex items-center justify-center text-blue-500 text-xs font-bold">{i + 1}</div>
                                     {item}
                                 </li>
                             ))}
                         </ul>
-                        <p className="text-xl italic text-white/50">Parking becomes part of the journey—not a disruption.</p>
+                        <p className="text-xl italic [var(--text-muted)] opacity-50">Parking becomes part of the journey—not a disruption.</p>
                     </div>
-                    <div className="bg-zinc-900 rounded-[3rem] aspect-square flex items-center justify-center border border-white/10 relative overflow-hidden">
+                    <div className="bg-[var(--surface)] rounded-[3rem] aspect-square flex items-center justify-center border border-[var(--border)] relative overflow-hidden">
                         <div className="absolute inset-0 bg-blue-500/20 blur-[100px]" />
                         <div className="text-center relative z-10">
                             <span className="text-6xl">📱</span>
-                            <p className="mt-4 font-mono text-xs uppercase tracking-widest text-zinc-500">App Interface Preview</p>
+                            <p className="mt-4 font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">App Interface Preview</p>
                         </div>
                     </div>
                 </div>
 
                 {/* CEO Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-48 bg-zinc-950/40 p-8 md:p-16 rounded-[3rem] border border-white/5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-48 bg-[var(--surface)] p-8 md:p-16 rounded-[3rem] border border-[var(--border)]">
                     {/* Image Column */}
                     <div className="relative flex justify-center lg:justify-start">
                         <motion.div
@@ -227,7 +227,7 @@ export const About = () => {
                             <img
                                 src="/assets/kumar-ceo.png"
                                 alt="Kumar - CEO of Right Parking"
-                                className="w-full h-auto rounded-[2rem] object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 border border-white/10"
+                                className="w-full h-auto rounded-[2rem] object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 border border-[var(--border)]"
                             />
                         </motion.div>
                     </div>
@@ -240,14 +240,14 @@ export const About = () => {
                             viewport={{ once: true }}
                             className="flex flex-col"
                         >
-                            <h2 className="text-4xl md:text-6xl font-sans font-black text-white leading-[0.9] tracking-tighter mb-4">
+                            <h2 className="text-4xl md:text-6xl font-sans font-black text-[var(--text-main)] leading-[0.9] tracking-tighter mb-4">
                                 MEET<br />
                                 THE CEO<br />
                                 <span className="text-blue-500">&</span> FOUNDER
                             </h2>
                             <div className="flex flex-col">
                                 <span className="text-3xl md:text-5xl font-serif italic tracking-tighter text-blue-500">RIGHT</span>
-                                <span className="text-4xl md:text-7xl font-sans font-black tracking-tighter text-white">PARKING</span>
+                                <span className="text-4xl md:text-7xl font-sans font-black tracking-tighter text-[var(--text-main)]">PARKING</span>
                             </div>
                         </motion.div>
 
@@ -256,25 +256,25 @@ export const About = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
-                            className="text-zinc-400 font-light text-sm md:text-lg leading-relaxed space-y-6 border-l border-blue-500/30 pl-8"
+                            className="text-[var(--text-muted)] font-light text-sm md:text-lg leading-relaxed space-y-6 border-l border-blue-500/30 pl-8"
                         >
                             <p>
-                                Kumar is the <span className="text-white font-medium">visionary founder</span> and CEO of Right Parking, driven by a passion for revolutionizing urban mobility through innovative parking solutions.
+                                Kumar is the <span className="text-[var(--text-main)] font-medium">visionary founder</span> and CEO of Right Parking, driven by a passion for revolutionizing urban mobility through innovative parking solutions.
                             </p>
                             <p>
-                                With a background in <span className="text-white font-medium">technology</span> and a keen understanding of urban challenges, Kumar founded Right Parking to address the growing need for efficient and secure parking options in cities.
+                                With a background in <span className="text-[var(--text-main)] font-medium">technology</span> and a keen understanding of urban challenges, Kumar founded Right Parking to address the growing need for efficient and secure parking options in cities.
                             </p>
                             <p>
-                                Under Kumar's leadership, Right Parking has grown from a <span className="text-white font-medium">concept</span> to a leading provider of digital parking solutions, offering <span className="text-white font-medium">seamless booking experiences</span>, advanced security systems, and automated payment solutions.
+                                Under Kumar's leadership, Right Parking has grown from a <span className="text-[var(--text-main)] font-medium">concept</span> to a leading provider of digital parking solutions, offering <span className="text-[var(--text-main)] font-medium">seamless booking experiences</span>, advanced security systems, and automated payment solutions.
                             </p>
                         </motion.div>
                     </div>
                 </div>
 
                 {/* Legacy & Future */}
-                <div className="mb-48 border-t border-white/5 pt-24 text-center">
+                <div className="mb-48 border-t border-[var(--border)] pt-24 text-center">
                     <h2 className="text-5xl md:text-8xl font-serif italic mb-8">Forward Thinking.</h2>
-                    <p className="text-zinc-500 font-mono tracking-widest uppercase">Since 2024 — Building for 2050.</p>
+                    <p className="text-[var(--text-muted)] font-mono tracking-widest uppercase">Since 2024 — Building for 2050.</p>
                 </div>
             </main>
             <Footer />

@@ -8,6 +8,7 @@ import { Technology } from './pages/Technology';
 import { Contact } from './pages/Contact';
 import { Loader } from './components/Loader';
 import { Header } from './components/layout/Header';
+import { ThemeProvider } from './context/ThemeContext';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -73,12 +74,14 @@ const PageWrapper = ({ children }) => (
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Loader />
-      <Header />
-      <AnimatedRoutes />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <ScrollToTop />
+        <Loader />
+        <Header />
+        <AnimatedRoutes />
+      </Router>
+    </ThemeProvider>
   );
 }
 

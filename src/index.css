@@ -5,11 +5,44 @@
 :root {
   --primary: #3b82f6;
   --primary-hover: #2563eb;
+  /* Dark Theme (Default) */
   --bg-dark: #09090b;
+  --bg-home: #09090b;
   --surface: #18181b;
   --border: rgba(255, 255, 255, 0.1);
   --text-main: #f4f4f5;
   --text-muted: #a1a1aa;
+  --glass-bg: rgba(9, 9, 11, 0.7);
+  --text-gradient-end: #a1a1aa;
+  --hero-glow: rgba(59, 130, 246, 0.05);
+  --card-bg: rgba(24, 24, 27, 0.4);
+}
+
+:root.light {
+  --bg-dark: #f8fafc;
+  --bg-home: #f8fafc;
+  --surface: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --text-gradient-end: #64748b;
+  --hero-glow: rgba(59, 130, 246, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.8);
+}
+
+/* Force Dark Core for Services/3D Part */
+.force-dark {
+  --bg-dark: #09090b !important;
+  --bg-home: #09090b !important;
+  --surface: #18181b !important;
+  --border: rgba(255, 255, 255, 0.1) !important;
+  --text-main: #f4f4f5 !important;
+  --text-muted: #a1a1aa !important;
+  --glass-bg: rgba(9, 9, 11, 0.7) !important;
+  --text-gradient-end: #a1a1aa !important;
+  --hero-glow: rgba(59, 130, 246, 0.05) !important;
+  --card-bg: rgba(24, 24, 27, 0.4) !important;
 }
 
 body {
@@ -21,6 +54,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .font-serif {
@@ -47,7 +81,7 @@ body {
 
 /* Glassmorphism Utilities */
 .glass {
-  background: rgba(9, 9, 11, 0.7);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
@@ -105,11 +139,20 @@ h6 {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  background: linear-gradient(135deg, var(--text-main) 0%, var(--text-gradient-end) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .blue-glow {
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  transition: all 0.3s ease;
 }

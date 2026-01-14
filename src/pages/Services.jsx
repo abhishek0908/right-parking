@@ -14,7 +14,7 @@ export const Services = () => {
     }, []);
 
     return (
-        <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+        <div className="force-dark" style={{ width: '100vw', height: '100vh', position: 'relative' }}>
             <Canvas
                 shadows
                 dpr={[1, 1.5]}
