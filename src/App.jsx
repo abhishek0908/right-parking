@@ -52,7 +52,7 @@ function AnimatedRoutes() {
         <Route path="*" element={
           <PageWrapper>
             <div className="h-screen flex items-center justify-center bg-[#09090b]">
-              <h1 className="text-4xl font-serif italic text-white">404 - Not Found</h1>
+              <h1 className="text-4xl font-display italic text-white">404 - Not Found</h1>
             </div>
           </PageWrapper>
         } />

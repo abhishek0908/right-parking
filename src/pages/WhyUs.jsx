@@ -19,7 +19,7 @@ export const WhyUs = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-6xl md:text-9xl font-serif italic tracking-tighter mb-12"
+                        className="text-6xl md:text-9xl font-display italic tracking-tighter mb-12"
                     >
                         Why Us.
                     </motion.h1>
@@ -36,7 +36,7 @@ export const WhyUs = () => {
 
                 {/* 3.2 End-to-End Services */}
                 <div className="mb-48">
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-12">End-to-End Services</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-12">End-to-End Services</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
                             "Site assessment & planning",
@@ -63,7 +63,7 @@ export const WhyUs = () => {
                 {/* 3.3 Business Models */}
                 <div className="mb-48">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                        <h2 className="text-4xl md:text-6xl font-serif italic">Business Models</h2>
+                        <h2 className="text-4xl md:text-6xl font-display italic">Business Models</h2>
                         <div className="text-right">
                             <span className="block text-blue-500 font-mono text-sm uppercase tracking-widest mb-1">Zero CapEx Commitment</span>
                             <span className="text-zinc-500 text-sm">All technology costs are on us.</span>
@@ -74,7 +74,7 @@ export const WhyUs = () => {
                         {/* Rent Model */}
                         <div className="bg-zinc-900 border border-white/5 p-12 rounded-[3rem] relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[60px] group-hover:bg-blue-500/20 transition-colors" />
-                            <h3 className="text-3xl font-serif italic mb-8">Rent Model</h3>
+                            <h3 className="text-3xl font-display italic mb-8">Rent Model</h3>
                             <ul className="space-y-6">
                                 {[
                                     "Fixed monthly payout",
@@ -92,7 +92,7 @@ export const WhyUs = () => {
                         {/* Revenue Share Model */}
                         <div className="bg-blue-600 p-12 rounded-[3rem] relative overflow-hidden text-white">
                             <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 blur-[60px]" />
-                            <h3 className="text-3xl font-serif italic mb-8">Revenue Share Model</h3>
+                            <h3 className="text-3xl font-display italic mb-8">Revenue Share Model</h3>
                             <ul className="space-y-6">
                                 {[
                                     "Performance-linked earnings",
@@ -111,7 +111,7 @@ export const WhyUs = () => {
 
                 {/* 3.4 Long-Term Partnerships */}
                 <div className="mb-48 bg-zinc-900/20 border border-white/5 p-12 md:p-24 rounded-[3rem] text-center">
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-12">Designed for <span className="text-blue-500">Long-Term</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-12">Designed for <span className="text-blue-500">Long-Term</span></h2>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-12">
                         {[
                             "Multi-year operations",
@@ -131,7 +131,7 @@ export const WhyUs = () => {
                 <div className="mb-48">
                     <div className="flex flex-col md:flex-row justify-between items-start mb-12">
                         <div>
-                            <h2 className="text-3xl md:text-5xl font-serif italic mb-4">Proven Projects</h2>
+                            <h2 className="text-3xl md:text-5xl font-display italic mb-4">Proven Projects</h2>
                             <p className="text-zinc-500 max-w-md">Operating thousands of bays across Bengaluru, including MLCPs, Government complexes, and Transit hubs.</p>
                         </div>
                     </div>
@@ -158,14 +158,14 @@ export const WhyUs = () => {
 
                         <div className="absolute bottom-8 left-8 bg-black/80 backdrop-blur-md px-6 py-4 rounded-xl border border-white/10">
                             <span className="text-blue-500 font-mono text-xs uppercase tracking-widest block mb-1">Active Zone</span>
-                            <span className="text-white text-lg font-serif italic">Bengaluru City</span>
+                            <span className="text-white text-lg font-display italic">Bengaluru City</span>
                         </div>
                     </div>
                 </div>
 
                 {/* 3.6 What Sets Us Apart */}
                 <div className="mb-24 border-t border-white/5 pt-24">
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-16 text-center">What Sets Us Apart</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-16 text-center">What Sets Us Apart</h2>
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                         {[
                             "Execution over promises",

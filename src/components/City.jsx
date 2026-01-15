@@ -114,169 +114,157 @@ export const ChargingStation = ({ position, rotation = [0, 0, 0] }) => {
 /**
  * Simple Security Camera
  */
-export const SecurityCamera = ({ position, rotation = [0, 0, 0] }) => {
+export const SecurityCamera = ({
+    position,
+    rotation = [0, 0, 0],
+    scale = 1.7,
+}) => {
     return (
-        <group position={position} rotation={rotation}>
-            {/* Wall mount */}
+        <group position={position} rotation={rotation} scale={scale}>
+            {/* Wall mount base */}
             <mesh>
-                <cylinderGeometry args={[0.05, 0.05, 0.12, 32]} />
+                <cylinderGeometry args={[0.08, 0.08, 0.14, 32]} />
                 <meshStandardMaterial
-                    color="#18181b"
+                    color="#0f172a"
+                    metalness={0.7}
+                    roughness={0.3}
+                />
+            </mesh>
+
+            {/* Mount arm */}
+            <mesh position={[0, 0.1, 0]}>
+                <cylinderGeometry args={[0.035, 0.035, 0.22, 24]} />
+                <meshStandardMaterial
+                    color="#1e293b"
                     metalness={0.6}
                     roughness={0.4}
                 />
             </mesh>
 
-            {/* Arm */}
-            <mesh position={[0, 0.08, 0]}>
-                <cylinderGeometry args={[0.025, 0.025, 0.15, 24]} />
-                <meshStandardMaterial
-                    color="#27272a"
-                    metalness={0.5}
-                    roughness={0.5}
-                />
-            </mesh>
-
-            {/* Camera body */}
-            <group position={[0, 0.15, 0.18]} rotation={[0.25, 0, 0]}>
+            {/* Camera body (bullet CCTV style) */}
+            <group position={[0, 0.22, 0.32]} rotation={[0.35, 0, 0]}>
+                {/* Main housing */}
                 <mesh>
-                    <cylinderGeometry args={[0.09, 0.09, 0.22, 32]} />
+                    <cylinderGeometry args={[0.14, 0.14, 0.36, 40]} />
                     <meshStandardMaterial
-                        color="#3f3f46"
-                        metalness={0.3}
-                        roughness={0.6}
+                        color="#2563eb"   // 🔵 BLUE CAMERA BODY
+                        metalness={0.35}
+                        roughness={0.45}
                     />
                 </mesh>
 
-                {/* Front ring */}
-                <mesh position={[0, 0, 0.12]}>
-                    <cylinderGeometry args={[0.085, 0.085, 0.02, 32]} />
-                    <meshStandardMaterial color="#52525b" />
+                {/* Front black bezel */}
+                <mesh position={[0, 0, 0.2]}>
+                    <cylinderGeometry args={[0.13, 0.13, 0.04, 32]} />
+                    <meshStandardMaterial
+                        color="#020617"
+                        metalness={0.8}
+                        roughness={0.2}
+                    />
                 </mesh>
 
                 {/* Lens glass */}
-                <mesh position={[0, 0, 0.14]}>
-                    <circleGeometry args={[0.04, 32]} />
+                <mesh position={[0, 0, 0.235]}>
+                    <circleGeometry args={[0.06, 32]} />
                     <meshStandardMaterial
-                        color="#000"
-                        metalness={0.9}
-                        roughness={0.1}
+                        color="#020617"
+                        metalness={1}
+                        roughness={0.05}
+                        emissive="#1d4ed8"
+                        emissiveIntensity={0.5}
                     />
                 </mesh>
 
-                {/* Inner lens */}
-                <mesh position={[0, 0, 0.145]}>
-                    <circleGeometry args={[0.018, 32]} />
-                    <meshBasicMaterial color="#4f46e5" />
+                {/* Inner blue lens */}
+                <mesh position={[0, 0, 0.24]}>
+                    <circleGeometry args={[0.03, 32]} />
+                    <meshBasicMaterial color="#60a5fa" />
                 </mesh>
 
-                {/* Status LED */}
-                <mesh position={[0.05, 0.05, 0.11]}>
-                    <sphereGeometry args={[0.008, 16, 16]} />
-                    <meshBasicMaterial color="#22c55e" />
+                {/* Blue status LED */}
+                <mesh position={[0.08, 0.08, 0.18]}>
+                    <sphereGeometry args={[0.014, 16, 16]} />
+                    <meshStandardMaterial
+                        color="#38bdf8"
+                        emissive="#38bdf8"
+                        emissiveIntensity={3}
+                    />
                 </mesh>
             </group>
         </group>
     )
 }
 
+
 /**
- * Floor Space Info Board (Premium glassmorphic UI)
+ * Floor Space Info Board - Real Parking Display Style
  */
 export const FloorSpaceBoard = ({ position, rotation = [0, 0, 0] }) => {
-    const floors = [
-        { f: "06", s: "18", d: "VACANT", tc: "text-emerald-400", bc: "bg-emerald-500" },
-        { f: "05", s: "04", d: "WARNING", tc: "text-orange-400", bc: "bg-orange-500" },
-        { f: "04", s: "FULL", d: "OCCUPIED", tc: "text-red-400", bc: "bg-red-500" },
-        { f: "03", s: "32", d: "VACANT", tc: "text-emerald-400", bc: "bg-emerald-500" },
-        { f: "02", s: "11", d: "VACANT", tc: "text-emerald-400", bc: "bg-emerald-500" },
-        { f: "01", s: "45", d: "VACANT", tc: "text-emerald-400", bc: "bg-emerald-500" },
+    const levels = [
+        { level: "01", icon: "🏍️", spaces: "747" },
+        { level: "01", icon: "🚗", spaces: "107" },
+        { level: "02", icon: "🚗", spaces: "76" },
+        { level: "03", icon: "🚗", spaces: "98" },
     ]
 
     return (
         <group position={position} rotation={rotation}>
-            {/* 🏗️ STRUCTURAL SUPPORTS (Industrial Rods) */}
-            {/* Left Vertical Pole */}
-            <mesh position={[0, -2, -2]}>
-                <cylinderGeometry args={[0.08, 0.1, 13, 16]} />
-                <meshStandardMaterial color="#27272a" metalness={0.9} roughness={0.2} />
-            </mesh>
-            {/* Right Vertical Pole */}
-            <mesh position={[0, -2, 2]}>
-                <cylinderGeometry args={[0.08, 0.1, 13, 16]} />
-                <meshStandardMaterial color="#27272a" metalness={0.9} roughness={0.2} />
-            </mesh>
-            {/* Horizontal Mounting Brace (Top) */}
-            <mesh position={[0, 3.5, 0]} rotation={[Math.PI / 2, 0, 0]}>
-                <boxGeometry args={[0.3, 4.2, 0.1]} />
-                <meshStandardMaterial color="#3f3f46" metalness={0.8} />
-            </mesh>
-            {/* Horizontal Mounting Brace (Bottom) */}
-            <mesh position={[0, -3.5, 0]} rotation={[Math.PI / 2, 0, 0]}>
-                <boxGeometry args={[0.3, 4.2, 0.1]} />
-                <meshStandardMaterial color="#3f3f46" metalness={0.8} />
+            {/* Green Base/Pedestal */}
+            <mesh position={[0, -4, 0]}>
+                <boxGeometry args={[0.8, 2, 3.5]} />
+                <meshStandardMaterial color="#16a34a" metalness={0.3} roughness={0.6} />
             </mesh>
 
-            {/* Main Board Structural Frame - BIGGER */}
-            <mesh>
-                <boxGeometry args={[0.2, 8, 4.5]} />
-                <meshStandardMaterial color="#0f172a" metalness={0.9} roughness={0.1} />
-            </mesh>
 
-            {/* Glowing Neon Border - BIGGER */}
-            <mesh position={[0.12, 0, 0]}>
-                <boxGeometry args={[0.01, 8.4, 4.8]} />
-                <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={3} transparent opacity={0.6} />
-            </mesh>
+
 
             <Html
-                position={[0.15, 0, 0]}
+                position={[0.2, 0, 10]}
                 center
                 transform
-                distanceFactor={7}
+                distanceFactor={6}
                 rotation={[0, Math.PI / 2, 0]}
                 portal={{ current: document.body }}
             >
-                <div className="bg-slate-950/90 backdrop-blur-3xl p-10 border-4 border-blue-500/50 rounded-[4rem] w-[500px] shadow-[0_0_150px_rgba(59,130,246,0.5)] ring-2 ring-white/10">
-                    <div className="flex items-center justify-between mb-10 border-b-2 border-blue-500/30 pb-8">
-                        <div className="flex flex-col">
-                            <span className="text-blue-400 text-xs font-black uppercase tracking-[0.6em] mb-2">Right Parking</span>
-                            <span className="text-white text-5xl font-black tracking-tighter uppercase leading-none">GARAGE INFO</span>
-                        </div>
-                        <div className="bg-blue-600/20 p-4 rounded-3xl border-2 border-blue-400/20">
-                            <div className="w-5 h-5 rounded-full bg-blue-400 shadow-[0_0_25px_#3b82f6] animate-pulse" />
-                        </div>
+                <div className="bg-zinc-900 p-6 w-[380px] border-2 border-zinc-700 shadow-2xl" style={{ fontFamily: 'monospace' }}>
+
+
+                    {/* Title */}
+                    <div className="text-white text-center text-lg font-bold tracking-widest mb-4 border-b border-zinc-600 pb-3">
+                        AVAILABLE PARKING SPACES
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4">
-                        {floors.map((item, i) => (
-                            <div key={i} className="flex justify-between items-center bg-white/5 px-8 py-6 rounded-[2rem] border-2 border-white/5 hover:border-blue-500/60 hover:bg-white/15 transition-all duration-500 cursor-default group">
-                                <div className="flex flex-col">
-                                    <span className="text-white group-hover:text-blue-200 text-2xl font-black tracking-tight transition-colors">FLOOR {item.f}</span>
-                                    <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest mt-1">{item.d}</span>
+                    {/* Level Rows */}
+                    <div className="space-y-2">
+                        {levels.map((item, i) => (
+                            <div key={i} className="flex items-center justify-between bg-zinc-800/50 px-4 py-3">
+                                <div className="flex items-center gap-4">
+                                    <span className="text-white text-sm font-bold">LEVEL {item.level}</span>
+                                    <span className="text-2xl">{item.icon}</span>
                                 </div>
-                                <div className="flex items-center gap-6">
-                                    <span className={`${item.tc} font-mono text-4xl font-black leading-none`}>{item.s}</span>
-                                    <div className={`w-4 h-4 rounded-full ${item.bc} shadow-[0_0_15px_currentColor]`} />
+                                <div className="text-green-400 text-4xl font-black tracking-widest" style={{
+                                    textShadow: '0 0 10px #22c55e, 0 0 20px #22c55e, 0 0 30px #22c55e',
+                                    fontFamily: 'monospace'
+                                }}>
+                                    {item.spaces}
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <div className="mt-12 pt-8 border-t-2 border-blue-500/30 flex justify-between items-end">
-                        <div className="flex flex-col">
-                            <span className="text-blue-500 text-xs font-black uppercase tracking-widest mb-2">Total Available</span>
-                            <span className="text-white text-6xl font-black tracking-tighter leading-none">120 <span className="text-blue-500 text-xl font-medium tracking-normal">SPOTS</span></span>
-                        </div>
-                        <div className="text-right pb-1">
-                            <div className="text-blue-500 font-black text-4xl italic uppercase leading-none tracking-tighter">AI LIVE</div>
+                    {/* Footer */}
+                    <div className="mt-4 pt-3 border-t border-zinc-600 flex justify-between items-center">
+                        <span className="text-zinc-500 text-xs">LIVE UPDATE</span>
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]" />
+                            <span className="text-green-400 text-xs font-bold">ONLINE</span>
                         </div>
                     </div>
                 </div>
             </Html>
 
-            {/* Direct Light on the board - INTENSIFIED */}
-            <pointLight position={[2, 0, 0]} intensity={25} color="#60a5fa" distance={10} />
+            {/* Light on the board */}
+            <pointLight position={[2, 0, 0]} intensity={15} color="#22c55e" distance={8} />
         </group>
     )
 }

@@ -14,7 +14,7 @@ export const Footer = () => {
                     <div className="md:col-span-5">
                         <Link to="/" className="flex items-center gap-3 mb-8 group w-fit">
                             <img src="/logo.svg" alt="RightParking Logo" className="h-10 w-auto rounded-lg object-contain" />
-                            <span className="text-2xl font-serif italic font-bold tracking-tighter-premium text-[var(--text-main)]">RightParking</span>
+                            <span className="text-2xl font-display italic font-bold tracking-tighter-premium text-[var(--text-main)]">RightParking</span>
                         </Link>
                         <p className="text-[var(--text-muted)] max-w-sm leading-relaxed font-light text-base md:text-lg mb-8">
                             Redefining urban mobility through invisible, automated infrastructure.

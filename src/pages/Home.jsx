@@ -38,15 +38,15 @@ export const Home = () => {
                         </motion.div>
                     </div>
 
-                    <h1 className="text-7xl md:text-[11rem] font-serif italic tracking-tighter-premium leading-[0.85] mb-8 text-gradient">
-                        Right<span className="text-[var(--text-muted)] font-serif opacity-30">Parking</span>
+                    <h1 className="text-6xl md:text-9xl font-display italic tracking-tighter-premium leading-none mb-8 py-4 px-2">
+                        <span className="text-gradient">Right</span> <span className="text-blue-500 font-display">Parking</span>
                     </h1>
 
-                    <p className="text-[var(--text-muted)] text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed">
+                    <p className="text-[var(--text-main)] text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed">
                         Experience automated parking that works in the background.
-                        <span className="text-[var(--text-main)]"> Seamlessly integrated.</span>
-                        <span className="text-[var(--text-main)]"> Ticketless.</span>
-                        <span className="text-[var(--text-main)]"> Intelligent.</span>
+                        <span className="font-semibold"> Seamlessly integrated.</span>
+                        <span className="font-semibold"> Ticketless.</span>
+                        <span className="font-semibold"> Intelligent.</span>
                     </p>
 
                     <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
@@ -57,18 +57,11 @@ export const Home = () => {
                                 className="group bg-blue-600 text-white px-10 py-5 rounded-full font-mono text-[10px] uppercase tracking-[0.2em] hover:bg-blue-700 transition-all blue-glow relative overflow-hidden"
                             >
                                 <span className="relative z-10 flex items-center gap-3">
-                                    Launch Interface
+                                    Launch Experience
                                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                                 </span>
                             </motion.button>
                         </Link>
-                        <motion.button
-                            whileHover={{ scale: 1.05, translateY: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="bg-[var(--surface)] border border-[var(--border)] text-[var(--text-main)] px-10 py-5 rounded-full font-mono text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 hover:border-white/20 transition-all"
-                        >
-                            System Architecture
-                        </motion.button>
                     </div>
                 </motion.div>
             </main>

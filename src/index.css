@@ -50,16 +50,14 @@ body {
   padding: 0;
   background-color: var(--bg-dark);
   color: var(--text-main);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.font-serif {
-  font-family: 'Playfair Display', serif;
-}
+
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
@@ -131,7 +129,8 @@ h3,
 h4,
 h5,
 h6 {
-  letter-spacing: -0.02em;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.05em;
 }
 
 .tracking-tighter-premium {

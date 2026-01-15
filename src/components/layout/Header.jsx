@@ -14,7 +14,7 @@ export const Header = () => {
                         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-lg md:text-xl font-serif italic font-bold tracking-tighter text-[var(--text-main)] leading-none">RightParking</span>
+                        <span className="text-lg md:text-xl font-display italic font-bold tracking-tighter text-[var(--text-main)] leading-none">RightParking</span>
                         <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-blue-500 opacity-70">Infrastructure v2.0</span>
                     </div>
                 </Link>
@@ -68,10 +68,6 @@ export const Header = () => {
                         )}
                     </button>
 
-                    <button className="hidden md:flex bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-all blue-glow font-bold text-[10px] uppercase tracking-widest border-none cursor-pointer items-center gap-2 group">
-                        Join Waitlist
-                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </button>
                     {/* Mobile Menu Icon Placeholder or Simple Waitlist */}
                     <div className="md:hidden">
                         <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg">

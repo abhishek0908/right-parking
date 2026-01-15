@@ -20,7 +20,7 @@ export const Interface = () => {
                         initial={{ y: "100%" }}
                         whileInView={{ y: 0 }}
                         transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-                        className="text-6xl md:text-8xl font-serif italic tracking-tighter mb-4 text-white leading-[0.9]"
+                        className="text-6xl md:text-8xl font-display italic tracking-tighter mb-4 text-white leading-[0.9]"
                     >
                         Building India's <br />
                         <span className="text-blue-500">Future of Parking</span>
@@ -49,7 +49,7 @@ export const Interface = () => {
                     className="text-right"
                 >
                     <p className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">The Vision</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-7xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         Invisible <br />
                         <span className="text-blue-500">Infrastructure</span>
                     </h2>
@@ -70,7 +70,7 @@ export const Interface = () => {
                     className="text-left"
                 >
                     <p className="text-emerald-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 01</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-7xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         ANPR & <br />
                         <span className="text-emerald-500">FASTag Entry</span>
                     </h2>
@@ -98,7 +98,7 @@ export const Interface = () => {
                     className="text-right"
                 >
                     <p className="text-orange-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Live Data</p>
-                    <h2 className="text-4xl md:text-6xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-6xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         Real-Time <br />
                         <span className="text-orange-500">Analytics</span>
                     </h2>
@@ -126,7 +126,7 @@ export const Interface = () => {
                     className="text-left"
                 >
                     <p className="text-cyan-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 02</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-7xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         AI Managed <br />
                         <span className="text-cyan-500">Slot Routing</span>
                     </h2>
@@ -147,7 +147,7 @@ export const Interface = () => {
                     className="text-right"
                 >
                     <p className="text-purple-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Smart Display</p>
-                    <h2 className="text-4xl md:text-6xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-6xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         Floor-wise <br />
                         <span className="text-purple-500">Availability</span>
                     </h2>
@@ -178,7 +178,7 @@ export const Interface = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <p className="text-green-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">EV Ready</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-7xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         Integrated <br />
                         <span className="text-green-500">EV Charging</span>
                     </h2>
@@ -206,7 +206,7 @@ export const Interface = () => {
                     className="text-right"
                 >
                     <p className="text-red-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 03</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-7xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         Secured & <br />
                         <span className="text-red-500">Monitored</span>
                     </h2>
@@ -228,7 +228,7 @@ export const Interface = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <p className="text-yellow-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Checkout</p>
-                    <h2 className="text-4xl md:text-6xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                    <h2 className="text-4xl md:text-6xl font-display italic tracking-tighter mb-8 text-white leading-tight">
                         Cashless <br />
                         <span className="text-yellow-500">Exit</span>
                     </h2>
@@ -257,7 +257,7 @@ export const Interface = () => {
                         <div className="h-[1px] w-12 md:w-24 bg-blue-600"></div>
                     </div>
 
-                    <h1 className="text-7xl md:text-[14rem] font-serif italic tracking-tighter text-white leading-none">
+                    <h1 className="text-7xl md:text-[14rem] font-display italic tracking-tighter text-white leading-none">
                         Right <span className="text-white opacity-40 font-light block md:inline">PARKING</span>
                     </h1>
 

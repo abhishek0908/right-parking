@@ -18,10 +18,10 @@ export const About = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-8xl font-serif italic tracking-tighter-premium mb-8 leading-[0.9] text-gradient"
+                        className="text-5xl md:text-8xl font-display italic tracking-tighter-premium mb-8 leading-[0.9] text-gradient"
                     >
                         Building India’s <br />
-                        Future of <span className="text-blue-500 font-serif">Parking</span>
+                        Future of <span className="text-blue-500 font-display">Parking</span>
                     </motion.h1>
                     <motion.h2
                         initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ export const About = () => {
                 {/* 1.2 About Right Parking */}
                 <div className="mb-32 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
-                        <h2 className="text-4xl md:text-5xl font-serif italic mb-6">Invisible Infrastructure That <span className="text-blue-500">Simply Works</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-display italic mb-6">Invisible Infrastructure That <span className="text-blue-500">Simply Works</span></h2>
                         <p className="text-[var(--text-muted)] leading-relaxed mb-6">
                             Right Parking replaces outdated parking systems with self-operating infrastructure.
                             Just seamless entry, guided parking, automatic billing, and real-time control.
@@ -61,7 +61,7 @@ export const About = () => {
                         </ul>
                         <div className="mt-8 pt-8 border-t border-[var(--border)]">
                             <p className="text-[var(--text-muted)] font-mono text-xs uppercase tracking-widest mb-2">Our Core Promise</p>
-                            <p className="text-xl italic font-serif">We don’t just manage parking. We build self-operating ecosystems that run silently in the background.</p>
+                            <p className="text-xl italic font-display">We don’t just manage parking. We build self-operating ecosystems that run silently in the background.</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@ export const About = () => {
                 {/* 1.3 The Problem */}
                 <div className="mb-32">
                     <div className="mb-12">
-                        <h2 className="text-3xl md:text-5xl font-serif italic mb-4">India’s Parking Challenge</h2>
+                        <h2 className="text-3xl md:text-5xl font-display italic mb-4">India’s Parking Challenge</h2>
                         <p className="text-[var(--text-muted)]">Parking is treated as an afterthought—yet it directly impacts traffic flow, safety, and city efficiency.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -90,7 +90,7 @@ export const About = () => {
 
                 {/* 1.4 The Right Parking Way */}
                 <div className="mb-32">
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-16 text-center">From Entry to Exit — <span className="text-blue-500">Without Friction</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-16 text-center">From Entry to Exit — <span className="text-blue-500">Without Friction</span></h2>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {[
                             { step: "Arrive", title: "Identification", desc: "Your vehicle is identified instantly through FASTag or number plate recognition." },
@@ -100,7 +100,7 @@ export const About = () => {
                         ].map((item, i) => (
                             <div key={i} className="relative pt-8 border-t border-blue-500/20">
                                 <span className="absolute top-0 left-0 -translate-y-1/2 w-4 h-4 bg-[var(--bg-dark)] border-2 border-blue-500 rounded-full" />
-                                <h3 className="text-xl font-serif italic mb-2">{item.step}</h3>
+                                <h3 className="text-xl font-display italic mb-2">{item.step}</h3>
                                 <p className="text-[var(--text-muted)] font-mono text-[10px] text-blue-500 uppercase tracking-widest mb-4">{item.title}</p>
                                 <p className="text-[var(--text-muted)] text-sm leading-relaxed">{item.desc}</p>
                             </div>
@@ -111,7 +111,7 @@ export const About = () => {
                 {/* 1.5 Presence */}
                 <div className="mb-32 bg-[var(--surface)] rounded-[3rem] p-12 text-center border border-[var(--border)] relative overflow-hidden">
                     <div className="absolute inset-0 bg-blue-600/5 blur-[100px]" />
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-6 relative z-10">Proven on Ground</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-6 relative z-10">Proven on Ground</h2>
                     <p className="text-[var(--text-muted)] max-w-2xl mx-auto mb-12 relative z-10">
                         Right Parking actively operates infrastructure across Public parking zones, Commercial complexes, and Urban assets.
                         Cities trust us with their most overlooked yet critical infrastructure.
@@ -132,7 +132,7 @@ export const About = () => {
 
                 {/* 1.6 Facilities */}
                 <div className="mb-32">
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-12">Facilities & Amenities</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-12">Facilities & Amenities</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {[
                             "Automated Barriers", "FASTag Integration", "Smart Sensors", "Wayfinding Displays",
@@ -149,7 +149,7 @@ export const About = () => {
                 {/* 1.7 End-to-End Ownership */}
                 <div className="mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 bg-blue-900/10 p-12 rounded-[2rem] border border-blue-500/20">
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-serif italic mb-6 text-[var(--text-main)]">From Empty Land to Smart Asset</h2>
+                        <h2 className="text-3xl md:text-4xl font-display italic mb-6 text-[var(--text-main)]">From Empty Land to Smart Asset</h2>
                         <ul className="space-y-4 text-[var(--text-muted)]">
                             {["Site assessment & design", "Complete technology installation", "Operations & maintenance", "Revenue management & reporting"].map((item, i) => (
                                 <li key={i} className="flex items-center gap-3">
@@ -163,7 +163,7 @@ export const About = () => {
                         <p className="mb-6 opacity-90">All technology and system costs are borne by Right Parking.</p>
                         <div className="pt-6 border-t border-white/20">
                             <p className="text-xs uppercase tracking-widest mb-2 opacity-75">Partners earn through:</p>
-                            <div className="flex gap-4 font-serif italic text-lg">
+                            <div className="flex gap-4 font-display italic text-lg">
                                 <span>Rent Models</span>
                                 <span>•</span>
                                 <span>Revenue Share</span>
@@ -174,7 +174,7 @@ export const About = () => {
 
                 {/* 1.8 Who We Serve */}
                 <div className="mb-32">
-                    <h2 className="text-3xl md:text-5xl font-serif italic mb-12">Who We Serve</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-12">Who We Serve</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             { t: "Urban Bodies", d: "Turning public parking into transparent, revenue-generating assets." },
@@ -182,7 +182,7 @@ export const About = () => {
                             { t: "Everyday Drivers", d: "Making parking predictable, cashless, and stress-free." }
                         ].map((item, i) => (
                             <div key={i} className="bg-[var(--surface)] border border-[var(--border)] p-8 rounded-3xl hover:border-blue-500/50 transition-colors group">
-                                <h3 className="text-2xl font-serif italic mb-4 group-hover:text-blue-500 transition-colors">{item.t}</h3>
+                                <h3 className="text-2xl font-display italic mb-4 group-hover:text-blue-500 transition-colors">{item.t}</h3>
                                 <p className="text-[var(--text-muted)] leading-relaxed">{item.d}</p>
                             </div>
                         ))}
@@ -193,7 +193,7 @@ export const About = () => {
                 <div className="mb-48 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div>
                         <span className="text-blue-500 font-mono text-xs tracking-widest uppercase mb-4 block">The Right Parking App</span>
-                        <h2 className="text-4xl md:text-6xl font-serif italic mb-6">Your Spot Is Waiting</h2>
+                        <h2 className="text-4xl md:text-6xl font-display italic mb-6">Your Spot Is Waiting</h2>
                         <ul className="space-y-4 mb-8">
                             {["Pre-book parking", "Enter without stopping", "Get live slot guidance", "Pay automatically"].map((item, i) => (
                                 <li key={i} className="flex items-center gap-4 text-[var(--text-muted)]">
@@ -246,7 +246,7 @@ export const About = () => {
                                 <span className="text-blue-500">&</span> FOUNDER
                             </h2>
                             <div className="flex flex-col">
-                                <span className="text-3xl md:text-5xl font-serif italic tracking-tighter text-blue-500">RIGHT</span>
+                                <span className="text-3xl md:text-5xl font-display italic tracking-tighter text-blue-500">RIGHT</span>
                                 <span className="text-4xl md:text-7xl font-sans font-black tracking-tighter text-[var(--text-main)]">PARKING</span>
                             </div>
                         </motion.div>
@@ -273,7 +273,7 @@ export const About = () => {
 
                 {/* Legacy & Future */}
                 <div className="mb-48 border-t border-[var(--border)] pt-24 text-center">
-                    <h2 className="text-5xl md:text-8xl font-serif italic mb-8">Forward Thinking.</h2>
+                    <h2 className="text-5xl md:text-8xl font-display italic mb-8">Forward Thinking.</h2>
                     <p className="text-[var(--text-muted)] font-mono tracking-widest uppercase">Since 2024 — Building for 2050.</p>
                 </div>
             </main>

@@ -144,7 +144,7 @@ export const Car = () => {
                         <div className="text-blue-500 text-[10px] uppercase tracking-[0.2em] font-bold">Premium Match</div>
                         <div className="bg-blue-600 text-white text-[9px] px-2 py-0.5 rounded-full">ELECTRIC</div>
                     </div>
-                    <div className="text-blue-950 text-2xl font-serif italic mb-1">Mercedes-Benz S-Class</div>
+                    <div className="text-blue-950 text-2xl font-display italic mb-1">Mercedes-Benz S-Class</div>
                     <div className="text-blue-700 text-[12px] font-medium tracking-tight">BRABUS 850 Edition | EV Ready</div>
                     <div className="mt-4 pt-4 border-t border-blue-200 flex justify-between text-[10px] text-blue-400 font-mono">
                         <span>VIN: W223-B850-001</span>
