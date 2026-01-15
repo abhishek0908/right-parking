@@ -14,7 +14,7 @@ export const Header = () => {
                         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-lg md:text-xl font-display italic font-bold tracking-tighter text-[var(--text-main)] leading-none">RightParking</span>
+                        <span className="text-lg md:text-xl font-display italic font-bold tracking-tighter text-[var(--text-main)] leading-tight py-1 block">RightParking</span>
                         <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-blue-500 opacity-70">Infrastructure v2.0</span>
                     </div>
                 </Link>

@@ -18,10 +18,10 @@ export const Contact = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-8xl font-display italic tracking-tighter-premium mb-8 leading-[0.9] text-gradient"
+                        className="text-5xl md:text-8xl font-display italic tracking-tighter-premium mb-8 leading-tight text-gradient py-4"
                     >
                         Let’s Build Smarter <br />
-                        <span className="text-blue-500 font-display">Parking</span> Together.
+                        <span className="text-blue-500 font-display border-blue-500 inline-block pb-1">Parking</span> Together.
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0 }}
@@ -35,7 +35,7 @@ export const Contact = () => {
 
                 {/* 4.2 Partner With Right Parking */}
                 <section className="mb-48">
-                    <h2 className="text-3xl md:text-5xl font-display italic mb-12">Who We Partner With</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-12 leading-tight py-2">Who We Partner With</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             "Urban Local Bodies & Government",
@@ -62,7 +62,7 @@ export const Contact = () => {
                 {/* 4.3 What Happens Next */}
                 <section className="mb-48">
                     <div className="flex flex-col items-center text-center mb-16">
-                        <h2 className="text-4xl md:text-6xl font-display italic mb-4">What Happens Next</h2>
+                        <h2 className="text-4xl md:text-6xl font-display italic mb-4 leading-tight py-2">What Happens Next</h2>
                         <p className="text-[var(--text-muted)] font-mono text-sm uppercase tracking-widest">Clear Timelines. Clear Ownership.</p>
                     </div>
 
@@ -153,9 +153,9 @@ export const Contact = () => {
                 <section className="mb-48 bg-gradient-to-br from-[var(--surface)] to-[var(--bg-dark)] border border-[var(--border)] p-16 md:p-32 rounded-[4rem] text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
                     <div className="relative z-10">
-                        <h2 className="text-4xl md:text-7xl font-display italic mb-6 leading-tight text-[var(--text-main)]">
+                        <h2 className="text-4xl md:text-7xl font-display italic mb-6 leading-tight text-[var(--text-main)] py-4">
                             Parking Is Infrastructure.<br />
-                            <span className="text-blue-500">Let’s Treat It That Way.</span>
+                            <span className="text-blue-500 inline-block pb-2">Let’s Treat It That Way.</span>
                         </h2>
                         <p className="text-[var(--text-muted)] text-lg md:text-xl font-light max-w-3xl mx-auto">
                             Right Parking is building the next generation of parking systems—designed to move cities, businesses, and people forward.

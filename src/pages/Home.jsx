@@ -38,8 +38,8 @@ export const Home = () => {
                         </motion.div>
                     </div>
 
-                    <h1 className="text-6xl md:text-9xl font-display italic tracking-tighter-premium leading-none mb-8 py-4 px-2">
-                        <span className="text-gradient">Right</span> <span className="text-blue-500 font-display">Parking</span>
+                    <h1 className="text-6xl md:text-9xl font-display italic tracking-tighter-premium leading-tight mb-8 py-8 px-4">
+                        <span className="text-gradient inline-block pb-2">Right</span> <span className="text-blue-500 font-display inline-block pb-2">Parking</span>
                     </h1>
 
                     <p className="text-[var(--text-main)] text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed">

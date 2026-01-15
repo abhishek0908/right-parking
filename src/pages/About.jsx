@@ -18,10 +18,10 @@ export const About = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-8xl font-display italic tracking-tighter-premium mb-8 leading-[0.9] text-gradient"
+                        className="text-5xl md:text-8xl font-display italic tracking-tighter-premium mb-8 leading-tight text-gradient py-4"
                     >
                         Building India’s <br />
-                        Future of <span className="text-blue-500 font-display">Parking</span>
+                        Future of <span className="text-blue-500 font-display inline-block pb-2">Parking</span>
                     </motion.h1>
                     <motion.h2
                         initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ export const About = () => {
                 {/* 1.2 About Right Parking */}
                 <div className="mb-32 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
-                        <h2 className="text-4xl md:text-5xl font-display italic mb-6">Invisible Infrastructure That <span className="text-blue-500">Simply Works</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-display italic mb-6 leading-tight py-2">Invisible Infrastructure That <span className="text-blue-500 inline-block pb-1">Simply Works</span></h2>
                         <p className="text-[var(--text-muted)] leading-relaxed mb-6">
                             Right Parking replaces outdated parking systems with self-operating infrastructure.
                             Just seamless entry, guided parking, automatic billing, and real-time control.
@@ -193,7 +193,7 @@ export const About = () => {
                 <div className="mb-48 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div>
                         <span className="text-blue-500 font-mono text-xs tracking-widest uppercase mb-4 block">The Right Parking App</span>
-                        <h2 className="text-4xl md:text-6xl font-display italic mb-6">Your Spot Is Waiting</h2>
+                        <h2 className="text-4xl md:text-6xl font-display italic mb-6 leading-tight py-2">Your Spot Is Waiting</h2>
                         <ul className="space-y-4 mb-8">
                             {["Pre-book parking", "Enter without stopping", "Get live slot guidance", "Pay automatically"].map((item, i) => (
                                 <li key={i} className="flex items-center gap-4 text-[var(--text-muted)]">
@@ -246,7 +246,7 @@ export const About = () => {
                                 <span className="text-blue-500">&</span> FOUNDER
                             </h2>
                             <div className="flex flex-col">
-                                <span className="text-3xl md:text-5xl font-display italic tracking-tighter text-blue-500">RIGHT</span>
+                                <span className="text-3xl md:text-5xl font-display italic tracking-tighter text-blue-500 leading-tight py-2 inline-block">RIGHT</span>
                                 <span className="text-4xl md:text-7xl font-sans font-black tracking-tighter text-[var(--text-main)]">PARKING</span>
                             </div>
                         </motion.div>
@@ -273,7 +273,7 @@ export const About = () => {
 
                 {/* Legacy & Future */}
                 <div className="mb-48 border-t border-[var(--border)] pt-24 text-center">
-                    <h2 className="text-5xl md:text-8xl font-display italic mb-8">Forward Thinking.</h2>
+                    <h2 className="text-5xl md:text-8xl font-display italic mb-8 leading-tight py-4">Forward Thinking.</h2>
                     <p className="text-[var(--text-muted)] font-mono tracking-widest uppercase">Since 2024 — Building for 2050.</p>
                 </div>
             </main>

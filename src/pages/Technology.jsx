@@ -19,7 +19,7 @@ export const Technology = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-6xl md:text-9xl font-display italic tracking-tighter-premium mb-12 text-gradient"
+                        className="text-6xl md:text-9xl font-display italic tracking-tighter-premium mb-12 text-gradient leading-tight py-4"
                     >
                         Technology.
                     </motion.h1>
@@ -37,7 +37,7 @@ export const Technology = () => {
                 {/* 2.2 Our Technology Philosophy */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-48">
                     <div>
-                        <h2 className="text-4xl md:text-5xl font-display italic mb-6">Automation by Design, <br /><span className="text-blue-500">Not by Exception</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-display italic mb-6 leading-tight py-2">Automation by Design, <br /><span className="text-blue-500 inline-block pb-1">Not by Exception</span></h2>
                         <p className="text-[var(--text-muted)] mb-8 max-w-md leading-relaxed">
                             Every site runs on redundant automation + centralized intelligence. Our systems operate independently and scale across cities.
                         </p>
@@ -65,7 +65,7 @@ export const Technology = () => {
 
                 {/* 2.3 Entry & Exit Systems */}
                 <div className="mb-48">
-                    <h2 className="text-3xl md:text-5xl font-display italic mb-16 text-center">Three-Tier Framework for <span className="text-blue-500">Zero Downtime</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-16 text-center leading-tight py-2">Three-Tier Framework for <span className="text-blue-500 inline-block pb-1">Zero Downtime</span></h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             { name: "Tier 1: FASTag", role: "Primary Layer", desc: "Stop-free access. Real-time wallet verification. Instant session creation and closure.", color: "blue" },
@@ -85,7 +85,7 @@ export const Technology = () => {
                 {/* 2.4 Inside the ANPR Engine */}
                 <div className="mb-48 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                     <div>
-                        <h2 className="text-4xl md:text-5xl font-display italic mb-8">Inside the ANPR Engine</h2>
+                        <h2 className="text-4xl md:text-5xl font-display italic mb-8 leading-tight py-2">Inside the ANPR Engine</h2>
                         <p className="text-[var(--text-muted)] mb-12 text-lg">Cameras That Don’t Just See — They Decide.</p>
                         <div className="space-y-8 relative">
                             {/* Connector Line */}
@@ -155,7 +155,7 @@ export const Technology = () => {
                 <div className="mb-48 bg-gradient-to-br from-[var(--surface)] to-[var(--bg-dark)] p-12 md:p-24 rounded-[3rem] border border-[var(--border)] relative overflow-hidden">
                     <div className="relative z-10 text-center max-w-4xl mx-auto">
                         <span className="text-blue-500 font-mono text-xs tracking-widest uppercase mb-4 block">Total Visibility</span>
-                        <h2 className="text-4xl md:text-6xl font-display italic mb-12">Real-Time Visibility Across Every Site</h2>
+                        <h2 className="text-4xl md:text-6xl font-display italic mb-12 leading-tight py-2">Real-Time Visibility Across Every Site</h2>
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
                             {["Occupancy", "Entry Logs", "Revenue", "Health", "Violations"].map((metric, i) => (
                                 <div key={i} className="flex flex-col items-center gap-3">
@@ -169,7 +169,7 @@ export const Technology = () => {
 
                 {/* 2.8 Digital Payments */}
                 <div className="mb-48 text-center">
-                    <h2 className="text-3xl md:text-5xl font-display italic mb-12">Frictionless Finance</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-12 leading-tight py-2">Frictionless Finance</h2>
                     <div className="flex flex-wrap justify-center gap-8">
                         {["FASTag", "UPI", "Credit Cards", "Debit Cards"].map((pay, i) => (
                             <div key={i} className="bg-[var(--surface)] px-8 py-4 rounded-full border border-[var(--border)] text-[var(--text-main)] font-mono text-sm uppercase tracking-widest hover:bg-[var(--surface)]/80 hover:border-blue-500/50 transition-all">
@@ -183,7 +183,7 @@ export const Technology = () => {
                 {/* 2.9 Security */}
                 <div className="mb-48 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
-                        <h2 className="text-4xl md:text-5xl font-display italic mb-8">Parking That Prevents Incidents</h2>
+                        <h2 className="text-4xl md:text-5xl font-display italic mb-8 leading-tight py-2">Parking That Prevents Incidents</h2>
                         <p className="text-[var(--text-muted)] mb-8 max-w-md">AI analyzes live feeds, flags anomalies, and generates instant alerts.</p>
                         <ul className="space-y-4">
                             {[
@@ -220,7 +220,7 @@ export const Technology = () => {
 
                 {/* 2.10 Built for Scale */}
                 <div className="mb-24 border-t border-[var(--border)] pt-24 text-center">
-                    <h2 className="text-4xl md:text-6xl font-display italic mb-6">Built for Scale</h2>
+                    <h2 className="text-4xl md:text-6xl font-display italic mb-6 leading-tight py-2">Built for Scale</h2>
                     <p className="text-[var(--text-muted)] text-xl font-light mb-12">From a single site to city-wide deployments.</p>
                     <div className="flex justify-center gap-12 text-blue-500 font-mono text-xs uppercase tracking-widest">
                         <span>Modular</span>
