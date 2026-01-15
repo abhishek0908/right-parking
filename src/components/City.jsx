@@ -114,87 +114,158 @@ export const ChargingStation = ({ position, rotation = [0, 0, 0] }) => {
 /**
  * Simple Security Camera
  */
+
 export const SecurityCamera = ({
     position,
-    rotation = [0, 0, 0],
+    rotation = [0, 1, 0],
     scale = 1.7,
 }) => {
     return (
         <group position={position} rotation={rotation} scale={scale}>
-            {/* Wall mount base */}
-            <mesh>
-                <cylinderGeometry args={[0.08, 0.08, 0.14, 32]} />
-                <meshStandardMaterial
-                    color="#0f172a"
-                    metalness={0.7}
-                    roughness={0.3}
-                />
-            </mesh>
-
-            {/* Mount arm */}
-            <mesh position={[0, 0.1, 0]}>
-                <cylinderGeometry args={[0.035, 0.035, 0.22, 24]} />
-                <meshStandardMaterial
-                    color="#1e293b"
-                    metalness={0.6}
-                    roughness={0.4}
-                />
-            </mesh>
+            {/* Striped Vertical Support Rod */}
+            {Array.from({ length: 8 }).map((_, i) => (
+                <mesh key={i} position={[0, -(i * 1 + 0.5), 0]}>
+                    <cylinderGeometry args={[0.04, 0.04, 1, 32]} />
+                    <meshStandardMaterial
+                        color={i % 2 === 0 ? "#2563eb" : "#ffffff"}
+                        metalness={0.7}
+                        roughness={0.3}
+                    />
+                </mesh>
+            ))}
 
             {/* Camera body (bullet CCTV style) */}
-            <group position={[0, 0.22, 0.32]} rotation={[0.35, 0, 0]}>
-                {/* Main housing */}
-                <mesh>
+            <group position={[0, 0.001, 0.26]} rotation={[0.35, 0, 0]} scale={0.7}>
+                {/* Main housing - white professional camera */}
+                <mesh rotation={[Math.PI / 2, 0, 0]}>
                     <cylinderGeometry args={[0.14, 0.14, 0.36, 40]} />
                     <meshStandardMaterial
-                        color="#2563eb"   // 🔵 BLUE CAMERA BODY
-                        metalness={0.35}
-                        roughness={0.45}
+                        color="#0b098fff"
+                        metalness={0.4}
+                        roughness={0.3}
                     />
                 </mesh>
 
-                {/* Front black bezel */}
-                <mesh position={[0, 0, 0.2]}>
+                {/* Dark gray band around body */}
+                <mesh position={[0, 0, -0.05]} rotation={[Math.PI / 2, 0, 0]}>
+                    <cylinderGeometry args={[0.145, 0.145, 0.08, 40]} />
+                    <meshStandardMaterial
+                        color="#404040"
+                        metalness={0.6}
+                        roughness={0.3}
+                    />
+                </mesh>
+
+                {/* Front black lens housing */}
+                <mesh position={[0, 0, 0.2]} rotation={[Math.PI / 2, 0, 0]}>
                     <cylinderGeometry args={[0.13, 0.13, 0.04, 32]} />
                     <meshStandardMaterial
-                        color="#020617"
-                        metalness={0.8}
-                        roughness={0.2}
+                        color="#0a0a0a"
+                        metalness={0.9}
+                        roughness={0.1}
                     />
                 </mesh>
 
-                {/* Lens glass */}
-                <mesh position={[0, 0, 0.235]}>
-                    <circleGeometry args={[0.06, 32]} />
+                {/* Outer lens ring */}
+                <mesh position={[0, 0, 0.225]} rotation={[Math.PI / 2, 0, 0]}>
+                    <cylinderGeometry args={[0.09, 0.09, 0.02, 32]} />
                     <meshStandardMaterial
-                        color="#020617"
-                        metalness={1}
+                        color="#1a1a1a"
+                        metalness={0.95}
                         roughness={0.05}
-                        emissive="#1d4ed8"
-                        emissiveIntensity={0.5}
                     />
                 </mesh>
 
-                {/* Inner blue lens */}
+                {/* Lens glass with reflection */}
                 <mesh position={[0, 0, 0.24]}>
-                    <circleGeometry args={[0.03, 32]} />
-                    <meshBasicMaterial color="#60a5fa" />
+                    <circleGeometry args={[0.075, 32]} />
+                    <meshStandardMaterial
+                        color="#050505"
+                        metalness={1}
+                        roughness={0.02}
+                        emissive="#0d47a1"
+                        emissiveIntensity={0.3}
+                    />
                 </mesh>
 
-                {/* Blue status LED */}
-                <mesh position={[0.08, 0.08, 0.18]}>
-                    <sphereGeometry args={[0.014, 16, 16]} />
+                {/* Inner lens element */}
+                <mesh position={[0, 0, 0.245]}>
+                    <circleGeometry args={[0.045, 32]} />
                     <meshStandardMaterial
-                        color="#38bdf8"
-                        emissive="#38bdf8"
-                        emissiveIntensity={3}
+                        color="#1e3a8a"
+                        metalness={0.9}
+                        roughness={0.1}
+                        emissive="#1e40af"
+                        emissiveIntensity={0.4}
+                    />
+                </mesh>
+
+                {/* Center lens reflection */}
+                <mesh position={[0, 0, 0.25]}>
+                    <circleGeometry args={[0.018, 32]} />
+                    <meshBasicMaterial color="#3b82f6" opacity={0.8} transparent />
+                </mesh>
+
+                {/* Infrared LEDs ring */}
+                {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+                    const rad = (angle * Math.PI) / 180;
+                    const x = Math.cos(rad) * 0.095;
+                    const y = Math.sin(rad) * 0.095;
+                    return (
+                        <mesh key={i} position={[x, y, 0.22]}>
+                            <circleGeometry args={[0.012, 16]} />
+                            <meshStandardMaterial
+                                color="#2d1f1f"
+                                emissive="#5c0f0f"
+                                emissiveIntensity={0.6}
+                            />
+                        </mesh>
+                    );
+                })}
+
+                {/* Status LED - small and realistic */}
+                <mesh position={[0.105, 0.02, 0.16]}>
+                    <sphereGeometry args={[0.008, 16, 16]} />
+                    <meshStandardMaterial
+                        color="#10b981"
+                        emissive="#10b981"
+                        emissiveIntensity={4}
+                    />
+                </mesh>
+
+                {/* Brand logo area (subtle embossed rectangle) */}
+                <mesh position={[0, -0.09, 0.15]}>
+                    <boxGeometry args={[0.08, 0.02, 0.001]} />
+                    <meshStandardMaterial
+                        color="#e5e7eb"
+                        metalness={0.3}
+                        roughness={0.4}
+                    />
+                </mesh>
+
+                {/* Cable/wire connector at back */}
+                {/* <mesh position={[0, 0, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
+                    <cylinderGeometry args={[0.025, 0.025, 0.04, 16]} />
+                    <meshStandardMaterial
+                        color="#1a1a1a"
+                        metalness={0.8}
+                        roughness={0.3}
+                    />
+                </mesh> */}
+
+                {/* Cable running down */}
+                <mesh position={[0.08, 0, -0.25]} rotation={[0, 0, 0]}>
+                    <cylinderGeometry args={[0.008, 0.008, 0.15, 40]} />
+                    <meshStandardMaterial
+                        color="#0a0a0a"
+                        metalness={0.3}
+                        roughness={0.7}
                     />
                 </mesh>
             </group>
         </group>
-    )
-}
-
+    );
+};
 
 /**
  * Floor Space Info Board - Real Parking Display Style
@@ -215,18 +286,21 @@ export const FloorSpaceBoard = ({ position, rotation = [0, 0, 0] }) => {
                 <meshStandardMaterial color="#16a34a" metalness={0.3} roughness={0.6} />
             </mesh>
 
-
-
+            {/* Main Black Board Mesh Background */}
+            <mesh position={[0.1, 0, 10]} rotation={[0, Math.PI / 2, 0]}>
+                <boxGeometry args={[5, 3.8, 0.2]} />
+                <meshStandardMaterial color="#18181b" metalness={0.8} roughness={0.2} />
+            </mesh>
 
             <Html
-                position={[0.2, 0, 10]}
+                position={[0.21, 0, 10]}
                 center
                 transform
                 distanceFactor={6}
                 rotation={[0, Math.PI / 2, 0]}
                 portal={{ current: document.body }}
             >
-                <div className="bg-zinc-900 p-6 w-[380px] border-2 border-zinc-700 shadow-2xl" style={{ fontFamily: 'monospace' }}>
+                <div className="p-6 w-[380px]" style={{ fontFamily: 'monospace' }}>
 
 
                     {/* Title */}
@@ -491,11 +565,11 @@ export const City = () => {
             <ParkingGate position={[9.5, 0, 110]} />
 
             {/* Security Cameras */}
-            <SecurityCamera position={[9, 4, 112]} rotation={[0.2, -Math.PI / 4, 0]} />
+            <SecurityCamera position={[9, 5, 112]} rotation={[0.2, -Math.PI / 4, 0]} />
             {/* <SecurityCamera position={[-2.5, 4, 112]} rotation={[0.2, Math.PI / 4, 0]} />
             <SecurityCamera position={[3.5, 8, -15]} rotation={[0.5, Math.PI, 1]} /> */}
 
-            {/* Floor Space Info Board - Relocated to the RIGHT side near the gate, pushed slightly backward */}
+            {/* Floor Space Info Board - Relocated to the LEFT side near the gate, pushed slightly backward */}
             <FloorSpaceBoard
                 position={[30, 2, 50]}
                 rotation={[0, Math.PI + Math.PI / 2, 0]}
