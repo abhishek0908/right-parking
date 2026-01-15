@@ -79,14 +79,8 @@ export const Car = () => {
         const yBase = 1 // Increased space from flat area (ground)
         const smoothstep = (t) => t * t * (3 - 2 * t)
 
-        if (offset < 0.1) {
-            // Hero Phase: Brief static start
-            z = 150
-            x = isMobile ? 2.5 : 3.5
-            rotY = Math.PI
-            if (showTag) setShowTag(false)
-        } else if (offset < 0.6) {
-            const t = (offset - 0.1) / 0.5
+        if (offset < 0.6) {
+            const t = offset / 0.6
             const ease = smoothstep(t)
             z = 150 - ease * 140
             x = isMobile ? 2.5 : 3.5
@@ -105,7 +99,7 @@ export const Car = () => {
         } else {
             x = isMobile ? -5 : -7
             z = 0
-            rotY = 1.5 * Math.PI // Stay facing -X (left)
+            rotY = 1.5 * Math.PI
             if (!showTag) setShowTag(true)
         }
 

@@ -364,33 +364,49 @@ const PillarInternal = ({ position, isMobile }) => (
     </group>
 )
 
-const ParkingSpace = ({ position }) => {
+const ParkingSpace = ({ position, active = false }) => {
+    const color = active ? "#10b981" : "#60a5fa"
+    const emissiveIntensity = active ? 2 : 0.2
+
     return (
         <group position={position}>
-            {/* Horizontal Side Lines (Blue Glow) */}
+            {/* Horizontal Side Lines */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -2.5]}>
                 <planeGeometry args={[10, 0.08]} />
-                <meshStandardMaterial color="#60a5fa" opacity={0.6} transparent emissive="#60a5fa" emissiveIntensity={0.2} />
+                <meshStandardMaterial color={color} opacity={0.6} transparent emissive={color} emissiveIntensity={emissiveIntensity} />
             </mesh>
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 2.5]}>
                 <planeGeometry args={[10, 0.08]} />
-                <meshStandardMaterial color="#60a5fa" opacity={0.6} transparent emissive="#60a5fa" emissiveIntensity={0.2} />
+                <meshStandardMaterial color={color} opacity={0.6} transparent emissive={color} emissiveIntensity={emissiveIntensity} />
             </mesh>
-            {/* Back Line (Cyan limit) */}
+            {/* Back Line */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-5, 0, 0]}>
                 <planeGeometry args={[0.08, 5.08]} />
-                <meshStandardMaterial color="#22d3ee" emissive="#22d3ee" emissiveIntensity={0.5} />
+                <meshStandardMaterial color={active ? "#34d399" : "#22d3ee"} emissive={active ? "#34d399" : "#22d3ee"} emissiveIntensity={active ? 2 : 0.5} />
             </mesh>
-            {/* Ground Decal - Blue tinted */}
+            {/* Ground Decal */}
             <mesh position={[-4, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[0.8, 1.2]} />
-                <meshStandardMaterial color="#1e3a8a" roughness={0.1} metalness={0.5} />
+                <meshStandardMaterial color={active ? "#065f46" : "#1e3a8a"} roughness={0.1} metalness={0.5} emissive={active ? "#10b981" : "#000"} emissiveIntensity={active ? 0.5 : 0} />
             </mesh>
+            {active && (
+                <spotLight
+                    position={[0, 10, 0]}
+                    angle={0.4}
+                    penumbra={1}
+                    intensity={20}
+                    color="#10b981"
+                    castShadow
+                />
+            )}
         </group>
     )
 }
 
 const ParkingRows = ({ type }) => {
+    const scroll = useScroll()
+    // Trigger green light only when the car is actively within the parked sequence
+    const isParked = scroll.offset > 0.78 && scroll.offset < 0.92
     const config = {
         L: { pos: [-7, 0.02, -60], count: 6, gap: 20 },
         R: { pos: [14, 0.02, -60], count: 6, gap: 20 },
@@ -402,10 +418,15 @@ const ParkingRows = ({ type }) => {
         const z = config.pos[2] + i * config.gap
         // Only render spots that are BEHIND the gate (gate is at z=110)
         if (z > 105) return null
+
+        // Spot at z=0 in row L is the parking spot
+        const isActive = isParked && type === 'L' && z === 0
+
         return (
             <ParkingSpace
                 key={`${type}${i}`}
                 position={[config.pos[0], config.pos[1], z]}
+                active={isActive}
             />
         )
     })

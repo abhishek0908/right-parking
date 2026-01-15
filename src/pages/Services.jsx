@@ -25,7 +25,7 @@ export const Services = () => {
             >
                 <color attach="background" args={['#09090b']} />
                 <Suspense fallback={null}>
-                    <ScrollControls pages={20} damping={0.1}>
+                    <ScrollControls pages={20} damping={0.2}>
                         {/* The 3D World */}
                         <Experience />
 

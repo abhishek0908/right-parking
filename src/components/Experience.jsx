@@ -40,19 +40,19 @@ export const Experience = () => {
 
         let targetPos, targetLookAt
 
-        if (offset < 0.1) {
+        if (offset < 0.15) {
             targetPos = startPos
             targetLookAt = startLookAt
-        } else if (offset < 0.6) {
-            const t = smoothstep((offset - 0.1) / 0.5)
+        } else if (offset < 0.55) {
+            const t = smoothstep((offset - 0.15) / 0.4)
             targetPos = new THREE.Vector3().lerpVectors(startPos, followPos, t)
             targetLookAt = new THREE.Vector3().lerpVectors(startLookAt, followLookAt, t)
-        } else if (offset < 0.8) {
-            const t = smoothstep((offset - 0.4) / 0.4)
+        } else if (offset < 0.75) {
+            const t = smoothstep((offset - 0.55) / 0.2)
             targetPos = new THREE.Vector3().lerpVectors(followPos, parkingPos, t)
             targetLookAt = new THREE.Vector3().lerpVectors(followLookAt, parkingLookAt, t)
         } else if (offset < 0.9) {
-            const t = smoothstep((offset - 0.8) / 0.1)
+            const t = smoothstep((offset - 0.75) / 0.15)
             targetPos = new THREE.Vector3().lerpVectors(parkingPos, parkedPos, t)
             targetLookAt = new THREE.Vector3().lerpVectors(parkingLookAt, parkedLookAt, t)
         } else {
