@@ -117,25 +117,69 @@ export const ChargingStation = ({ position, rotation = [0, 0, 0] }) => {
 export const SecurityCamera = ({ position, rotation = [0, 0, 0] }) => {
     return (
         <group position={position} rotation={rotation}>
+            {/* Wall mount */}
             <mesh>
-                <boxGeometry args={[0.1, 0.4, 0.1]} />
-                <meshStandardMaterial color="#27272a" />
+                <cylinderGeometry args={[0.05, 0.05, 0.12, 32]} />
+                <meshStandardMaterial
+                    color="#18181b"
+                    metalness={0.6}
+                    roughness={0.4}
+                />
             </mesh>
-            <mesh position={[0, 0.2, 0.2]} rotation={[0.3, 0, 0]}>
-                <boxGeometry args={[0.2, 0.2, 0.5]} />
-                <meshStandardMaterial color="#3f3f46" />
-                <mesh position={[0, 0, 0.26]}>
-                    <planeGeometry args={[0.18, 0.18]} />
-                    <meshBasicMaterial color="#000" />
-                </mesh>
-                <mesh position={[0.06, 0.06, 0.26]}>
-                    <sphereGeometry args={[0.02]} />
-                    <meshBasicMaterial color="#ef4444" />
-                </mesh>
+
+            {/* Arm */}
+            <mesh position={[0, 0.08, 0]}>
+                <cylinderGeometry args={[0.025, 0.025, 0.15, 24]} />
+                <meshStandardMaterial
+                    color="#27272a"
+                    metalness={0.5}
+                    roughness={0.5}
+                />
             </mesh>
+
+            {/* Camera body */}
+            <group position={[0, 0.15, 0.18]} rotation={[0.25, 0, 0]}>
+                <mesh>
+                    <cylinderGeometry args={[0.09, 0.09, 0.22, 32]} />
+                    <meshStandardMaterial
+                        color="#3f3f46"
+                        metalness={0.3}
+                        roughness={0.6}
+                    />
+                </mesh>
+
+                {/* Front ring */}
+                <mesh position={[0, 0, 0.12]}>
+                    <cylinderGeometry args={[0.085, 0.085, 0.02, 32]} />
+                    <meshStandardMaterial color="#52525b" />
+                </mesh>
+
+                {/* Lens glass */}
+                <mesh position={[0, 0, 0.14]}>
+                    <circleGeometry args={[0.04, 32]} />
+                    <meshStandardMaterial
+                        color="#000"
+                        metalness={0.9}
+                        roughness={0.1}
+                    />
+                </mesh>
+
+                {/* Inner lens */}
+                <mesh position={[0, 0, 0.145]}>
+                    <circleGeometry args={[0.018, 32]} />
+                    <meshBasicMaterial color="#4f46e5" />
+                </mesh>
+
+                {/* Status LED */}
+                <mesh position={[0.05, 0.05, 0.11]}>
+                    <sphereGeometry args={[0.008, 16, 16]} />
+                    <meshBasicMaterial color="#22c55e" />
+                </mesh>
+            </group>
         </group>
     )
 }
+
 /**
  * Floor Space Info Board (Premium glassmorphic UI)
  */
@@ -350,10 +394,10 @@ const ParkingSpace = ({ position }) => {
 
 const ParkingRows = ({ type }) => {
     const config = {
-        L: { pos: [-7, 0.02, -60], count: 20, gap: 11 },
-        R: { pos: [14, 0.02, -60], count: 20, gap: 11 },
-        LL: { pos: [-22, 0.02, -40], count: 15, gap: 11 },
-        RR: { pos: [29, 0.02, -40], count: 15, gap: 11 },
+        L: { pos: [-7, 0.02, -60], count: 6, gap: 20 },
+        R: { pos: [14, 0.02, -60], count: 6, gap: 20 },
+        LL: { pos: [-22, 0.02, -40], count: 0, gap: 20 },
+        RR: { pos: [29, 0.02, -40], count: 0, gap: 20 },
     }[type]
 
     return Array.from({ length: config.count }).map((_, i) => {
@@ -441,8 +485,8 @@ export const City = () => {
 
             {/* Security Cameras */}
             <SecurityCamera position={[9, 4, 112]} rotation={[0.2, -Math.PI / 4, 0]} />
-            <SecurityCamera position={[-2.5, 4, 112]} rotation={[0.2, Math.PI / 4, 0]} />
-            <SecurityCamera position={[3.5, 8, -15]} rotation={[0.5, Math.PI, 1]} />
+            {/* <SecurityCamera position={[-2.5, 4, 112]} rotation={[0.2, Math.PI / 4, 0]} />
+            <SecurityCamera position={[3.5, 8, -15]} rotation={[0.5, Math.PI, 1]} /> */}
 
             {/* Floor Space Info Board - Relocated to the RIGHT side near the gate, pushed slightly backward */}
             <FloorSpaceBoard

@@ -76,7 +76,7 @@ export const Car = () => {
         const offset = scroll.offset
 
         let x = 3, z = 35, rotY = Math.PI, tilt = 0
-        const yBase = 0.05 // Adjusted for better road contact
+        const yBase = 1 // Increased space from flat area (ground)
         const smoothstep = (t) => t * t * (3 - 2 * t)
 
         if (offset < 0.1) {
@@ -104,7 +104,7 @@ export const Car = () => {
             if (showTag) setShowTag(false)
         } else {
             x = isMobile ? -5 : -7
-            z = -5
+            z = 0
             rotY = 1.5 * Math.PI // Stay facing -X (left)
             if (!showTag) setShowTag(true)
         }
@@ -125,7 +125,7 @@ export const Car = () => {
 
     return (
         <group ref={group} position={[3.5, 0.05, 150]} rotation={[0, Math.PI, 0]}>
-            <CarModel color="#1e40af" scale={[3.2, 3.2, 3.2]} isMainCar />
+            <CarModel color="#1e40af" scale={[5.2, 5.2, 5.2]} rotation={[0, -Math.PI / 2, 0]} isMainCar />
 
             <spotLight
                 position={[1.2, 0.8, 2.5]}
