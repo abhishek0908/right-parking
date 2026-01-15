@@ -23,21 +23,13 @@ export const Loader = () => {
                 }`}
         >
             <div className="relative flex flex-col items-center overflow-hidden">
-                {/* Animated Accent Line */}
-                <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: "240px" }}
-                    transition={{ duration: 1.5, ease: "circOut" }}
-                    className="h-[1px] bg-gradient-to-r from-transparent via-blue-600 to-transparent mb-8"
-                />
-
                 {/* Brand Header */}
                 <div className="flex flex-col items-center mb-12">
                     <motion.h1
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-white text-4xl md:text-6xl font-display italic tracking-tighter mb-2"
+                        className="text-white text-4xl md:text-6xl font-display italic tracking-tighter mb-2 leading-tight py-4"
                     >
                         RightParking
                     </motion.h1>
@@ -47,7 +39,7 @@ export const Loader = () => {
                         transition={{ duration: 1, delay: 0.5 }}
                         className="text-white text-[10px] uppercase tracking-[0.4em] font-mono"
                     >
-                        Precision Loading
+                        Futuristic Parking
                     </motion.p>
                 </div>
 
@@ -66,21 +58,6 @@ export const Loader = () => {
                     <span className="text-white font-mono text-[10px] tracking-widest uppercase">
                         {Math.round(progress)}%
                     </span>
-                    <span className="text-zinc-600 font-mono text-[8px] tracking-[0.2em] uppercase">
-                        Initialized: {loaded} / {total} Assets
-                    </span>
-                </div>
-
-                {/* Technical Detail */}
-                <div className="mt-8 h-4 overflow-hidden">
-                    <motion.p
-                        key={item}
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="text-zinc-700 font-mono text-[7px] uppercase tracking-tighter text-center max-w-[200px] truncate"
-                    >
-                        {item}
-                    </motion.p>
                 </div>
             </div>
 
