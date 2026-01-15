@@ -13,7 +13,7 @@ const Section = (props) => {
 export const Interface = () => {
     return (
         <div className="relative flex flex-col w-full text-white z-[999999] overflow-x-hidden">
-            {/* 0% - 15%: Hero */}
+            {/* Section 1: Hero */}
             <Section align="left">
                 <div className="overflow-hidden">
                     <motion.h1
@@ -38,10 +38,9 @@ export const Interface = () => {
                 </div>
             </Section>
 
-            {/* SPACER to next 15-20% block */}
-            <div className="h-[50vh]" />
+            <div className="h-[80vh]" />
 
-            {/* 15% - 35%: Philosophy */}
+            {/* Section 2: The Vision */}
             <Section align="right">
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
@@ -49,8 +48,8 @@ export const Interface = () => {
                     transition={{ duration: 0.8 }}
                     className="text-right"
                 >
-                    <p className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">The Philosophy</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-12 text-white leading-tight">
+                    <p className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">The Vision</p>
+                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
                         Invisible <br />
                         <span className="text-blue-500">Infrastructure</span>
                     </h2>
@@ -60,9 +59,9 @@ export const Interface = () => {
                 </motion.div>
             </Section>
 
-            <div className="h-[50vh]" />
+            <div className="h-[80vh]" />
 
-            {/* 35% - 55%: Smart Admission */}
+            {/* Section 3: Smart Entry */}
             <Section align="left">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
@@ -70,66 +69,181 @@ export const Interface = () => {
                     transition={{ duration: 0.8 }}
                     className="text-left"
                 >
-                    <p className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 01: Admission</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-12 text-white leading-tight">
+                    <p className="text-emerald-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 01</p>
+                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
                         ANPR & <br />
-                        <span className="text-blue-500">FASTag Entry</span>
+                        <span className="text-emerald-500">FASTag Entry</span>
                     </h2>
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                         <div className="flex items-center gap-4 text-zinc-400 font-mono text-xs uppercase tracking-widest">
-                            <span className="w-12 h-[1px] bg-blue-600" />
-                            99.9% Recognition accuracy
+                            <span className="w-10 h-[1px] bg-emerald-600" />
+                            99.9% Recognition Accuracy
                         </div>
                         <div className="flex items-center gap-4 text-zinc-400 font-mono text-xs uppercase tracking-widest">
-                            <span className="w-12 h-[1px] bg-blue-600" />
-                            Under 2 Sec gate cycle
+                            <span className="w-10 h-[1px] bg-emerald-600" />
+                            Under 2 Second Gate Cycle
                         </div>
                     </div>
                 </motion.div>
             </Section>
 
-            <div className="h-[50vh]" />
+            <div className="h-[80vh]" />
 
-            {/* 55% - 75%: Real-time Guidance */}
+            {/* Section 4: Real-time Stats */}
             <Section align="right">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-right"
+                >
+                    <p className="text-orange-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Live Data</p>
+                    <h2 className="text-4xl md:text-6xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                        Real-Time <br />
+                        <span className="text-orange-500">Analytics</span>
+                    </h2>
+                    <div className="flex gap-8 justify-end">
+                        <div className="text-center">
+                            <div className="text-4xl md:text-5xl font-black text-white">24/7</div>
+                            <div className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Monitoring</div>
+                        </div>
+                        <div className="text-center">
+                            <div className="text-4xl md:text-5xl font-black text-orange-500">98%</div>
+                            <div className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Uptime</div>
+                        </div>
+                    </div>
+                </motion.div>
+            </Section>
+
+            <div className="h-[80vh]" />
+
+            {/* Section 5: AI Guidance */}
+            <Section align="left">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="text-right"
+                    className="text-left"
                 >
-                    <p className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 02: Guidance</p>
-                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-12 text-white leading-tight">
+                    <p className="text-cyan-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 02</p>
+                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
                         AI Managed <br />
-                        <span className="text-blue-500">Slot Routing</span>
+                        <span className="text-cyan-500">Slot Routing</span>
                     </h2>
-                    <p className="text-zinc-500 text-sm md:text-base font-mono uppercase tracking-[0.2em] max-w-sm ml-auto">
-                        Real-time ultrasonic sensors guide you to the nearest available premium spot.
+                    <p className="text-zinc-500 text-sm md:text-base font-mono uppercase tracking-[0.2em] max-w-md">
+                        Ultrasonic sensors guide you to the nearest available premium spot in real-time.
                     </p>
                 </motion.div>
             </Section>
 
-            <div className="h-[50vh]" />
+            <div className="h-[80vh]" />
 
-            {/* 75% - 90%: Parked & EV */}
-            <Section align="left">
-                <div className="backdrop-blur-xl bg-blue-950/20 p-8 md:p-12 border border-blue-500/10 shadow-3xl rounded-[2rem] max-w-xl">
-                    <p className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-6">Phase 03: The Spot</p>
+            {/* Section 6: Floor Info */}
+            <Section align="right">
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-right"
+                >
+                    <p className="text-purple-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Smart Display</p>
                     <h2 className="text-4xl md:text-6xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
-                        Secured & <br />
-                        <span className="text-blue-500">EV Powered</span>
+                        Floor-wise <br />
+                        <span className="text-purple-500">Availability</span>
                     </h2>
-                    <ul className="space-y-3 font-mono text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest">
-                        <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-blue-500 rounded-full" /> 24/7 AI Video Analytics</li>
-                        <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-blue-500 rounded-full" /> Integrated EV Charging</li>
-                        <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-blue-500 rounded-full" /> Digital Valet Retrieval</li>
-                    </ul>
-                </div>
+                    <div className="space-y-2 text-left ml-auto max-w-xs">
+                        <div className="flex justify-between items-center bg-white/5 px-4 py-2 rounded-lg">
+                            <span className="text-white font-mono text-sm">Floor 01</span>
+                            <span className="text-emerald-400 font-mono text-sm font-bold">45 FREE</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-white/5 px-4 py-2 rounded-lg">
+                            <span className="text-white font-mono text-sm">Floor 02</span>
+                            <span className="text-orange-400 font-mono text-sm font-bold">11 FREE</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-white/5 px-4 py-2 rounded-lg">
+                            <span className="text-white font-mono text-sm">Floor 03</span>
+                            <span className="text-red-400 font-mono text-sm font-bold">FULL</span>
+                        </div>
+                    </div>
+                </motion.div>
             </Section>
 
-            <div className="h-[70vh]" />
+            <div className="h-[80vh]" />
 
-            {/* 90% - 100%: Grande Finale */}
+            {/* Section 7: EV Charging */}
+            <Section align="left">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <p className="text-green-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">EV Ready</p>
+                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                        Integrated <br />
+                        <span className="text-green-500">EV Charging</span>
+                    </h2>
+                    <div className="flex gap-6">
+                        <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
+                            <div className="text-2xl font-black text-green-500">22kW</div>
+                            <div className="text-[10px] text-zinc-500 uppercase">AC Charger</div>
+                        </div>
+                        <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
+                            <div className="text-2xl font-black text-green-500">150kW</div>
+                            <div className="text-[10px] text-zinc-500 uppercase">DC Fast</div>
+                        </div>
+                    </div>
+                </motion.div>
+            </Section>
+
+            <div className="h-[80vh]" />
+
+            {/* Section 8: Security */}
+            <Section align="right">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-right"
+                >
+                    <p className="text-red-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 03</p>
+                    <h2 className="text-4xl md:text-7xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                        Secured & <br />
+                        <span className="text-red-500">Monitored</span>
+                    </h2>
+                    <ul className="space-y-2 font-mono text-xs text-zinc-400 uppercase tracking-widest text-right">
+                        <li className="flex items-center justify-end gap-3">24/7 AI Video Analytics <span className="w-1.5 h-1.5 bg-red-500 rounded-full" /></li>
+                        <li className="flex items-center justify-end gap-3">Intrusion Detection <span className="w-1.5 h-1.5 bg-red-500 rounded-full" /></li>
+                        <li className="flex items-center justify-end gap-3">Digital Valet Retrieval <span className="w-1.5 h-1.5 bg-red-500 rounded-full" /></li>
+                    </ul>
+                </motion.div>
+            </Section>
+
+            <div className="h-[80vh]" />
+
+            {/* Section 9: Payment */}
+            <Section align="left">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <p className="text-yellow-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Checkout</p>
+                    <h2 className="text-4xl md:text-6xl font-serif italic tracking-tighter mb-8 text-white leading-tight">
+                        Cashless <br />
+                        <span className="text-yellow-500">Exit</span>
+                    </h2>
+                    <div className="flex flex-wrap gap-3">
+                        <span className="bg-white/10 px-3 py-1 rounded-full text-xs font-mono text-zinc-300">UPI</span>
+                        <span className="bg-white/10 px-3 py-1 rounded-full text-xs font-mono text-zinc-300">FASTag</span>
+                        <span className="bg-white/10 px-3 py-1 rounded-full text-xs font-mono text-zinc-300">Card</span>
+                        <span className="bg-white/10 px-3 py-1 rounded-full text-xs font-mono text-zinc-300">Wallet</span>
+                    </div>
+                </motion.div>
+            </Section>
+
+            <div className="h-[100vh]" />
+
+            {/* Section 10: Grande Finale */}
             <div className="h-screen w-screen flex flex-col items-center justify-center pointer-events-none sticky top-0 overflow-hidden px-6">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9, y: 50 }}
