@@ -350,19 +350,17 @@ export const CentralAisleSign = ({ position, spacesL = 5, spacesR = 5 }) => {
 const PillarInternal = ({ position, isMobile }) => (
     <group position={position}>
         <Instance />
-        {!isMobile && (
-            <group position={[0, -2, 0]}>
-                <mesh position={[0, 0, 0.76]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
-                <mesh position={[0, 0, -0.76]} rotation={[0, Math.PI, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
-                <mesh position={[0.76, 0, 0]} rotation={[0, Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
-                <mesh position={[-0.76, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
-            </group>
-        )}
+        <group position={[0, -2, 0]}>
+            <mesh position={[0, 0, 0.76]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
+            <mesh position={[0, 0, -0.76]} rotation={[0, Math.PI, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
+            <mesh position={[0.76, 0, 0]} rotation={[0, Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
+            <mesh position={[-0.76, 0, 0]} rotation={[0, -Math.PI / 2, 0]}><planeGeometry args={[1.5, 2]} /><meshStandardMaterial color="#3b82f6" /></mesh>
+        </group>
         <mesh position={[0, 5.8, 0]}>
             <boxGeometry args={[3, 0.1, 0.8]} />
-            <meshStandardMaterial color="#ffffff" emissive="#60a5fa" emissiveIntensity={isMobile ? 1 : 5} />
+            <meshStandardMaterial color="#ffffff" emissive="#60a5fa" emissiveIntensity={5} />
         </mesh>
-        <pointLight position={[0, 5.5, 0]} intensity={isMobile ? 8 : 15} distance={isMobile ? 15 : 20} color="#60a5fa" castShadow={false} />
+        <pointLight position={[0, 5.5, 0]} intensity={15} distance={20} color="#60a5fa" castShadow={false} />
     </group>
 )
 
@@ -416,7 +414,7 @@ const ParkingRows = ({ type }) => {
 export const City = () => {
     const { size } = useThree()
     const isMobile = size.width < 768
-    const pillarCount = isMobile ? 1 : 3
+    const pillarCount = 3
     const scroll = useScroll()
 
     // Load the logo texture
@@ -499,7 +497,7 @@ export const City = () => {
                 <boxGeometry args={[2, 12, 2]} />
                 <meshStandardMaterial color="#27272a" roughness={0.4} metalness={0.2} />
                 {Array.from({ length: pillarCount }).map((_, i) => {
-                    const zPos = -40 + i * (isMobile ? 40 : 20)
+                    const zPos = -40 + i * 20
                     return (
                         <group key={i}>
                             <PillarInternal position={[-15, 6, zPos]} isMobile={isMobile} />
@@ -522,12 +520,8 @@ export const City = () => {
 
             <ParkingRows type="L" />
             <ParkingRows type="R" />
-            {!isMobile && (
-                <>
-                    <ParkingRows type="LL" />
-                    <ParkingRows type="RR" />
-                </>
-            )}
+            <ParkingRows type="LL" />
+            <ParkingRows type="RR" />
         </group>
     )
 }

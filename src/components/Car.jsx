@@ -93,13 +93,13 @@ export const Car = () => {
             rotY = Math.PI
             if (showTag) setShowTag(false)
         } else if (offset < 0.8) {
-            const t = (offset - 0.4) / 0.4
+            const t = (offset - 0.6) / 0.2
             const ease = smoothstep(t)
             const targetX = isMobile ? -5 : -7
             x = THREE.MathUtils.lerp(isMobile ? 2.5 : 3.5, targetX, ease)
-            z = THREE.MathUtils.lerp(10, -5, ease)
+            z = THREE.MathUtils.lerp(10, 0, ease)
             const steer = Math.sin(t * Math.PI) * 0.6
-            rotY = Math.PI + ease * (Math.PI / 2)
+            rotY = THREE.MathUtils.lerp(Math.PI, 1.5 * Math.PI, ease)
             tilt = -steer * 0.1
             if (showTag) setShowTag(false)
         } else {

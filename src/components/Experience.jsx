@@ -86,20 +86,20 @@ export const Experience = () => {
             </gridHelper>
 
             {/* -- LIGHTING -- */}
-            <ambientLight intensity={isMobile ? 0.8 : 0.6} color="#bfdbfe" />
+            <ambientLight intensity={0.6} color="#bfdbfe" />
 
             {/* Sharp entry rim light - Cyan/Blue Tint */}
             <directionalLight
                 position={[50, 40, 100]}
-                intensity={isMobile ? 3.0 : 5.0}
+                intensity={5.0}
                 color="#60a5fa"
-                castShadow={!isMobile}
+                castShadow
                 shadow-bias={-0.0005}
-                shadow-mapSize={isMobile ? [512, 512] : [2048, 2048]}
+                shadow-mapSize={[2048, 2048]}
             />
 
             {/* Environment Reflections */}
-            <Environment preset="city" environmentIntensity={isMobile ? 0.8 : 1.5} />
+            <Environment preset="city" environmentIntensity={1.5} />
 
             {/* -- FOG (Blue) -- */}
             <fog attach="fog" args={['#020617', 20, 200]} />
@@ -107,25 +107,21 @@ export const Experience = () => {
             <group position={[0, 0, 0]}>
                 <Car />
                 <City />
-                {!isMobile && (
-                    <ContactShadows
-                        resolution={512}
-                        scale={50}
-                        blur={2}
-                        opacity={0.6}
-                        far={4}
-                        color="#000000"
-                    />
-                )}
+                <ContactShadows
+                    resolution={512}
+                    scale={50}
+                    blur={2}
+                    opacity={0.6}
+                    far={4}
+                    color="#000000"
+                />
             </group>
 
-            {/* -- POST PROCESSING - DISABLED ON MOBILE -- */}
-            {!isMobile && (
-                <EffectComposer disableNormalPass>
-                    <Bloom luminanceThreshold={1.2} intensity={0.3} radius={0.4} mipmapBlur />
-                    <Vignette eskil={false} offset={0.2} darkness={0.7} />
-                </EffectComposer>
-            )}
+            {/* -- POST PROCESSING -- */}
+            <EffectComposer disableNormalPass>
+                <Bloom luminanceThreshold={1.2} intensity={0.3} radius={0.4} mipmapBlur />
+                <Vignette eskil={false} offset={0.2} darkness={0.7} />
+            </EffectComposer>
         </>
     )
 }
