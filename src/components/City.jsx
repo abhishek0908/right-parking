@@ -522,11 +522,11 @@ export const City = () => {
             </mesh>
 
             {/* Walls - Blue tinted obsidian */}
-            <mesh position={[-35, 6, 0]} rotation={[0, Math.PI / 2, 0]}>
+            <mesh position={[-18, 6, 0]} rotation={[0, Math.PI / 2, 0]}>
                 <planeGeometry args={[400, 12]} />
                 <meshStandardMaterial color="#020617" />
             </mesh>
-            <mesh position={[45, 6, 0]} rotation={[0, -Math.PI / 2, 0]}>
+            <mesh position={[25, 6, 0]} rotation={[0, -Math.PI / 2, 0]}>
                 <planeGeometry args={[400, 12]} />
                 <meshStandardMaterial color="#020617" />
             </mesh>
@@ -571,7 +571,7 @@ export const City = () => {
 
             {/* Floor Space Info Board - Relocated to the LEFT side near the gate, pushed slightly backward */}
             <FloorSpaceBoard
-                position={[30, 2, 50]}
+                position={[24, 2, 50]}
                 rotation={[0, Math.PI + Math.PI / 2, 0]}
             />
 

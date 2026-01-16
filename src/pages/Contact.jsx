@@ -35,7 +35,12 @@ export const Contact = () => {
 
                 {/* 4.2 Partner With Right Parking */}
                 <section className="mb-48">
-                    <h2 className="text-3xl md:text-5xl font-display italic mb-12 leading-tight py-2">Who We Partner With</h2>
+                    <motion.h2
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="text-3xl md:text-5xl font-display italic mb-12 leading-tight py-2"
+                    >Who We Partner With</motion.h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             "Urban Local Bodies & Government",
@@ -62,8 +67,18 @@ export const Contact = () => {
                 {/* 4.3 What Happens Next */}
                 <section className="mb-48">
                     <div className="flex flex-col items-center text-center mb-16">
-                        <h2 className="text-4xl md:text-6xl font-display italic mb-4 leading-tight py-2">What Happens Next</h2>
-                        <p className="text-[var(--text-muted)] font-mono text-sm uppercase tracking-widest">Clear Timelines. Clear Ownership.</p>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="text-4xl md:text-6xl font-display italic mb-4 leading-tight py-2"
+                        >What Happens Next</motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="text-[var(--text-muted)] font-mono text-sm uppercase tracking-widest"
+                        >Clear Timelines. Clear Ownership.</motion.p>
                     </div>
 
                     <div className="relative">
@@ -99,7 +114,12 @@ export const Contact = () => {
                 {/* 4.4 Get In Touch Form & Info */}
                 <section className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-48">
                     {/* Contact Form */}
-                    <div className="lg:col-span-8 bg-[var(--surface)] border border-[var(--border)] p-8 md:p-12 rounded-[3rem] relative overflow-hidden">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="lg:col-span-8 bg-[var(--surface)] border border-[var(--border)] p-8 md:p-12 rounded-[3rem] relative overflow-hidden"
+                    >
                         <h3 className="text-3xl font-display italic mb-8">Start the Conversation</h3>
                         <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -129,11 +149,15 @@ export const Contact = () => {
                                 Send Message
                             </button>
                         </form>
-                    </div>
+                    </motion.div>
 
                     {/* Contact Info */}
                     <div className="lg:col-span-4 flex flex-col justify-center space-y-12">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <span className="text-blue-500 font-mono text-xs tracking-widest uppercase mb-2 block">Corporate Office</span>
                             <h4 className="text-2xl font-display italic mb-4">Right Parking</h4>
                             <p className="text-[var(--text-muted)] text-sm leading-relaxed">
@@ -141,16 +165,26 @@ export const Contact = () => {
                                 [Address Line 2]<br />
                                 [City, State, Zip]
                             </p>
-                        </div>
-                        <div className="space-y-2">
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="space-y-2"
+                        >
                             <p className="text-[var(--text-muted)] text-sm"><span className="text-[var(--text-muted)] opacity-50 uppercase text-xs tracking-widest mr-4">Email</span> [email@rightparking.com]</p>
                             <p className="text-[var(--text-muted)] text-sm"><span className="text-[var(--text-muted)] opacity-50 uppercase text-xs tracking-widest mr-4">Phone</span> [+91 99999 99999]</p>
-                        </div>
+                        </motion.div>
                     </div>
                 </section>
 
                 {/* 4.5 Closing Statement */}
-                <section className="mb-48 bg-gradient-to-br from-[var(--surface)] to-[var(--bg-dark)] border border-[var(--border)] p-16 md:p-32 rounded-[4rem] text-center relative overflow-hidden">
+                <motion.section
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-48 bg-gradient-to-br from-[var(--surface)] to-[var(--bg-dark)] border border-[var(--border)] p-16 md:p-32 rounded-[4rem] text-center relative overflow-hidden"
+                >
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
                     <div className="relative z-10">
                         <h2 className="text-4xl md:text-7xl font-display italic mb-6 leading-tight text-[var(--text-main)] py-4">
@@ -161,7 +195,7 @@ export const Contact = () => {
                             Right Parking is building the next generation of parking systems—designed to move cities, businesses, and people forward.
                         </p>
                     </div>
-                </section>
+                </motion.section>
             </main>
             <Footer />
         </div>

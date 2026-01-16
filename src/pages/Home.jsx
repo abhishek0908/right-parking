@@ -12,20 +12,21 @@ export const Home = () => {
             </div>
 
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6 pt-32 pb-20 max-w-7xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-400 font-mono text-[10px] tracking-[0.4em] uppercase mb-10">
+                <div className="w-full">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-400 font-mono text-[10px] tracking-[0.4em] uppercase mb-10"
+                    >
                         <span className="w-1 h-1 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_#3b82f6]" />
                         The Future of Urban Infrastructure
-                    </div>
+                    </motion.div>
 
                     <div className="flex justify-center mb-10 overflow-hidden rounded-3xl group">
                         <motion.div
                             initial={{ scale: 1.2, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 2, ease: "easeOut" }}
                             className="relative"
                         >
@@ -38,20 +39,33 @@ export const Home = () => {
                         </motion.div>
                     </div>
 
-                    <h1 className="text-6xl md:text-9xl font-display italic tracking-tighter-premium leading-tight mb-8 py-8 px-4">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="text-6xl md:text-9xl font-display italic tracking-tighter-premium leading-tight mb-8 py-8 px-4"
+                    >
                         <span className="text-gradient inline-block pb-2">Right</span> <span className="text-blue-500 font-display inline-block pb-2">Parking</span>
-                    </h1>
+                    </motion.h1>
 
-                    <p className="text-[var(--text-main)] text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed">
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="text-[var(--text-main)] text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto mb-16 leading-relaxed"
+                    >
                         Experience automated parking that works in the background.
                         <span className="font-semibold"> Seamlessly integrated.</span>
                         <span className="font-semibold"> Ticketless.</span>
                         <span className="font-semibold"> Intelligent.</span>
-                    </p>
+                    </motion.p>
 
                     <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
                         <Link to="/services">
                             <motion.button
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.5 }}
                                 whileHover={{ scale: 1.05, translateY: -2 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="group bg-blue-600 text-white px-10 py-5 rounded-full font-mono text-[10px] uppercase tracking-[0.2em] hover:bg-blue-700 transition-all blue-glow relative overflow-hidden"
@@ -63,7 +77,7 @@ export const Home = () => {
                             </motion.button>
                         </Link>
                     </div>
-                </motion.div>
+                </div>
             </main>
 
             <Footer />
