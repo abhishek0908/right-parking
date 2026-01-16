@@ -14,14 +14,15 @@ export const Services = () => {
     }, []);
 
     return (
-        <div className="force-dark" style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+        <div style={{ width: '100vw', height: '100vh', position: 'relative' }} className="bg-[var(--bg-home)]">
             <Canvas
                 shadows
-                dpr={[1, 1.5]}
-                performance={{ min: 0.5 }}
+                dpr={[1, 1.5]} // Cap pixel ratio for performance
+                performance={{ min: 0.5 }} // Allow degrading quality
                 camera={{ position: [0, 0, 5], fov: 30 }}
                 className="bg-[#09090b]"
                 style={{ width: '100%', height: '100%' }}
+                gl={{ antialias: false }} // Disable default antialias if we use postprocessing, or for performace
             >
                 <color attach="background" args={['#09090b']} />
                 <Suspense fallback={null}>

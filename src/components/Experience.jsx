@@ -1,6 +1,5 @@
 import { useScroll, Environment, ContactShadows } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
-import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import { Car } from './Car'
 import { City } from './City'
@@ -95,11 +94,11 @@ export const Experience = () => {
                 color="#60a5fa"
                 castShadow
                 shadow-bias={-0.0005}
-                shadow-mapSize={[2048, 2048]}
+                shadow-mapSize={[1024, 1024]} // Reduced from 2048
             />
 
             {/* Environment Reflections */}
-            <Environment preset="city" environmentIntensity={1.5} />
+            <Environment preset="city" environmentIntensity={1.0} />
 
             {/* -- FOG (Blue) -- */}
             <fog attach="fog" args={['#020617', 20, 200]} />
@@ -108,20 +107,17 @@ export const Experience = () => {
                 <Car />
                 <City />
                 <ContactShadows
-                    resolution={512}
+                    resolution={256} // Reduced from 512
                     scale={50}
                     blur={2}
                     opacity={0.6}
                     far={4}
                     color="#000000"
+                    frames={1} // Only render once to save performance
                 />
             </group>
 
-            {/* -- POST PROCESSING -- */}
-            <EffectComposer disableNormalPass>
-                <Bloom luminanceThreshold={1.2} intensity={0.3} radius={0.4} mipmapBlur />
-                <Vignette eskil={false} offset={0.2} darkness={0.7} />
-            </EffectComposer>
+            {/* -- REMOVED HEAVY POST PROCESSING FOR PERFORMANCE -- */}
         </>
     )
 }

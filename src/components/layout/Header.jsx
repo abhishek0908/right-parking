@@ -25,8 +25,7 @@ export const Header = () => {
                         { path: "/services", label: "Services" },
                         { path: "/about", label: "About" },
                         { path: "/technology", label: "Technology" },
-                        { path: "/contact", label: "Contact" },
-                        { path: "/testing", label: "Testing" }
+                        { path: "/contact", label: "Contact" }
                     ].map((item) => (
                         <NavLink
                             key={item.path}

@@ -49,7 +49,7 @@ const Section = ({
     );
 };
 
-export function TestingOverlay() {
+export function HomeOverlay() {
     const navigate = useNavigate();
 
     const handleNavigate = (path) => {
@@ -110,13 +110,13 @@ export function TestingOverlay() {
                             transition={{ duration: 0.5 }}
                         >
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--text-main)] mb-8">
-                                Ready to Park?
+                                Experience the Future
                             </h2>
                             <button
-                                onClick={() => handleNavigate("/contact")}
-                                className="bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-lg md:text-xl font-bold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] min-w-[120px]"
+                                onClick={() => handleNavigate("/services")}
+                                className="bg-blue-600 text-white px-8 md:px-10 py-4 md:py-5 rounded-full text-lg md:text-xl font-bold hover:bg-blue-700 transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7)] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[50px] min-w-[200px]"
                             >
-                                Get Started
+                                View Parking Experience
                             </button>
                         </motion.div>
                     </div>
