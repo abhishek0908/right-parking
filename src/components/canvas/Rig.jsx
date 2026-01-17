@@ -7,7 +7,7 @@ export function Rig() {
 
     useFrame((state) => {
         // Manual range calc: Map 0..0.264 to 0..1
-        const tRaw = scroll.offset / 0.704;
+        const tRaw = scroll.offset / 0.764;
         const offset = Math.max(0, Math.min(1, tRaw));
 
         // Camera positioned closer to the ramp from the beginning
