@@ -6,6 +6,8 @@ import { Services } from './pages/Services';
 import { About } from './pages/About';
 import { Technology } from './pages/Technology';
 import { Contact } from './pages/Contact';
+import { Projects } from './pages/Projects';
+import { ProjectDetail } from './pages/ProjectDetail';
 
 import { Loader } from './components/Loader';
 import { Header } from './components/layout/Header';
@@ -47,6 +49,16 @@ function AnimatedRoutes() {
         <Route path="/contact" element={
           <PageWrapper>
             <Contact />
+          </PageWrapper>
+        } />
+        <Route path="/projects" element={
+          <PageWrapper>
+            <Projects />
+          </PageWrapper>
+        } />
+        <Route path="/projects/:id" element={
+          <PageWrapper>
+            <ProjectDetail />
           </PageWrapper>
         } />
 
