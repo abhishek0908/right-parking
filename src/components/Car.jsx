@@ -69,6 +69,13 @@ export const CarModel = ({ isMainCar = false, ...props }) => {
                 }
             })
 
+            // Normalize position so wheels are at y=0
+            const box = new THREE.Box3().setFromObject(clonedScene)
+            const center = box.getCenter(new THREE.Vector3())
+
+            // Center X and Z, and set bottom Y to 0
+            clonedScene.position.set(-center.x, -box.min.y, -center.z)
+
             optimizedSceneRef.current = clonedScene
         }
 
@@ -100,7 +107,7 @@ export const Car = () => {
         const offset = scroll.offset
 
         let x = 3, z = 35, rotY = Math.PI, tilt = 0
-        const yBase = 2 // Increased space from flat area (ground)
+        const yBase = 0 // Ground level
         const smoothstep = (t) => t * t * (3 - 2 * t)
 
         if (offset < 0.6) {
@@ -122,7 +129,7 @@ export const Car = () => {
             x = THREE.MathUtils.lerp(isMobile ? 2.5 : 3.5, targetX, xEase)
 
             // Linear-ish progress for Z and Rotation
-            z = THREE.MathUtils.lerp(10, 0, ease)
+            z = THREE.MathUtils.lerp(10, -0, ease)
             rotY = THREE.MathUtils.lerp(Math.PI, 1.5 * Math.PI, ease)
 
             // Subtle steering tilt
