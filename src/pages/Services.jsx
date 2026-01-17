@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { ScrollControls } from '@react-three/drei'
 import { Experience } from '../components/Experience'
+import { ServicesPageLoader } from '../components/ServicesPageLoader'
 
 export const Services = () => {
     useEffect(() => {
@@ -13,16 +14,19 @@ export const Services = () => {
     }, []);
 
     return (
-        <div style={{ width: '100vw', height: '100vh', position: 'relative' }} className="bg-[var(--bg-home)]">
+        <div style={{ width: '100vw', height: '100vh', position: 'relative' }} className="bg-[#09090b]">
+            {/* The loader sits on top and only exits when internal assets are 100% ready */}
+            <ServicesPageLoader />
+
             <Canvas
                 shadows
                 camera={{ position: [0, 0, 5], fov: 30 }}
                 style={{ width: '100%', height: '100%' }}
+                gl={{ antialias: true, stencil: false }}
             >
                 <color attach="background" args={['#09090b']} />
                 <Suspense fallback={null}>
                     <ScrollControls pages={5} damping={0.3}>
-                        {/* The 3D World */}
                         <Experience />
                     </ScrollControls>
                 </Suspense>

@@ -103,7 +103,7 @@ export const ParkingGate = ({ position }) => {
             {/* Top Cap - Blue Glow */}
             <mesh position={[0, 2.05, 0]}>
                 <boxGeometry args={[0.9, 0.1, 0.9]} />
-                <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={1} />
+                <meshStandardMaterial color="#444444" />
             </mesh>
 
             {/* 🔑 HINGE GROUP (rotation on Z axis) */}
@@ -123,12 +123,7 @@ export const ParkingGate = ({ position }) => {
             </group>
 
             {/* Indicator - Blue */}
-            <pointLight
-                position={[0, 2.2, 0]}
-                intensity={4}
-                color="#3b82f6"
-                distance={6}
-            />
+            {/* Localized indicator light removed */}
         </group>
     )
 }
@@ -147,19 +142,19 @@ export const ChargingStation = ({ position, rotation = [0, 0, 0] }) => {
             {/* Screen Area - Larger */}
             <mesh position={[0, 2.6, 0.31]}>
                 <planeGeometry args={[0.5, 0.8]} />
-                <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={3} />
+                <meshStandardMaterial color="#333333" />
             </mesh>
             {/* Status Light */}
             <mesh position={[0, 3.2, 0.31]}>
                 <sphereGeometry args={[0.06, 16, 16]} />
-                <meshStandardMaterial color="#10b981" emissive="#10b981" emissiveIntensity={5} />
+                <meshStandardMaterial color="#444444" />
             </mesh>
             {/* Cable/Plug Detail */}
             <mesh position={[0.42, 1.75, 0]}>
                 <boxGeometry args={[0.1, 1.5, 0.2]} />
                 <meshStandardMaterial color="#111" />
             </mesh>
-            <pointLight position={[0, 2.6, 0.5]} intensity={2} color="#3b82f6" distance={5} />
+            {/* pointLight removed */}
         </group>
     )
 }
@@ -259,7 +254,7 @@ export const SecurityCamera = ({
                     <meshBasicMaterial color="#3b82f6" opacity={0.8} transparent />
                 </mesh>
 
-                {/* Infrared LEDs ring */}
+                {/* Infrared LEDs ring - Neutralised */}
                 {[0, 60, 120, 180, 240, 300].map((angle, i) => {
                     const rad = (angle * Math.PI) / 180;
                     const x = Math.cos(rad) * 0.095;
@@ -268,21 +263,17 @@ export const SecurityCamera = ({
                         <mesh key={i} position={[x, y, 0.22]}>
                             <circleGeometry args={[0.012, 16]} />
                             <meshStandardMaterial
-                                color="#2d1f1f"
-                                emissive="#5c0f0f"
-                                emissiveIntensity={0.6}
+                                color="#222222"
                             />
                         </mesh>
                     );
                 })}
 
-                {/* Status LED - small and realistic */}
+                {/* Status LED - Neutralised */}
                 <mesh position={[0.105, 0.02, 0.16]}>
                     <sphereGeometry args={[0.008, 16, 16]} />
                     <meshStandardMaterial
-                        color="#10b981"
-                        emissive="#10b981"
-                        emissiveIntensity={4}
+                        color="#333333"
                     />
                 </mesh>
 

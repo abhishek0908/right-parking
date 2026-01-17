@@ -76,32 +76,32 @@ export const Experience = () => {
 
     return (
         <>
-            {/* Deep Dark Blue Atmosphere */}
-            <color attach="background" args={['#020617']} />
+            {/* Solid Black Atmosphere */}
+            <color attach="background" args={['#000000']} />
 
-            {/* Technical grid - Blue Tint */}
-            <gridHelper args={[600, 60, '#3b82f6', '#3b82f6']} position={[0, 0.01, 0]}>
-                <meshBasicMaterial opacity={0.05} transparent />
+            {/* Technical grid - Neutral */}
+            <gridHelper args={[600, 60, '#333333', '#222222']} position={[0, 0.01, 0]}>
+                <meshBasicMaterial opacity={0.1} transparent />
             </gridHelper>
 
-            {/* -- LIGHTING -- */}
-            <ambientLight intensity={0.6} color="#bfdbfe" />
+            {/* -- LIGHTING (Neutral White) -- */}
+            <ambientLight intensity={0.5} color="#ffffff" />
 
-            {/* Sharp entry rim light - Cyan/Blue Tint */}
+            {/* Standard Key Light */}
             <directionalLight
                 position={[50, 40, 100]}
-                intensity={5.0}
-                color="#60a5fa"
+                intensity={3.0}
+                color="#ffffff"
                 castShadow
                 shadow-bias={-0.0005}
-                shadow-mapSize={[1024, 1024]} // Reduced from 2048
+                shadow-mapSize={[1024, 1024]}
             />
 
             {/* Environment Reflections */}
-            <Environment preset="city" environmentIntensity={1.0} />
+            <Environment preset="city" environmentIntensity={0.5} />
 
-            {/* -- FOG (Blue) -- */}
-            <fog attach="fog" args={['#020617', 20, 200]} />
+            {/* -- FOG (Deep Black) -- */}
+            <fog attach="fog" args={['#000000', 20, 180]} />
 
             <group position={[0, 0, 0]}>
                 <Car />
