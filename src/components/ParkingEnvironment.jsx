@@ -130,9 +130,25 @@ export const SecurityCamera = ({ position, rotation = [0, 1, 0], scale = 1.7 }) 
     )
 }
 
-const ParkingSpace = ({ position, isOccupied = false }) => {
-    const color = isOccupied ? "#ef4444" : "#22c55e"
-    const emissiveIntensity = isOccupied ? 2.5 : 1.5
+const ParkingSpace = ({ position, isHeroSpot = false }) => {
+    const materialRef = useRef()
+    const scroll = useScroll()
+
+    useFrame(() => {
+        if (!isHeroSpot || !materialRef.current) return
+
+        // Dynamic color transition based on scroll offset
+        const isOccupied = scroll.offset > 0.82
+        const color = isOccupied ? "#ef4444" : "#22c55e"
+        const intensity = isOccupied ? 2.5 : 1.5
+
+        if (materialRef.current.color.getHex() !== new THREE.Color(color).getHex()) {
+            materialRef.current.color.set(color)
+            materialRef.current.emissive.set(color)
+            materialRef.current.emissiveIntensity = intensity
+        }
+    })
+
     return (
         <group position={position}>
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -2.5]}>
@@ -150,9 +166,10 @@ const ParkingSpace = ({ position, isOccupied = false }) => {
             <mesh position={[-4, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[0.8, 1.2]} />
                 <meshStandardMaterial
-                    color={color}
-                    emissive={color}
-                    emissiveIntensity={emissiveIntensity}
+                    ref={materialRef}
+                    color="#22c55e"
+                    emissive="#22c55e"
+                    emissiveIntensity={1.5}
                     toneMapped={false}
                 />
             </mesh>
@@ -175,13 +192,13 @@ const ParkingRows = ({ type }) => {
         const z = config.pos[2] + i * config.gap
         if (z > 105) return null
 
-        // The hero car parks in Row L at z=0 (which is index i=3 in our loop)
-        const isOccupied = type === 'L' && z === 0 && scroll.offset > 0.82
+        // The hero car parks in Row L at z=0
+        const isHeroSpot = type === 'L' && z === 0
 
         return <ParkingSpace
             key={`${type}${i}`}
             position={[config.pos[0], config.pos[1], z]}
-            isOccupied={isOccupied}
+            isHeroSpot={isHeroSpot}
         />
     })
 }
