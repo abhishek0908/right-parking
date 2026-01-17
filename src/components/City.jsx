@@ -9,6 +9,7 @@ import * as THREE from 'three'
 
 export const ParkingGate = ({ position }) => {
     const armRef = useRef()
+    const ticketRef = useRef()
     const scroll = useScroll()
 
     useFrame(() => {
@@ -16,6 +17,7 @@ export const ParkingGate = ({ position }) => {
         const offset = scroll.offset
 
         let targetRotation = 0
+        let ticketPos = 0 // Offset for the ticket
 
         // Gate logic: Open during Philosophy section (slower transition)
         if (offset > 0.08 && offset < 0.25) {
@@ -28,19 +30,74 @@ export const ParkingGate = ({ position }) => {
             targetRotation = -(Math.PI / 2) * t
         }
 
+        // Ticket Animation: Slide out when car is approaching the gate (offset 0.15 to 0.3)
+        if (offset > 0.12 && offset < 0.35) {
+            // Smoothly slide out as car approaches
+            const t = Math.min((offset - 0.12) / 0.15, 1)
+            ticketPos = Math.sin(t * Math.PI) * 0.5 // Slide out further (0.5 units)
+        }
+
         armRef.current.rotation.z = THREE.MathUtils.lerp(
             armRef.current.rotation.z,
             targetRotation,
             0.12
         )
+
+        if (ticketRef.current) {
+            // Pop UP from the top face
+            ticketRef.current.position.y = 2.0 + ticketPos
+        }
     })
 
     return (
         <group position={position}>
-            {/* Base */}
+            {/* Main Machine Body */}
             <mesh position={[0, 1, 0]}>
                 <boxGeometry args={[0.8, 2, 0.8]} />
                 <meshStandardMaterial color="#27272a" metalness={0.8} roughness={0.4} />
+            </mesh>
+
+            {/* ANPR Display Board (Digital Sign) */}
+            <group position={[0, 1.2, 0.41]}>
+                {/* Board Frame */}
+                <mesh>
+                    <boxGeometry args={[0.6, 0.3, 0.05]} />
+                    <meshStandardMaterial color="#000" />
+                </mesh>
+                {/* Digital Screen */}
+                <Html
+                    transform
+                    distanceFactor={1.5}
+                    position={[0, 0, 0.03]}
+                >
+                    <div
+                        className="font-mono text-[8px] px-2 py-1 rounded border border-green-500/30 bg-black"
+                        style={{
+                            color: scroll.offset > 0.12 && scroll.offset < 0.4 ? '#22c55e' : '#1a1a1a',
+                            textShadow: scroll.offset > 0.12 && scroll.offset < 0.4 ? '0 0 5px #22c55e' : 'none',
+                            transition: 'all 0.5s ease-in-out'
+                        }}
+                    >
+                        {scroll.offset > 0.15 ? 'DL 3C AW 1234' : 'SCANNING...'}
+                    </div>
+                </Html>
+            </group>
+
+            {/* Ticket Slot Detail - Placed on the top face */}
+            <mesh position={[0, 2.0, 0.25]}>
+                <boxGeometry args={[0.4, 0.02, 0.05]} />
+                <meshStandardMaterial color="#111" />
+            </mesh>
+
+            {/* 🎟️ THE TICKET - Pops up from the top face */}
+            <mesh ref={ticketRef} position={[0, 2.0, 0.25]}>
+                <boxGeometry args={[0.3, 0.4, 0.01]} />
+                <meshStandardMaterial
+                    color="#ffffff"
+                    emissive="#60a5fa"
+                    emissiveIntensity={2}
+                    toneMapped={false}
+                />
             </mesh>
 
             {/* Top Cap - Blue Glow */}
@@ -51,10 +108,6 @@ export const ParkingGate = ({ position }) => {
 
             {/* 🔑 HINGE GROUP (rotation on Z axis) */}
             <group ref={armRef} position={[0, 1.8, 0]}>
-                {/* 
-                  Geometry is shifted along X so pivot stays at the base
-                  Length = 10 to better cover the road
-                */}
                 <mesh position={[-5, 0, 0]}>
                     <boxGeometry args={[10, 0.15, 0.15]} />
                     <meshStandardMaterial color="#ffffff" />
@@ -242,16 +295,6 @@ export const SecurityCamera = ({
                         roughness={0.4}
                     />
                 </mesh>
-
-                {/* Cable/wire connector at back */}
-                {/* <mesh position={[0, 0, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
-                    <cylinderGeometry args={[0.025, 0.025, 0.04, 16]} />
-                    <meshStandardMaterial
-                        color="#1a1a1a"
-                        metalness={0.8}
-                        roughness={0.3}
-                    />
-                </mesh> */}
 
                 {/* Cable running down */}
                 <mesh position={[0.08, 0, -0.25]} rotation={[0, 0, 0]}>
@@ -586,6 +629,7 @@ export const City = () => {
                             <PillarInternal position={[-15, 6, zPos]} isMobile={isMobile} />
                             <PillarInternal position={[22, 6, zPos]} isMobile={isMobile} />
 
+
                             {/* Central Hanging Aisle Sign for every row segment */}
                             <CentralAisleSign
                                 position={[3.5, 9.5, zPos]}
@@ -593,7 +637,7 @@ export const City = () => {
                                 spacesR={Math.floor(Math.random() * 8) + 1}
                             />
 
-                            {/* Charging Stations near pillars - Repositioned for larger footprint */}
+                            {/* Charging Stations near pillars */}
                             <ChargingStation position={[-13.2, 0, zPos]} rotation={[0, Math.PI / 2, 0]} />
                             <ChargingStation position={[20.2, 0, zPos]} rotation={[0, -Math.PI / 2, 0]} />
                         </group>

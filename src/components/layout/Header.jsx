@@ -1,6 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
+import { preloadServicesComponents } from '../../utils/preloadServices';
 
 export const Header = () => {
     const { isDarkMode, toggleTheme } = useTheme();
@@ -30,6 +31,12 @@ export const Header = () => {
                         <NavLink
                             key={item.path}
                             to={item.path}
+                            onMouseEnter={() => {
+                                // Preload Services page on hover
+                                if (item.path === '/services') {
+                                    preloadServicesComponents();
+                                }
+                            }}
                             className={({ isActive }) =>
                                 `text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 hover:text-blue-400 relative py-1 ${isActive ? 'text-blue-500' : 'text-[var(--text-muted)]'
                                 }`

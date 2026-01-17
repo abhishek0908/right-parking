@@ -2,7 +2,7 @@ import { useScroll, Environment, ContactShadows } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Car } from './Car'
-import { City } from './City'
+import { ParkingEnvironment } from './ParkingEnvironment'
 
 export const Experience = () => {
     const scroll = useScroll()
@@ -27,15 +27,15 @@ export const Experience = () => {
 
         // Parking view (The moment it breaks from road to lot)
         const parkingPos = new THREE.Vector3(isMobile ? 22 : 18, isMobile ? 10 : 8, 15)
-        const parkingLookAt = new THREE.Vector3(-2, 1.0, -5)
+        const parkingLookAt = new THREE.Vector3(-10, 1.0, -5)
 
         // Final: Hero shot in the spot
         const parkedPos = new THREE.Vector3(isMobile ? 12 : 6, isMobile ? 5 : 4, -5 + (isMobile ? 8 : 0))
-        const parkedLookAt = new THREE.Vector3(-7, 0.8, -5)
+        const parkedLookAt = new THREE.Vector3(-15, 0.8, -5)
 
         // Overview: Wide-angle finale
-        const birdEyePos = new THREE.Vector3(-7, isMobile ? 120 : 100, -5)
-        const birdEyeLookAt = new THREE.Vector3(-7, 0, -5.1)
+        const birdEyePos = new THREE.Vector3(-15, isMobile ? 120 : 100, -5)
+        const birdEyeLookAt = new THREE.Vector3(-15, 0, -5.1)
 
         let targetPos, targetLookAt
 
@@ -50,12 +50,12 @@ export const Experience = () => {
             const t = smoothstep((offset - 0.55) / 0.2)
             targetPos = new THREE.Vector3().lerpVectors(followPos, parkingPos, t)
             targetLookAt = new THREE.Vector3().lerpVectors(followLookAt, parkingLookAt, t)
-        } else if (offset < 0.9) {
-            const t = smoothstep((offset - 0.75) / 0.15)
+        } else if (offset < 0.82) {
+            const t = smoothstep((offset - 0.75) / 0.07)
             targetPos = new THREE.Vector3().lerpVectors(parkingPos, parkedPos, t)
             targetLookAt = new THREE.Vector3().lerpVectors(parkingLookAt, parkedLookAt, t)
         } else {
-            const t = smoothstep((offset - 0.9) / 0.1)
+            const t = smoothstep((offset - 0.82) / 0.18)
             targetPos = new THREE.Vector3().lerpVectors(parkedPos, birdEyePos, t)
             targetLookAt = new THREE.Vector3().lerpVectors(parkedLookAt, birdEyeLookAt, t)
         }
@@ -65,7 +65,7 @@ export const Experience = () => {
         state.camera.updateProjectionMatrix()
 
         // Apply camera position with delta-based damping for smoothness
-        const dampFactor = 1 - Math.pow(0.01, delta)
+        const dampFactor = 1 - Math.pow(0.05, delta)
         state.camera.position.lerp(targetPos, dampFactor)
 
         // Smooth lookAt with delta-based damping
@@ -105,7 +105,7 @@ export const Experience = () => {
 
             <group position={[0, 0, 0]}>
                 <Car />
-                <City />
+                <ParkingEnvironment />
                 <ContactShadows
                     resolution={256} // Reduced from 512
                     scale={50}

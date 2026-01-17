@@ -24,13 +24,58 @@ export const spiralCurve = new THREE.CatmullRomCurve3(
 
 // Load GLB model and find tail lamps
 function LuxurySedanModel({ onTailLampsFound }) {
-    const { scene } = useGLTF("/luxury-sedan.glb");
+    const { scene } = useGLTF("/mersedes-benz_s-class_w223_brabus_850.glb");
     const groupRef = useRef(null);
 
     useEffect(() => {
         if (!groupRef.current) return;
 
         const clonedScene = scene.clone();
+        const toRemove = [];
+
+        // Traverse and optimize meshes
+        clonedScene.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+                child.frustumCulled = true;
+
+                // Identify and remove internal components
+                const name = child.name.toLowerCase();
+                if (name.includes("interior") ||
+                    name.includes("inside") ||
+                    name.includes("seat") ||
+                    name.includes("dashboard") ||
+                    name.includes("steering") ||
+                    name.includes("engine") ||
+                    name.includes("glass_inner") ||
+                    (name.includes("under") && !name.includes("underbody"))) {
+                    toRemove.push(child);
+                    return;
+                }
+
+                // Optimize materials
+                if (child.material) {
+                    const materials = Array.isArray(child.material) ? child.material : [child.material];
+                    materials.forEach((mat) => {
+                        mat.precision = "lowp";
+                        if (mat.metalness > 0.8) mat.metalness = 0.8;
+                        if (mat.roughness < 0.2) mat.roughness = 0.2;
+                        mat.envMapIntensity = 0.5;
+                    });
+                }
+            }
+        });
+
+        // Purge nodes
+        toRemove.forEach(child => {
+            if (child.parent) child.parent.remove(child);
+            if (child.geometry) child.geometry.dispose();
+            if (child.material) {
+                const materials = Array.isArray(child.material) ? child.material : [child.material];
+                materials.forEach(m => m.dispose());
+            }
+        });
 
         // Calculate bounding box to center and scale the model
         const box = new THREE.Box3().setFromObject(clonedScene);
@@ -43,21 +88,17 @@ function LuxurySedanModel({ onTailLampsFound }) {
         clonedScene.position.z = -center.z;
 
         // Rotate the model to face forward (along Z-axis)
-        clonedScene.rotation.y = -Math.PI / 2; // -90 degrees rotation
+        clonedScene.rotation.y = 0; // -90 degrees rotation
 
         // Scale the model to be larger (3.5 units in length)
         const targetLength = 3.5;
         const scaleFactor = targetLength / Math.max(size.x, size.y, size.z);
         clonedScene.scale.setScalar(scaleFactor);
 
-        // Find tail lamp meshes
+        // Find tail lamp meshes (now only on remaining nodes)
         const tailLamps = [];
         clonedScene.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-                child.castShadow = true;
-                child.receiveShadow = true;
-
-                // Search for tail lamps by name (common patterns)
+            if (child instanceof THREE.Mesh && !toRemove.includes(child)) {
                 const name = child.name.toLowerCase();
                 if (
                     name.includes("tail") ||
@@ -77,7 +118,7 @@ function LuxurySedanModel({ onTailLampsFound }) {
         if (tailLamps.length === 0) {
             const rearMeshes = [];
             clonedScene.traverse((child) => {
-                if (child instanceof THREE.Mesh) {
+                if (child instanceof THREE.Mesh && !toRemove.includes(child)) {
                     // Get world position after transformations
                     const worldPos = new THREE.Vector3();
                     child.getWorldPosition(worldPos);
@@ -133,7 +174,7 @@ function TailLampWrapper({ mesh, xOffset = 0 }) {
 }
 
 // Preload the model
-useGLTF.preload("/luxury-sedan.glb");
+useGLTF.preload("/mersedes-benz_s-class_w223_brabus_850.glb");
 
 // Pure Visual Component
 export const CarModel = forwardRef((props, ref) => {

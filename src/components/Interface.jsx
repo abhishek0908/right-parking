@@ -19,6 +19,7 @@ export const Interface = () => {
                     <motion.h1
                         initial={{ y: "100%" }}
                         whileInView={{ y: 0 }}
+                        viewport={{ once: false, margin: "-100px" }}
                         transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
                         className="text-6xl md:text-8xl font-display italic tracking-tighter mb-4 text-white leading-[0.9] text-right"
                     >
@@ -30,6 +31,7 @@ export const Interface = () => {
                     <motion.h2
                         initial={{ y: "100%" }}
                         whileInView={{ y: 0 }}
+                        viewport={{ once: false, margin: "-100px" }}
                         transition={{ duration: 1, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
                         className="text-xl md:text-3xl font-light tracking-widest uppercase text-white mb-8 md:mb-12 ml-auto"
                     >
@@ -45,7 +47,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-left"
                 >
                     <p className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">The Vision</p>
@@ -66,7 +69,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-right"
                 >
                     <p className="text-emerald-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 01</p>
@@ -94,7 +98,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-left"
                 >
                     <p className="text-orange-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Live Data</p>
@@ -122,7 +127,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-right"
                 >
                     <p className="text-cyan-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 02</p>
@@ -143,7 +149,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-left"
                 >
                     <p className="text-purple-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Smart Display</p>
@@ -175,7 +182,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="flex flex-col items-end text-right"
                 >
                     <p className="text-green-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">EV Ready</p>
@@ -203,7 +211,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-left"
                 >
                     <p className="text-red-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Phase 03</p>
@@ -226,7 +235,8 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-right flex flex-col items-end"
                 >
                     <p className="text-yellow-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Checkout</p>
@@ -250,6 +260,7 @@ export const Interface = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9, y: 50 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: false, margin: "-100px" }}
                     transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
                     className="flex flex-col items-center text-center"
                 >
@@ -266,7 +277,8 @@ export const Interface = () => {
                     <motion.p
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
+                        viewport={{ once: false, margin: "-100px" }}
+                        transition={{ delay: 1, ease: [0.76, 0, 0.24, 1] }}
                         className="text-white font-mono tracking-[0.2em] text-[10px] md:text-sm uppercase mt-6 md:mt-8"
                     >
                         India's Smartest Parking Network

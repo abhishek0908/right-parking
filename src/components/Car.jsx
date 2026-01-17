@@ -1,64 +1,88 @@
-import { useRef, useState, useMemo } from 'react'
+import { useRef, useState, useLayoutEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useScroll, Html, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
-// 1. Professional Loading: Load GLB ONCE with DRACO support
-const DRACO_URL = 'https://www.gstatic.com/draco/versioned/decoders/1.5.7/'
-const MODEL_PATH = '/luxury-sedan.glb'
-useGLTF.preload(MODEL_PATH, DRACO_URL)
+// Load Mercedes-Benz S-Class model
+const MODEL_PATH = '/mersedes-benz_s-class_w223_brabus_850.glb'
+useGLTF.preload(MODEL_PATH)
 
 /**
- * Optimized Hero Car
+ * Optimized Hero Car - Mercedes-Benz S-Class
  */
-export const CarModel = ({ color = "#111111", isMainCar = false, ...props }) => {
-    const { scene } = useGLTF(MODEL_PATH, DRACO_URL)
+export const CarModel = ({ isMainCar = false, ...props }) => {
+    const group = useRef()
+    const tiltGroupRef = useRef()
+    const optimizedSceneRef = useRef(null)
+    const { scene } = useGLTF(MODEL_PATH)
 
-    const model = useMemo(() => {
-        const clone = scene.clone()
-        clone.traverse((child) => {
-            if (child.isMesh) {
-                // Ensure shadows
-                child.castShadow = isMainCar
-                child.receiveShadow = isMainCar
+    useLayoutEffect(() => {
+        // Optimize the model by removing internal parts
+        if (!optimizedSceneRef.current) {
+            const clonedScene = scene.clone()
+            const toRemove = []
 
-                // Optimization: Use original materials but slightly enhance them for the scene
-                if (child.material) {
-                    child.material = child.material.clone()
+            // Traverse and optimize meshes
+            clonedScene.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                    // Enable frustum culling for better performance
+                    child.frustumCulled = true
 
-                    // If the mesh seems to be the car body/paint, we can apply the theme color
+                    // Ensure shadows only for external body parts
+                    child.castShadow = isMainCar
+                    child.receiveShadow = isMainCar
+
+                    // Identify internal parts to REMOVE completely (not just hide)
                     const name = child.name.toLowerCase()
-                    const matName = child.material.name.toLowerCase()
-
-                    if (name.includes('body') || name.includes('paint') || matName.includes('paint') || matName.includes('body')) {
-                        child.material.color.set(color)
-                        child.material.roughness = 0.2
-                        child.material.metalness = 0.8
-                        child.material.side = THREE.FrontSide
+                    if (name.includes('interior') ||
+                        name.includes('inside') ||
+                        name.includes('seat') ||
+                        name.includes('dashboard') ||
+                        name.includes('steering') ||
+                        name.includes('engine') ||
+                        name.includes('glass_inner') ||
+                        (name.includes('under') && !name.includes('underbody'))) {
+                        toRemove.push(child)
+                        return
                     }
 
-                    // Ensure glass is actually transparent and reflective
-                    if (name.includes('glass') || matName.includes('glass')) {
-                        child.material.transparent = true
-                        child.material.opacity = 0.2
-                        child.material.metalness = 1
-                        child.material.roughness = 0.05
+                    // Optimize materials for fast rendering
+                    if (child.material) {
+                        const materials = Array.isArray(child.material) ? child.material : [child.material]
+                        materials.forEach((mat) => {
+                            mat.precision = 'lowp' // Use low precision for non-critical parts
+                            if (mat.metalness > 0.8) mat.metalness = 0.8 // Cap metalness
+                            if (mat.roughness < 0.2) mat.roughness = 0.2 // Cap roughness
+                            mat.envMapIntensity = 0.5 // Reduce reflection calculations
+                        })
                     }
                 }
-            }
-        })
-        return clone
-    }, [scene, color, isMainCar])
+            })
+
+            // Purge internal parts from the memory
+            toRemove.forEach(child => {
+                if (child.parent) child.parent.remove(child)
+                if (child.geometry) child.geometry.dispose()
+                if (child.material) {
+                    const materials = Array.isArray(child.material) ? child.material : [child.material]
+                    materials.forEach(m => m.dispose())
+                }
+            })
+
+            optimizedSceneRef.current = clonedScene
+        }
+
+        // Add optimized scene to tilt-group
+        if (tiltGroupRef.current && optimizedSceneRef.current) {
+            tiltGroupRef.current.clear()
+            tiltGroupRef.current.add(optimizedSceneRef.current)
+        }
+    }, [scene, isMainCar])
 
     return (
-        <group {...props}>
-            <group name="tilt-group">
-                <primitive
-                    object={model}
-                    scale={[1, 1, 1]}
-                    position={[0, 0, 0]}
-                    rotation={[0, 0, 0]}
-                />
+        <group ref={group} {...props}>
+            <group ref={tiltGroupRef} name="tilt-group">
+                {/* Optimized scene will be added in useLayoutEffect */}
             </group>
         </group>
     )
@@ -86,24 +110,34 @@ export const Car = () => {
             x = isMobile ? 2.5 : 3.5
             rotY = Math.PI
             if (showTag) setShowTag(false)
-        } else if (offset < 0.8) {
-            const t = (offset - 0.6) / 0.2
+        } else if (offset < 0.82) {
+            // Refined turning phase: 0.6 to 0.82 (longer for stability)
+            const t = Math.min((offset - 0.6) / 0.22, 1)
             const ease = smoothstep(t)
-            const targetX = isMobile ? -5 : -7
-            x = THREE.MathUtils.lerp(isMobile ? 2.5 : 3.5, targetX, ease)
+            const targetX = isMobile ? -10 : -15
+
+            // Use a quadratic curve for X to simulate turning radius and avoid early clipping
+            // This keeps the car in the aisle longer before it pivots into the spot
+            const xEase = t * t
+            x = THREE.MathUtils.lerp(isMobile ? 2.5 : 3.5, targetX, xEase)
+
+            // Linear-ish progress for Z and Rotation
             z = THREE.MathUtils.lerp(10, 0, ease)
-            const steer = Math.sin(t * Math.PI) * 0.6
             rotY = THREE.MathUtils.lerp(Math.PI, 1.5 * Math.PI, ease)
-            tilt = -steer * 0.1
+
+            // Subtle steering tilt
+            const steer = Math.sin(t * Math.PI) * 0.4
+            tilt = -steer * 0.05
             if (showTag) setShowTag(false)
         } else {
-            x = isMobile ? -5 : -7
+            // Final Parked State
+            x = isMobile ? -10 : -15
             z = 0
             rotY = 1.5 * Math.PI
             if (!showTag) setShowTag(true)
         }
 
-        const dampFactor = 1 - Math.pow(0.1, delta)
+        const dampFactor = 1 - Math.pow(0.05, delta)
         group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, x, dampFactor)
         group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, z, dampFactor)
         group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, yBase, dampFactor)
@@ -118,8 +152,8 @@ export const Car = () => {
     })
 
     return (
-        <group ref={group} position={[3.5, 0.05, 150]} rotation={[0, Math.PI, 0]}>
-            <CarModel color="#1e40af" scale={[15.2, 15.2, 15.2]} rotation={[0, -Math.PI / 2, 0]} isMainCar />
+        <group ref={group} data-car-group position={[3.5, 0.05, 150]} rotation={[0, Math.PI, 0]}>
+            <CarModel scale={[1.5, 1.5, 1.5]} rotation={[0, 0, 0]} isMainCar />
 
             <spotLight
                 position={[1.2, 0.8, 2.5]}

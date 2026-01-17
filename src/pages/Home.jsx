@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { ScrollControls } from "@react-three/drei";
+import { ScrollControls, Grid } from "@react-three/drei";
 import { HomeOverlay } from "../components/HomeOverlay";
 import { Suspense, useEffect } from "react";
 import { Car } from "../components/canvas/Car";
@@ -40,6 +40,16 @@ export const Home = () => {
                         <Ramp />
                         <HomeOverlay />
                     </ScrollControls>
+
+                    {/* Grid Mesh Background */}
+                    <Grid
+                        position={[0, 2, 0]}
+                        rotation={[Math.PI / 2, 0, 0]}
+                        args={[20, 20]}
+                        cellColor="#3b82f6"
+                        sectionColor="#09090b"
+                        fadeDistance={15}
+                    />
 
                     <ContactShadows
                         position={[8, -3, 0]}

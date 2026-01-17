@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Home } from './pages/Home';
 import { Services } from './pages/Services';
@@ -10,6 +10,7 @@ import { Contact } from './pages/Contact';
 import { Loader } from './components/Loader';
 import { Header } from './components/layout/Header';
 import { ThemeProvider } from './context/ThemeContext';
+import { preloadServicesAssets, preloadServicesComponents } from './utils/preloadServices';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -75,6 +76,16 @@ const PageWrapper = ({ children }) => (
 );
 
 function App() {
+  // Preload Services page assets on app mount
+  useEffect(() => {
+    // Preload 3D models and components for Services page
+    preloadServicesAssets();
+    // Preload components after a short delay to not block initial render
+    setTimeout(() => {
+      preloadServicesComponents();
+    }, 1000);
+  }, []);
+
   return (
     <ThemeProvider>
       <Router>
