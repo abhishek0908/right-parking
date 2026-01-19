@@ -341,11 +341,11 @@ function Plants() {
         return data;
     }, []);
 
+    const tempObject = useRef(new THREE.Object3D()).current;
     useFrame((state) => {
         if (!meshRef.current) return;
 
         const time = state.clock.getElapsedTime();
-        const tempObject = new THREE.Object3D();
 
         plantData.forEach((data, i) => {
             const sway = Math.sin(time * 2 + data.phase) * 0.1;

@@ -149,16 +149,16 @@ function LuxurySedanModel({ onTailLampsFound }) {
 function TailLampWrapper({ mesh, xOffset = 0 }) {
     const groupRef = useRef(null);
 
+    const _v = useRef(new THREE.Vector3()).current;
     useFrame(() => {
         if (groupRef.current && mesh) {
             // Get world position of the tail lamp mesh
-            const worldPos = new THREE.Vector3();
-            mesh.getWorldPosition(worldPos);
+            mesh.getWorldPosition(_v);
             // Move down a bit to better align with tail lamps
-            worldPos.y -= 0.2;
+            _v.y -= 0.2;
             // Add horizontal offset to increase spacing
-            worldPos.x += xOffset;
-            groupRef.current.position.copy(worldPos);
+            _v.x += xOffset;
+            groupRef.current.position.copy(_v);
         }
     });
 
@@ -232,9 +232,9 @@ export const CarModel = forwardRef((props, ref) => {
             )}
             {/* Fallback: if no tail lamps found, use default position */}
             {tailLamps.length < 2 && (
-                <group position={[0, 0.06, -1.65]}>
+                <group position={[0, 0.06, -1.55]}>
                     <Trail
-                        width={0.4}
+                        width={0.1}
                         length={4}
                         color="#FF0000"
                         attenuation={(t) => t * t}
@@ -276,6 +276,9 @@ export function Car() {
     const scroll = useScroll();
     const carRef = useRef(null);
     const startOffset = 0.13; // Start animation at 25% along the spiral when scroll is 0
+    const _pos = useRef(new THREE.Vector3()).current;
+    const _tangent = useRef(new THREE.Vector3()).current;
+    const _lookAt = useRef(new THREE.Vector3()).current;
 
     useFrame((state, delta) => {
         if (!carRef.current) return;
@@ -285,16 +288,17 @@ export function Car() {
         const adjustedT = startOffset + rawT * (1 - startOffset);
         const t = adjustedT * adjustedT * (3 - 2 * adjustedT);
 
-        const point = spiralCurve.getPointAt(t);
-        const tangent = spiralCurve.getTangentAt(t).normalize();
+        spiralCurve.getPointAt(t, _pos);
+        spiralCurve.getTangentAt(t, _tangent).normalize();
 
         // Position car lifted above the ramp
-        carRef.current.position.copy(point);
-        carRef.current.position.y += 0.59; // Lift car higher above the ramp
-        // Rotate car to face along the tangent
-        const lookAt = point.clone().add(tangent);
-        lookAt.y = point.y + 0.35;
-        carRef.current.lookAt(lookAt);
+        const liftOffset = 0.85;
+        carRef.current.position.copy(_pos);
+        carRef.current.position.y += liftOffset;
+
+        // Rotate car to face along the tangent at its current height
+        _lookAt.copy(carRef.current.position).add(_tangent);
+        carRef.current.lookAt(_lookAt);
     });
 
     return <CarModel ref={carRef} />;
