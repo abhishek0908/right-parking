@@ -78,6 +78,69 @@ const ParkingSpacesSign = ({ position = [0, 0, 0], rotation = [0, Math.PI, 0] })
 }
 
 /**
+ * Centralized Hanging Aisle Sign (Shows both directions)
+ */
+const CentralAisleSign = ({ position, spacesL = 5, spacesR = 5 }) => {
+    return (
+        <group position={position}>
+            {/* Hanging Support Wires */}
+            <mesh position={[-1.5, 1.2, 0]}>
+                <cylinderGeometry args={[0.01, 0.01, 2.5, 8]} />
+                <meshStandardMaterial color="#3f3f46" metalness={1} />
+            </mesh>
+            <mesh position={[1.5, 1.2, 0]}>
+                <cylinderGeometry args={[0.01, 0.01, 2.5, 8]} />
+                <meshStandardMaterial color="#3f3f46" metalness={1} />
+            </mesh>
+
+            {/* Main Sign Plate */}
+            <mesh>
+                <boxGeometry args={[4.2, 1.2, 0.15]} />
+                <meshStandardMaterial color="#020617" metalness={1} roughness={0.1} />
+            </mesh>
+
+            {/* Glowing Emissive Backing */}
+            <mesh position={[0, 0, -0.01]}>
+                <boxGeometry args={[4.3, 1.3, 0.05]} />
+                <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={2} transparent opacity={0.2} />
+            </mesh>
+
+            <Html
+                transform
+                distanceFactor={7}
+                position={[0, 0, 0.1]}
+                center
+                portal={{ current: document.body }}
+            >
+                <div className="flex items-center justify-between bg-slate-900/80 backdrop-blur-3xl border-2 border-blue-500/40 px-8 py-3 rounded-full w-[450px] shadow-[0_0_60px_rgba(59,130,246,0.3)] ring-1 ring-white/10">
+                    <div className="flex items-center gap-6 flex-1 justify-start border-r border-white/10 pr-6">
+                        <div className="text-4xl font-black italic text-blue-400 animate-pulse">←</div>
+                        <div className="flex flex-col items-start leading-none">
+                            <span className="text-slate-500 text-[8px] font-black uppercase tracking-widest mb-1.5 pl-0.5">Left Row</span>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-white text-3xl font-black tracking-tighter">{spacesL}</span>
+                                <span className="text-blue-500 text-[10px] font-bold">FREE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-6 flex-1 justify-end pl-6">
+                        <div className="flex flex-col items-end leading-none">
+                            <span className="text-slate-500 text-[8px] font-black uppercase tracking-widest mb-1.5 pr-0.5">Right Row</span>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-emerald-500 text-[10px] font-bold">FREE</span>
+                                <span className="text-white text-3xl font-black tracking-tighter">{spacesR}</span>
+                            </div>
+                        </div>
+                        <div className="text-4xl font-black italic text-emerald-400 animate-pulse">→</div>
+                    </div>
+                </div>
+            </Html>
+        </group>
+    )
+}
+
+/**
  * Charging Station Component
  */
 export const ChargingStation = ({ position, rotation = [0, 0, 0] }) => {
@@ -163,8 +226,8 @@ const ParkingSpace = ({ position, isHeroSpot = false }) => {
                 <planeGeometry args={[0.08, 5.08]} />
                 <meshStandardMaterial color="#ffffff" opacity={0.4} transparent />
             </mesh>
-            <mesh position={[-4, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-                <planeGeometry args={[0.8, 1.2]} />
+            <mesh position={[position[0] < 0 ? 4.8 : -4.8, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+                <planeGeometry args={[0.4, 3.5]} />
                 <meshStandardMaterial
                     ref={materialRef}
                     color="#22c55e"
@@ -226,6 +289,13 @@ export const ParkingEnvironment = () => {
         return data
     }, [])
 
+    const signCounts = useMemo(() => {
+        return Array.from({ length: 10 }).map(() => ({
+            L: Math.floor(Math.random() * 8) + 1,
+            R: Math.floor(Math.random() * 8) + 1
+        }))
+    }, [])
+
     return (
         <group position={[0, -0.01, 0]}>
             {/* Floor and Road - Heaviest items first */}
@@ -244,6 +314,13 @@ export const ParkingEnvironment = () => {
                 {pillarData.map((d, i) => (
                     <group key={i}>
                         <Instance position={d.position} />
+
+                        {/* Vertical Neon Rod */}
+                        <mesh position={[d.position[0] + (d.xSide < 0 ? 0.78 : -0.78), 4, d.position[2]]}>
+                            <cylinderGeometry args={[0.06, 0.06, 7, 16]} />
+                            <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={12} toneMapped={false} />
+                        </mesh>
+
                         <Text
                             position={[d.position[0] + (d.xSide < 0 ? 0.8 : -0.8), 5, d.position[2]]}
                             rotation={[0, d.xSide < 0 ? Math.PI / 2 : -Math.PI / 2, 0]}
@@ -277,6 +354,20 @@ export const ParkingEnvironment = () => {
             <ParkingRows type="LL" />
             <ParkingRows type="RR" />
             <ParkingSensors />
+
+            {/* Hanging Aisle Signs for Every Row */}
+            {Array.from({ length: 6 }).map((_, i) => {
+                const zPos = -60 + i * 20
+                if (zPos > 105) return null // Consistent with ParkingRows limit
+                return (
+                    <CentralAisleSign
+                        key={i}
+                        position={[3.5, 9, zPos]}
+                        spacesL={signCounts[i].L}
+                        spacesR={signCounts[i].R}
+                    />
+                )
+            })}
 
             {/* Static Decals */}
             <group position={[3.5, 0.02, 40]}>
@@ -317,8 +408,8 @@ const ParkingSensors = () => {
     const sensorPositions = useMemo(() => {
         const positions = []
         const configs = [
-            { type: 'L', pos: [-15, 0.15, -60], xShift: -4 },
-            { type: 'R', pos: [22, 0.15, -60], xShift: -4 },
+            { type: 'L', pos: [-15, 0.15, -60], xShift: 4.8 },
+            { type: 'R', pos: [22, 0.15, -60], xShift: -4.8 },
         ]
         configs.forEach(c => {
             for (let i = 0; i < 6; i++) {

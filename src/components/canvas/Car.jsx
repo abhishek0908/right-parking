@@ -4,7 +4,7 @@ import { useScroll, useGLTF, Trail } from "@react-three/drei";
 import * as THREE from "three";
 
 // Spiral curve definition - positioned to the right and visible from start
-const RADIUS = 4;
+const RADIUS = 5;
 const HEIGHT = 18;
 const TURNS = 3;
 const START_X = 8; // Offset to the right
@@ -82,16 +82,16 @@ function LuxurySedanModel({ onTailLampsFound }) {
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
 
-        // Center the model
+        // Center X and Z, and set bottom Y to 0 (wheels on ground)
         clonedScene.position.x = -center.x;
-        clonedScene.position.y = -center.y;
+        clonedScene.position.y = -box.min.y;
         clonedScene.position.z = -center.z;
 
         // Rotate the model to face forward (along Z-axis)
         clonedScene.rotation.y = 0; // -90 degrees rotation
 
-        // Scale the model to be larger (3.5 units in length)
-        const targetLength = 3.5;
+        // Scale the model to be appropriate for the road (3 units in length)
+        const targetLength = 3.0;
         const scaleFactor = targetLength / Math.max(size.x, size.y, size.z);
         clonedScene.scale.setScalar(scaleFactor);
 
@@ -291,8 +291,9 @@ export function Car() {
         spiralCurve.getPointAt(t, _pos);
         spiralCurve.getTangentAt(t, _tangent).normalize();
 
-        // Position car lifted above the ramp
-        const liftOffset = 0.85;
+        // Position car grounded on the ramp
+        // With pivot at wheels, we need enough lift to clear the slope tilt
+        const liftOffset = 0.15;
         carRef.current.position.copy(_pos);
         carRef.current.position.y += liftOffset;
 
