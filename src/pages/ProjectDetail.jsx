@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projects as staticProjects } from '../data/projects';
 import { getProjectById, getProjectFiles, getCloudinaryUrl, getVideoThumbnail } from '../lib/supabase';
 import {
     ArrowLeft,
@@ -56,28 +55,7 @@ export const ProjectDetail = () => {
                 setVideos(files.filter(f => f.file_type === 'video'));
                 setDocuments(files.filter(f => f.file_type === 'document'));
             }
-        } else {
-            // Fallback to static data
-            const found = staticProjects.find(p => p.id === id);
-            if (found) {
-                setProject({
-                    project_name: found.name,
-                    project_description: found.description,
-                    total_parking_spots: null,
-                    project_date: null,
-                    map_url: null,
-                    technology_description: null,
-                    technologies: []
-                });
-                // Convert static gallery to photos format
-                if (found.gallery) {
-                    setPhotos(found.gallery.map((url, i) => ({
-                        id: i,
-                        file_path: url,
-                        isStatic: true
-                    })));
-                }
-            }
+
         }
         setLoading(false);
     };
@@ -288,6 +266,20 @@ export const ProjectDetail = () => {
                                     </div>
                                 )}
                             </div>
+
+                            {project.total_parking_spots && (
+                                <div className="mb-8 inline-block bg-yellow-500/10 border border-yellow-500/20 px-5 py-4 rounded-xl relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 blur-[30px] group-hover:bg-yellow-500/20 transition-all duration-500" />
+
+                                    <span className="block text-3xl md:text-5xl font-display italic text-yellow-500 font-black tracking-tighter mb-1 relative z-10 shadow-yellow-500/50 drop-shadow-[0_0_8px_rgba(234,179,8,0.3)]">
+                                        {project.total_parking_spots}
+                                    </span>
+                                    <span className="text-yellow-600/80 uppercase tracking-[0.2em] text-[9px] font-mono font-bold flex items-center gap-1.5 relative z-10">
+                                        <Car className="w-3 h-3" />
+                                        Total Capacity
+                                    </span>
+                                </div>
+                            )}
 
 
 
