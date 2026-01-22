@@ -99,16 +99,16 @@ export const About = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-6xl md:text-9xl font-display italic tracking-tighter-premium mb-8 leading-tight text-gradient py-4"
+                            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-[1.1] md:leading-tight text-gradient py-4"
                         >
                             Building India’s <br />
-                            Future of <span className="text-blue-500 font-display inline-block pb-2">Parking</span>
+                            Future of <span className="text-blue-500 font-display inline-block pb-1 md:pb-2">Parking</span>
                         </motion.h1>
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="text-2xl md:text-3xl text-[var(--text-muted)] font-light tracking-wide mb-8"
+                            className="text-lg sm:text-xl md:text-3xl text-[var(--text-muted)] font-light tracking-wide mb-6 md:mb-8"
                         >
                             Ticketless. Manpowerless. Seamlessly Managed.
                         </motion.h2>
@@ -116,7 +116,7 @@ export const About = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
-                            className="text-lg md:text-xl text-[var(--text-muted)] font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-6 mb-12"
+                            className="text-sm sm:text-base md:text-lg lg:text-xl text-[var(--text-muted)] font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-4 md:pl-6 mb-12"
                         >
                             Right Parking is transforming how India parks by building intelligent, automated parking infrastructure that operates without tickets, without cash, and without friction.
                         </motion.p>
@@ -152,26 +152,26 @@ export const About = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#17171a] via-transparent to-transparent" />
                     </div>
 
-                    <div className="max-w-[100rem] w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center panel-content relative z-10 px-6 md:px-12">
+                    <div className="max-w-[100rem] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-center panel-content relative z-10 px-6 md:px-12">
                         {/* Heading Cluster - Left Side */}
                         <div className="lg:col-span-4 space-y-6 ceo-heading-col">
                             <div className="flex flex-col">
                                 <span className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-4">Founder's Vision</span>
-                                <h2 className="text-5xl md:text-8xl font-sans font-black text-white leading-[0.85] tracking-tighter mb-6 uppercase">
+                                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-sans font-black text-white leading-[0.85] tracking-tighter mb-4 md:mb-6 uppercase">
                                     MEET<br />
                                     THE <span className="text-blue-500">CEO</span><br />
                                     <span className="text-blue-500">&</span> FOUNDER
                                 </h2>
                                 <div className="flex flex-col group">
-                                    <span className="text-2xl md:text-4xl font-display italic tracking-tighter text-blue-500 leading-tight py-2 inline-block">RIGHT</span>
-                                    <span className="text-3xl md:text-6xl font-sans font-black tracking-tighter text-white group-hover:text-blue-500 transition-colors duration-500">PARKING</span>
+                                    <span className="text-xl sm:text-2xl md:text-4xl font-display italic tracking-tighter text-blue-500 leading-tight py-1 md:py-2 inline-block">RIGHT</span>
+                                    <span className="text-3xl sm:text-4xl md:text-6xl font-sans font-black tracking-tighter text-white group-hover:text-blue-500 transition-colors duration-500">PARKING</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Bio Cluster - Far Right (Narrower width, more lines) */}
-                        <div className="lg:col-span-8 ceo-bio-col">
-                            <div className="text-[var(--text-muted)] font-light text-sm md:text-lg lg:text-xl leading-[1.8] space-y-10 text-left ml-auto max-w-xl">
+                        <div className="lg:col-span-8 ceo-bio-col mt-8 lg:mt-0">
+                            <div className="text-[var(--text-muted)] font-light text-xs sm:text-sm md:text-lg lg:text-xl leading-[1.6] md:leading-[1.8] space-y-6 md:space-y-10 text-left lg:ml-auto max-w-xl">
                                 <p className="text-white/90">
                                     Kumar is the <span className="text-blue-500 font-medium whitespace-nowrap">visionary founder</span> and CEO of Right Parking, driven by a passion for revolutionizing urban mobility through innovative parking solutions.
                                 </p>
@@ -181,8 +181,8 @@ export const About = () => {
                                 <p>
                                     Under Kumar's leadership, Right Parking has grown from a <span className="text-white font-medium">concept</span> to a leading provider of digital parking solutions, offering <span className="text-white font-medium">seamless booking experiences</span>, advanced security systems, and automated payment solutions.
                                 </p>
-                                <div className="pt-12 border-t border-white/10">
-                                    <p className="italic text-blue-400 text-2xl md:text-3xl font-display leading-tight">
+                                <div className="pt-6 md:pt-12 border-t border-white/10">
+                                    <p className="italic text-blue-400 text-xl md:text-3xl font-display leading-tight">
                                         "Parking isn't just about slots. It's about time, safety, and the seamless flow of a city's lifeblood."
                                     </p>
                                 </div>
@@ -195,17 +195,17 @@ export const About = () => {
                 <section className="about-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0a0a0c]">
                     <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center panel-content">
                         <div>
-                            <h2 className="text-4xl md:text-5xl font-display italic mb-6 leading-tight py-2">Invisible Infrastructure That <span className="text-blue-500 inline-block pb-1">Simply Works</span></h2>
-                            <p className="text-[var(--text-muted)] leading-relaxed mb-6">
+                            <h2 className="text-3xl md:text-5xl font-display italic mb-6 leading-tight py-2">Invisible Infrastructure That <span className="text-blue-500 inline-block pb-1">Simply Works</span></h2>
+                            <p className="text-[var(--text-muted)] text-sm md:text-base leading-relaxed mb-6">
                                 Right Parking replaces outdated parking systems with self-operating infrastructure.
                                 Just seamless entry, guided parking, automatic billing, and real-time control.
                             </p>
-                            <p className="text-[var(--text-muted)] leading-relaxed mb-8 italic border-l border-blue-500/20 pl-4">
+                            <p className="text-[var(--text-muted)] text-sm md:text-base leading-relaxed mb-8 italic border-l border-blue-500/20 pl-4">
                                 "We don’t just manage parking. We build self-operating ecosystems that run silently in the background."
                             </p>
-                            <div className="flex gap-4">
-                                <span className="text-blue-500 font-mono text-xs uppercase tracking-widest border border-blue-500/20 px-4 py-2 rounded-full">Automation</span>
-                                <span className="text-blue-500 font-mono text-xs uppercase tracking-widest border border-blue-500/20 px-4 py-2 rounded-full">Intelligence</span>
+                            <div className="flex flex-wrap gap-4">
+                                <span className="text-blue-500 font-mono text-[10px] md:text-xs uppercase tracking-widest border border-blue-500/20 px-4 py-2 rounded-full">Automation</span>
+                                <span className="text-blue-500 font-mono text-[10px] md:text-xs uppercase tracking-widest border border-blue-500/20 px-4 py-2 rounded-full">Intelligence</span>
                             </div>
                         </div>
                         <div className="bg-[var(--surface)] p-8 rounded-[2rem] border border-[var(--border)] relative overflow-hidden group shadow-2xl">
@@ -229,12 +229,12 @@ export const About = () => {
                 {/* 1.3 The Problem - Panel 3 */}
                 <section className="about-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0c0c0e]">
                     <div className="max-w-7xl w-full panel-content">
-                        <div className="mb-12 text-center md:text-left">
-                            <h2 className="text-3xl md:text-6xl font-display italic mb-4">India’s Parking <span className="text-red-500">Challenge</span></h2>
-                            <p className="text-[var(--text-muted)] text-xl mb-4">Parking is treated as an afterthought—yet it directly impacts traffic flow, safety, and city efficiency.</p>
-                            <p className="text-[var(--text-muted)] text-sm max-w-2xl">Traditional parking infrastructure in India faces systemic bottlenecks that reduce urban mobility and site profitability.</p>
+                        <div className="mb-6 md:mb-12 text-center md:text-left">
+                            <h2 className="text-2xl sm:text-4xl md:text-6xl font-display italic mb-3 md:mb-4">India’s Parking <span className="text-red-500">Challenge</span></h2>
+                            <p className="text-base sm:text-lg md:text-xl mb-3 md:mb-4 text-[var(--text-muted)]">Parking is treated as an afterthought—yet it directly impacts traffic flow, safety, and city efficiency.</p>
+                            <p className="text-[var(--text-muted)] text-[10px] sm:text-xs md:text-sm max-w-2xl mx-auto md:mx-0">Traditional parking infrastructure in India faces systemic bottlenecks that reduce urban mobility and site profitability.</p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                             {[
                                 "Congested entry & exit points",
                                 "Cash leakage and manual errors",
@@ -244,10 +244,10 @@ export const About = () => {
                             ].map((item, i) => (
                                 <div
                                     key={i}
-                                    className="bg-red-500/5 border border-red-500/10 p-8 rounded-2xl hover:bg-red-500/10 transition-colors"
+                                    className="bg-red-500/5 border border-red-500/10 p-5 md:p-8 rounded-xl md:rounded-2xl hover:bg-red-500/10 transition-colors"
                                 >
-                                    <span className="block text-red-500 font-mono text-xs mb-4 uppercase tracking-[0.2em]">Pain Point 0{i + 1}</span>
-                                    <p className="text-[var(--text-main)] text-lg leading-snug">{item}</p>
+                                    <span className="block text-red-500 font-mono text-[10px] md:text-xs mb-3 md:mb-4 uppercase tracking-[0.2em]">Pain Point 0{i + 1}</span>
+                                    <p className="text-[var(--text-main)] text-base md:text-lg leading-snug">{item}</p>
                                 </div>
                             ))}
                         </div>
@@ -309,18 +309,18 @@ export const About = () => {
                 {/* Panel 6: Facilities & Amenities (Restored) */}
                 <section className="about-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[7] bg-[#121215]">
                     <div className="max-w-7xl w-full panel-content">
-                        <h2 className="text-3xl md:text-6xl font-display italic mb-12">Facilities & <span className="text-blue-500">Amenities</span></h2>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                        <h2 className="text-2xl sm:text-4xl md:text-6xl font-display italic mb-8 md:mb-12">Facilities & <span className="text-blue-500">Amenities</span></h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                             {[
                                 "Automated Barriers", "FASTag Integration", "Smart Sensors", "Wayfinding Displays",
                                 "EV Charging", "CCTV Surveillance", "Reserved Parking", "Digital Payments", "Emergency Support"
                             ].map((item, i) => (
                                 <div
                                     key={i}
-                                    className="p-8 bg-[var(--surface)] border border-[var(--border)] rounded-2xl flex items-center gap-6 hover:border-blue-500/50 transition-all group"
+                                    className="p-4 md:p-8 bg-[var(--surface)] border border-[var(--border)] rounded-xl md:rounded-2xl flex items-center gap-4 md:gap-6 hover:border-blue-500/50 transition-all group"
                                 >
-                                    <div className="w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6] group-hover:scale-150 transition-transform" />
-                                    <span className="text-lg text-[var(--text-main)] font-light tracking-wide">{item}</span>
+                                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6] group-hover:scale-150 transition-transform" />
+                                    <span className="text-sm sm:text-base md:text-lg text-[var(--text-main)] font-light tracking-wide">{item}</span>
                                 </div>
                             ))}
                         </div>
@@ -329,25 +329,25 @@ export const About = () => {
 
                 {/* Panel 7: End-to-End Ownership (Restored) */}
                 <section className="about-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[8] bg-[#131316]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 bg-blue-900/10 p-16 rounded-[4rem] border border-blue-500/20 panel-content">
+                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 bg-blue-900/10 p-8 md:p-16 rounded-[2rem] md:rounded-[4rem] border border-blue-500/20 panel-content">
                         <div>
-                            <h2 className="text-3xl md:text-5xl font-display italic mb-8 text-[var(--text-main)] leading-tight">From Empty Land to <br />Smart Asset</h2>
-                            <ul className="space-y-6 text-xl text-[var(--text-muted)] font-light">
+                            <h2 className="text-2xl sm:text-4xl md:text-5xl font-display italic mb-6 md:mb-8 text-[var(--text-main)] leading-tight">From Empty Land to <br />Smart Asset</h2>
+                            <ul className="space-y-4 md:space-y-6 text-lg md:text-xl text-[var(--text-muted)] font-light">
                                 {[
                                     "Site assessment & design",
                                     "Complete technology installation",
                                     "Operations & maintenance",
                                     "Revenue management & reporting"
                                 ].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-4">
-                                        <span className="text-blue-500 text-2xl">✓</span> {item}
+                                    <li key={i} className="flex items-center gap-3 md:gap-4">
+                                        <span className="text-blue-500 text-lg md:text-2xl">✓</span> {item}
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                        <div className="bg-blue-600 p-12 rounded-[3rem] text-white shadow-2xl flex flex-col justify-center">
-                            <h3 className="text-2xl font-bold mb-6 uppercase tracking-widest">Zero CapEx for Partners</h3>
-                            <p className="mb-10 text-lg opacity-90 leading-relaxed">All technology and system costs are borne by Right Parking. We invest in your facility's future.</p>
+                        <div className="bg-blue-600 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] text-white shadow-2xl flex flex-col justify-center">
+                            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 uppercase tracking-widest">Zero CapEx for Partners</h3>
+                            <p className="mb-6 md:mb-10 text-base md:text-lg opacity-90 leading-relaxed">All technology and system costs are borne by Right Parking. We invest in your facility's future.</p>
                             <div className="pt-8 border-t border-white/20">
                                 <p className="text-xs uppercase tracking-widest mb-4 opacity-75">Partners earn through:</p>
                                 <div className="flex flex-col md:flex-row gap-8 font-display italic text-2xl">
@@ -362,8 +362,8 @@ export const About = () => {
                 {/* Panel 8: Who We Serve (Restored) */}
                 <section className="about-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[9] bg-[#141418]">
                     <div className="max-w-7xl w-full panel-content">
-                        <h2 className="text-3xl md:text-6xl font-display italic mb-16 text-center">Who We <span className="text-blue-500">Serve</span></h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <h2 className="text-2xl sm:text-4xl md:text-6xl font-display italic mb-8 md:mb-16 text-center">Who We <span className="text-blue-500">Serve</span></h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                             {[
                                 { t: "Urban Bodies", d: "Turning public parking into transparent, revenue-generating assets for the city." },
                                 { t: "Real Estate", d: "Enhancing footfall, visitor experience, and asset monetization for developers." },
@@ -371,10 +371,10 @@ export const About = () => {
                             ].map((item, i) => (
                                 <div
                                     key={i}
-                                    className="bg-[var(--surface)] border border-[var(--border)] p-12 rounded-[3.5rem] hover:border-blue-500 transition-all group"
+                                    className="bg-[var(--surface)] border border-[var(--border)] p-8 md:p-12 rounded-[2rem] md:rounded-[3.5rem] hover:border-blue-500 transition-all group"
                                 >
-                                    <h3 className="text-3xl font-display italic mb-6 group-hover:text-blue-500 transition-colors uppercase tracking-tighter">{item.t}</h3>
-                                    <p className="text-[var(--text-muted)] text-lg leading-relaxed font-light">{item.d}</p>
+                                    <h3 className="text-2xl md:text-3xl font-display italic mb-4 md:mb-6 group-hover:text-blue-500 transition-colors uppercase tracking-tighter">{item.t}</h3>
+                                    <p className="text-base md:text-lg text-[var(--text-muted)] leading-relaxed font-light">{item.d}</p>
                                 </div>
                             ))}
                         </div>
@@ -386,12 +386,12 @@ export const About = () => {
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center panel-content">
                         <div>
                             <span className="text-blue-500 font-mono text-xs tracking-widest uppercase mb-4 block">The Right Parking App</span>
-                            <h2 className="text-4xl md:text-7xl font-display italic mb-8 leading-tight py-2">Your Spot Is <br /><span className="text-blue-500">Waiting</span></h2>
+                            <h2 className="text-3xl sm:text-5xl md:text-7xl font-display italic mb-6 md:mb-8 leading-tight py-2">Your Spot Is <br /><span className="text-blue-500">Waiting</span></h2>
                             <ul className="space-y-6 mb-8">
                                 {["Pre-book parking", "Enter without stopping", "Get live slot guidance", "Pay automatically"].map((item, i) => (
                                     <li key={i} className="flex items-center gap-6 text-[var(--text-muted)] group">
                                         <div className="w-10 h-10 rounded-full bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-blue-500 text-sm font-bold group-hover:bg-blue-500 group-hover:text-white transition-colors">{i + 1}</div>
-                                        <span className="text-xl font-light">{item}</span>
+                                        <span className="text-base sm:text-lg md:text-xl font-light">{item}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -399,7 +399,7 @@ export const About = () => {
                         </div>
                         <div className="relative flex justify-center">
                             <div className="absolute inset-0 bg-blue-500/10 blur-[120px] rounded-full" />
-                            <div className="bg-[#121214] rounded-[4rem] aspect-[9/18.5] h-[70vh] flex items-center justify-center border border-zinc-800 relative overflow-hidden shadow-2xl p-4">
+                            <div className="bg-[#121214] rounded-[2rem] md:rounded-[4rem] aspect-[9/18.5] h-[50vh] md:h-[70vh] flex items-center justify-center border border-zinc-800 relative overflow-hidden shadow-2xl p-4">
                                 <div className="relative z-10 w-full h-full rounded-[3rem] overflow-hidden border border-zinc-700/50 shadow-inner bg-[#09090b]">
                                     <img
                                         src="/mobile_view.png"
@@ -430,11 +430,10 @@ export const About = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
                     </div>
                     <div className="relative z-10 text-center px-6 panel-content">
-                        <h2 className="text-6xl md:text-9xl font-display italic mb-8 leading-tight text-white tracking-tighter">
+                        <h2 className="text-4xl sm:text-7xl md:text-9xl font-display italic mb-8 leading-tight text-white tracking-tighter">
                             Forward <br /><span className="text-blue-500">Thinking.</span>
                         </h2>
-                        <p className="text-blue-400 font-mono tracking-[0.5em
-                        ] uppercase text-sm md:text-base">
+                        <p className="text-blue-400 font-mono tracking-[0.3em] md:tracking-[0.5em] uppercase text-xs md:text-base">
                             Since 2024 — Building for 2050.
                         </p>
                     </div>
@@ -446,6 +445,6 @@ export const About = () => {
                     <Footer />
                 </div>
             </main>
-        </div>
+        </div >
     );
 };

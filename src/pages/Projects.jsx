@@ -60,13 +60,13 @@ export const Projects = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-blue-500 text-sm md:text-base uppercase tracking-[0.3em] font-bold mb-4">
+                    <h2 className="text-blue-500 text-xs md:text-base uppercase tracking-[0.3em] font-bold mb-4">
                         Our Portfolio
                     </h2>
-                    <h1 className="text-4xl md:text-6xl font-display italic text-white mb-6">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-display italic text-white mb-6">
                         Pioneering <span className="text-blue-600">Smart Mobility</span>
                     </h1>
-                    <p className="text-zinc-400 text-lg max-w-2xl">
+                    <p className="text-zinc-400 text-base md:text-lg max-w-2xl">
                         Explore our flagship parking infrastructure projects across the globe, where cutting-edge technology meets urban architectural excellence.
                     </p>
                 </motion.div>

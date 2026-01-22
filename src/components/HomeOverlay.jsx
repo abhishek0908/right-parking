@@ -32,12 +32,12 @@ const Section = ({
             >
                 <div className="relative z-10">
                     <motion.h2
-                        className={`text-4xl sm:text-5xl md:text-6xl font-black ${textColor} mb-4 md:mb-6 leading-tight tracking-tighter-premium group-hover:text-blue-500 transition-colors duration-300 ${isLeft ? "text-left" : "text-left md:text-right"}`}
+                        className={`text-3xl sm:text-5xl md:text-6xl font-black ${textColor} mb-4 md:mb-6 leading-tight tracking-tighter-premium group-hover:text-blue-500 transition-colors duration-300 ${isLeft ? "text-left" : "text-left md:text-right"}`}
                     >
                         {headline}
                     </motion.h2>
                     <motion.p
-                        className={`text-lg sm:text-xl md:text-2xl ${mutedColor} leading-relaxed font-light ${isLeft ? "text-left" : "text-left md:text-right"} max-w-2xl ${isLeft ? "" : "ml-auto"}`}
+                        className={`text-base sm:text-xl md:text-2xl ${mutedColor} leading-relaxed font-light ${isLeft ? "text-left" : "text-left md:text-right"} max-w-2xl ${isLeft ? "" : "ml-auto"}`}
                     >
                         {description}
                     </motion.p>
@@ -75,11 +75,11 @@ export function HomeOverlay() {
                             transition={{ duration: 1.2, ease: "easeOut" }}
                             className="space-y-4"
                         >
-                            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[var(--text-main)] mb-2 leading-[0.85] tracking-tighter">
+                            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-[var(--text-main)] mb-2 leading-[0.85] tracking-tighter">
                                 Right<span className="text-blue-500">Parking</span>
                             </h1>
-                            <div className="h-1.5 w-32 bg-blue-500 mb-8"></div>
-                            <p className="text-2xl sm:text-3xl md:text-4xl text-[var(--text-muted)] font-light tracking-wide max-w-2xl leading-tight">
+                            <div className="h-1 w-16 md:h-1.5 md:w-32 bg-blue-500 mb-6 md:mb-8"></div>
+                            <p className="text-lg sm:text-2xl md:text-4xl text-[var(--text-muted)] font-light tracking-wide max-w-2xl leading-tight">
                                 Engineering the Future of Urban Mobility through Intelligent Systems.
                             </p>
 
@@ -142,7 +142,7 @@ export function HomeOverlay() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                         >
-                            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[var(--text-main)] mb-12 leading-tight tracking-tighter">
+                            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-[var(--text-main)] mb-8 md:mb-12 leading-tight tracking-tighter">
                                 Next <span className="text-blue-500">Level?</span>
                             </h2>
                             <button

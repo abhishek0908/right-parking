@@ -63,12 +63,12 @@ export const Footer = () => {
                 </div>
 
                 <div className="pt-12 border-t border-[var(--border)] flex flex-col md:flex-row justify-between items-center gap-8 text-[var(--text-muted)]/50">
-                    <p className="text-[10px] font-mono tracking-widest uppercase">
+                    <p className="text-[9px] md:text-[10px] font-mono tracking-widest uppercase text-center md:text-left">
                         © {currentYear} RIGHTPARKING AEROSPACE & INFRASTRUCTURE GROUP
                     </p>
-                    <div className="flex items-center gap-8 font-mono text-[9px] tracking-[0.2em] uppercase">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 font-mono text-[9px] tracking-[0.2em] uppercase">
                         <span className="text-[var(--text-muted)] opacity-20">COORDINATES: 28.6139° N, 77.2090° E</span>
-                        <div className="w-[1px] h-4 bg-[var(--border)]" />
+                        <div className="hidden sm:block w-[1px] h-4 bg-[var(--border)]" />
                         <span className="text-[var(--text-muted)] opacity-40">ENCRYPTION: AES-256</span>
                     </div>
                 </div>

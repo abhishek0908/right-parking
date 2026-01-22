@@ -90,7 +90,7 @@ export const Technology = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-6xl md:text-9xl font-display italic tracking-tighter-premium mb-8 leading-tight text-gradient py-4"
+                            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-tight text-gradient py-4"
                         >
                             Technology.
                         </motion.h1>
@@ -98,7 +98,7 @@ export const Technology = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
-                            className="text-xl md:text-2xl text-[var(--text-muted)] font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-6"
+                            className="text-base sm:text-lg md:text-2xl text-[var(--text-muted)] font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-4 md:pl-6"
                         >
                             Parking works best when you don’t notice it at all.<br />
                             Right Parking’s technology disappears from sight—while delivering full operational control behind the scenes.
@@ -126,8 +126,8 @@ export const Technology = () => {
                 <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
                     <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center panel-content">
                         <div>
-                            <h2 className="text-4xl md:text-6xl font-display italic mb-6 leading-tight py-2 uppercase tracking-tighter">Automation <br /><span className="text-blue-500 inline-block pb-1">by Design</span></h2>
-                            <p className="text-[var(--text-muted)] mb-8 text-xl font-light leading-relaxed">
+                            <h2 className="text-3xl md:text-6xl font-display italic mb-6 leading-tight py-2 uppercase tracking-tighter">Automation <br /><span className="text-blue-500 inline-block pb-1">by Design</span></h2>
+                            <p className="text-[var(--text-muted)] mb-8 text-lg md:text-xl font-light leading-relaxed">
                                 Every site runs on redundant automation + centralized intelligence. Our systems operate independently and scale across cities.
                             </p>
                         </div>
@@ -153,8 +153,8 @@ export const Technology = () => {
                 {/* 2.3 Framework - Panel 2 */}
                 <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
                     <div className="max-w-7xl w-full panel-content">
-                        <h2 className="text-3xl md:text-6xl font-display italic mb-16 text-center leading-tight py-2 uppercase tracking-tighter">Zero Downtime <span className="text-blue-500">Framework</span></h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <h2 className="text-3xl md:text-6xl font-display italic mb-8 md:mb-16 text-center leading-tight py-2 uppercase tracking-tighter">Zero Downtime <span className="text-blue-500">Framework</span></h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                             {[
                                 { name: "Tier 1: FASTag", role: "Primary Layer", desc: "Stop-free access. Real-time wallet verification. Instant session creation and closure.", color: "blue" },
                                 { name: "Tier 2: ANPR", role: "Secondary Layer", desc: "AI-based number plate recognition. Works when FASTag is unreadable. Auto-verification.", color: "cyan" },
@@ -162,12 +162,12 @@ export const Technology = () => {
                             ].map((tier, i) => (
                                 <div
                                     key={i}
-                                    className="bg-[var(--surface)] p-10 rounded-[3rem] border border-[var(--border)] relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500 h-full"
+                                    className="bg-[var(--surface)] p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border border-[var(--border)] relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500 h-full"
                                 >
                                     <div className={`absolute top-0 right-0 w-48 h-48 bg-blue-500/5 blur-[80px] group-hover:bg-blue-500/10 transition-colors`} />
-                                    <span className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase mb-6 block">{tier.role}</span>
-                                    <h3 className="text-3xl font-display italic mb-6">{tier.name}</h3>
-                                    <p className="text-[var(--text-muted)] text-lg font-light leading-relaxed">{tier.desc}</p>
+                                    <span className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase mb-4 md:mb-6 block">{tier.role}</span>
+                                    <h3 className="text-2xl md:text-3xl font-display italic mb-4 md:mb-6">{tier.name}</h3>
+                                    <p className="text-[var(--text-muted)] text-base md:text-lg font-light leading-relaxed">{tier.desc}</p>
                                 </div>
                             ))}
                         </div>
@@ -178,8 +178,8 @@ export const Technology = () => {
                 <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center panel-content">
                         <div>
-                            <h2 className="text-4xl md:text-6xl font-display italic mb-8 leading-tight py-2 uppercase tracking-tighter">Cameras That <span className="text-blue-500">Decide</span></h2>
-                            <p className="text-[var(--text-muted)] mb-12 text-xl font-light">Inside the AI-OCR ANPR Engine.</p>
+                            <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-6 md:mb-8 leading-tight py-2 uppercase tracking-tighter">Cameras That <span className="text-blue-500">Decide</span></h2>
+                            <p className="text-base sm:text-lg md:text-xl text-[var(--text-muted)] mb-8 md:mb-12 font-light">Inside the AI-OCR ANPR Engine.</p>
                             <div className="space-y-10 relative">
                                 <div className="absolute left-[19px] top-4 bottom-4 w-[1px] bg-blue-500/20" />
                                 {[

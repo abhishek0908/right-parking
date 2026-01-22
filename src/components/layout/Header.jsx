@@ -36,9 +36,9 @@ export const Header = () => {
     return (
         <header className="fixed top-0 left-0 w-full z-[9999] px-4 md:px-12 py-4 md:py-6 flex justify-center pointer-events-none">
             <nav className="w-full max-w-7xl glass rounded-2xl md:rounded-full px-5 py-3 md:px-10 flex justify-between items-center pointer-events-auto shadow-2xl transition-all duration-500">
-                <Link to="/" className="flex items-center group relative z-[10001] w-24 md:w-44 h-10 md:h-12">
+                <Link to="/" className="flex items-center group relative z-[10001] w-20 md:w-44 h-10 md:h-12">
                     <div className="absolute left-0 top-1/2 -translate-y-1/2">
-                        <img src="/logo.svg" alt="RightParking Logo" className="h-28 w-auto md:h-52 rounded-lg object-contain transition-transform duration-500 group-hover:scale-110" />
+                        <img src="/logo.svg" alt="RightParking Logo" className="h-16 w-auto md:h-52 rounded-lg object-contain transition-transform duration-500 group-hover:scale-110" />
                         <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                 </Link>
