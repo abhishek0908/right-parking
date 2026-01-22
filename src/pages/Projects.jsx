@@ -7,6 +7,7 @@ import { getProjects, getProjectFiles, getCloudinaryUrl } from '../lib/supabase'
 export const Projects = () => {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         fetchProjects();
@@ -16,7 +17,11 @@ export const Projects = () => {
         setLoading(true);
         const { data, error } = await getProjects();
 
-        if (error || !data || data.length === 0) {
+        if (error) {
+            console.error("Error fetching projects:", error);
+            setErrorMsg(JSON.stringify(error, null, 2));
+            setProjects([]);
+        } else if (!data || data.length === 0) {
             setProjects([]);
         } else {
             // Fetch first photo as main image for each project
@@ -72,9 +77,17 @@ export const Projects = () => {
                             <Car className="w-8 h-8 text-zinc-600" />
                         </div>
                         <h3 className="text-xl text-white font-display italic mb-2">No Projects to Display</h3>
-                        <p className="text-zinc-500 max-w-md">
+                        <p className="text-zinc-500 max-w-md mb-6">
                             Check back later to see our latest parking infrastructure projects.
                         </p>
+                        {errorMsg && (
+                            <div className="max-w-lg w-full bg-red-900/20 border border-red-500/30 p-4 rounded-lg text-left">
+                                <p className="text-red-400 text-xs font-mono mb-2">DEBUG ERROR:</p>
+                                <pre className="text-red-300 text-[10px] whitespace-pre-wrap font-mono overflow-auto max-h-40">
+                                    {errorMsg}
+                                </pre>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">

@@ -42,9 +42,9 @@ export const Technology = () => {
                     scrollTrigger: {
                         trigger: panel,
                         scroller: containerRef.current,
-                        start: "top 60%",
-                        end: "top 10%",
-                        toggleActions: "play none none reverse"
+                        start: "top 85%",
+                        end: "bottom 15%",
+                        toggleActions: "play reverse play reverse"
                     }
                 }
             );
