@@ -44,7 +44,7 @@ export const Projects = () => {
     }
 
     return (
-        <div className="min-h-screen bg-[#09090b] pt-32 pb-20 px-6 md:px-12">
+        <div className="min-h-screen bg-[#09090b] pt-36 md:pt-44 pb-20 px-6 md:px-12 relative z-10">
             {/* Header Section */}
             <div className="max-w-7xl mx-auto mb-16">
                 <motion.div
@@ -65,7 +65,7 @@ export const Projects = () => {
             </div>
 
             {/* Projects Grid */}
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto w-full">
                 {projects.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-20 text-center">
                         <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center mb-6 border border-zinc-800">
