@@ -1,35 +1,110 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projects } from '../data/projects';
+import { projects as staticProjects } from '../data/projects';
+import { getProjectById, getProjectFiles, getCloudinaryUrl, getVideoThumbnail } from '../lib/supabase';
 import {
     ArrowLeft,
-    CheckCircle2,
     MapPin,
     Calendar,
     ShieldCheck,
     Zap,
     Smartphone,
-    Maximize2
+    Maximize2,
+    Car,
+    ExternalLink,
+    FileText,
+    Play,
+    Download,
+    Loader2,
+    Shield,
+    Activity,
+    X
 } from 'lucide-react';
 
 export const ProjectDetail = () => {
     const { id } = useParams();
     const [project, setProject] = useState(null);
-    const [activeImage, setActiveImage] = useState(0);
+    const [photos, setPhotos] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [documents, setDocuments] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [activeDoc, setActiveDoc] = useState(null);
+
+    const media = [...photos, ...videos.map(v => ({ ...v, file_type: 'video' }))];
+    const activeMedia = media[activeMediaIndex];
 
     useEffect(() => {
-        const found = projects.find(p => p.id === id);
-        if (found) {
-            setProject(found);
-        }
+        fetchProject();
     }, [id]);
 
-    if (!project) return (
-        <div className="h-screen flex items-center justify-center bg-[#09090b]">
-            <div className="text-white text-2xl font-display italic animate-pulse">Loading Project...</div>
-        </div>
-    );
+    const fetchProject = async () => {
+        setLoading(true);
+
+        // Try Supabase first
+        const { data, error } = await getProjectById(id);
+
+        if (data) {
+            setProject(data);
+
+            // Fetch files
+            const { data: files } = await getProjectFiles(id);
+            if (files) {
+                setPhotos(files.filter(f => f.file_type === 'photo'));
+                setVideos(files.filter(f => f.file_type === 'video'));
+                setDocuments(files.filter(f => f.file_type === 'document'));
+            }
+        } else {
+            // Fallback to static data
+            const found = staticProjects.find(p => p.id === id);
+            if (found) {
+                setProject({
+                    project_name: found.name,
+                    project_description: found.description,
+                    total_parking_spots: null,
+                    project_date: null,
+                    map_url: null,
+                    technology_description: null,
+                    technologies: []
+                });
+                // Convert static gallery to photos format
+                if (found.gallery) {
+                    setPhotos(found.gallery.map((url, i) => ({
+                        id: i,
+                        file_path: url,
+                        isStatic: true
+                    })));
+                }
+            }
+        }
+        setLoading(false);
+    };
+
+    const getImageUrl = (photo) => {
+        // Use helper to construct full URL from stored path
+        return getCloudinaryUrl(photo.file_path, photo.file_type);
+    };
+
+    if (loading) {
+        return (
+            <div className="h-screen flex items-center justify-center bg-[#09090b]">
+                <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+            </div>
+        );
+    }
+
+    if (!project) {
+        return (
+            <div className="h-screen flex flex-col items-center justify-center bg-[#09090b]">
+                <h1 className="text-2xl font-display italic text-white mb-4">Project Not Found</h1>
+                <Link to="/projects" className="text-blue-500 hover:text-blue-400">
+                    Back to Projects
+                </Link>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#09090b] pt-32 pb-24 px-6 md:px-12">
@@ -46,44 +121,122 @@ export const ProjectDetail = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                     {/* Left: Gallery Section */}
                     <div className="space-y-6">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="relative aspect-video rounded-3xl overflow-hidden border border-zinc-800 bg-[#121214] shadow-2xl"
-                        >
-                            <AnimatePresence mode="wait">
-                                <motion.img
-                                    key={activeImage}
-                                    src={project.gallery[activeImage]}
-                                    alt={project.name}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="w-full h-full object-cover"
-                                />
-                            </AnimatePresence>
-
-                            <div className="absolute top-6 right-6">
-                                <button className="bg-black/50 backdrop-blur-md p-3 rounded-full text-white/70 hover:text-white transition-colors">
-                                    <Maximize2 className="w-5 h-5" />
-                                </button>
-                            </div>
-                        </motion.div>
-
-                        {/* Thumbnails */}
-                        <div className="grid grid-cols-5 gap-4">
-                            {project.gallery.map((img, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setActiveImage(idx)}
-                                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 ${activeImage === idx ? 'border-blue-600 ring-4 ring-blue-600/20' : 'border-zinc-800 opacity-50 hover:opacity-100'
-                                        }`}
+                        {media.length > 0 && (
+                            <>
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="relative aspect-video rounded-3xl overflow-hidden border border-zinc-800 bg-[#121214] shadow-2xl"
                                 >
-                                    <img src={img} alt="" className="w-full h-full object-cover" />
-                                </button>
-                            ))}
-                        </div>
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={activeMediaIndex}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.5 }}
+                                            className="w-full h-full"
+                                        >
+                                            {activeMedia.file_type === 'video' ? (
+                                                <video
+                                                    src={getCloudinaryUrl(activeMedia.file_path, 'video')}
+                                                    controls
+                                                    autoPlay
+                                                    muted
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={getImageUrl(activeMedia)}
+                                                    alt={project.project_name}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            )}
+                                        </motion.div>
+                                    </AnimatePresence>
+
+                                    <div className="absolute top-6 right-6">
+                                        <button
+                                            onClick={() => setLightboxOpen(true)}
+                                            className="bg-black/50 backdrop-blur-md p-3 rounded-full text-white/70 hover:text-white transition-colors"
+                                        >
+                                            <Maximize2 className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                </motion.div>
+
+                                {/* Thumbnails */}
+                                {media.length > 1 && (
+                                    <div className="grid grid-cols-5 gap-4">
+                                        {media.map((item, idx) => (
+                                            <button
+                                                key={item.id}
+                                                onClick={() => setActiveMediaIndex(idx)}
+                                                className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 ${activeMediaIndex === idx ? 'border-blue-600 ring-4 ring-blue-600/20' : 'border-zinc-800 opacity-50 hover:opacity-100'}`}
+                                            >
+                                                <img
+                                                    src={item.file_type === 'video' ? getVideoThumbnail(item.file_path) : getImageUrl(item)}
+                                                    alt=""
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                {item.file_type === 'video' && (
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                                                        <Play className="w-5 h-5 text-white fill-white shadow-lg" />
+                                                    </div>
+                                                )}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </>
+                        )}
+
+
+
+                        {/* Documents Section */}
+                        {documents.length > 0 && (
+                            <div className="mt-8">
+                                <h3 className="text-sm uppercase tracking-[0.2em] font-bold text-blue-500 mb-4">Documents</h3>
+                                <div className="space-y-3">
+                                    {documents.map((doc, idx) => (
+                                        <div
+                                            key={doc.id}
+                                            className="flex items-center justify-between p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-blue-600/50 transition-colors group cursor-pointer"
+                                            onClick={() => setActiveDoc(getCloudinaryUrl(doc.file_path, 'document'))}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <FileText className="w-5 h-5 text-blue-500" />
+                                                <div className="flex flex-col">
+                                                    <span className="text-zinc-300 text-sm font-medium">Project Document</span>
+                                                    <span className="text-[10px] text-zinc-500 uppercase tracking-wider">Review Specifications</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-4">
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setActiveDoc(getCloudinaryUrl(doc.file_path, 'document'));
+                                                    }}
+                                                    className="flex items-center gap-2 px-4 py-2 bg-blue-600/10 hover:bg-blue-600 text-blue-500 hover:text-white rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all border border-blue-600/20"
+                                                >
+                                                    <Maximize2 className="w-3.5 h-3.5" />
+                                                    View
+                                                </button>
+                                                <a
+                                                    href={getCloudinaryUrl(doc.file_path, 'document')}
+                                                    download
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    className="p-2.5 bg-zinc-800 hover:bg-green-600 text-zinc-400 hover:text-white rounded-lg transition-all border border-zinc-700"
+                                                    title="Download File"
+                                                >
+                                                    <Download className="w-4 h-4" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Right: Detailed Content */}
@@ -97,61 +250,83 @@ export const ProjectDetail = () => {
                                 <span className="bg-blue-600/10 text-blue-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-blue-600/20">
                                     Infrastructure
                                 </span>
-                                <span className="bg-zinc-800/50 text-zinc-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                                    Series-W223
-                                </span>
+                                {project.total_parking_spots && (
+                                    <span className="bg-green-600/10 text-green-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-green-600/20 flex items-center gap-1">
+                                        <Car className="w-3 h-3" />
+                                        {project.total_parking_spots} Spots
+                                    </span>
+                                )}
                             </div>
 
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display italic text-white mb-8 leading-tight">
-                                {project.name}
+                                {project.project_name}
                             </h1>
 
                             <div className="flex flex-wrap gap-8 mb-10 pb-10 border-b border-zinc-800">
-                                <div className="flex items-center text-zinc-400">
-                                    <MapPin className="w-5 h-5 text-blue-600 mr-2" />
-                                    <span className="text-sm font-medium">Metropolitan Hub</span>
-                                </div>
-                                <div className="flex items-center text-zinc-400">
-                                    <Calendar className="w-5 h-5 text-blue-600 mr-2" />
-                                    <span className="text-sm font-medium">Completed 2023</span>
-                                </div>
-                            </div>
-
-                            <div className="prose prose-invert mb-12">
-                                <h3 className="text-xl text-white mb-4">Vision & Objective</h3>
-                                <p className="text-zinc-400 leading-relaxed text-lg">
-                                    {project.description}
-                                </p>
-                            </div>
-
-                            {/* High-Tech Feature Grid */}
-                            <div className="mb-12">
-                                <h3 className="text-sm uppercase tracking-[0.2em] font-bold text-blue-500 mb-6">Project Specifications</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {project.features.map((feature, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="flex items-start p-4 rounded-xl bg-[#121214] border border-zinc-800 hover:border-blue-600/30 transition-colors group"
+                                {project.map_url && (
+                                    <div className="flex items-center text-zinc-400">
+                                        <MapPin className="w-5 h-5 text-blue-600 mr-2" />
+                                        <a
+                                            href={project.map_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-sm font-medium hover:text-blue-500 transition-colors"
                                         >
-                                            <CheckCircle2 className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <p className="text-zinc-200 text-sm font-medium group-hover:text-white transition-colors">{feature}</p>
-                                            </div>
-                                        </div>
-                                    ))}
+                                            View in Map
+                                        </a>
+                                    </div>
+                                )}
+                                {project.project_date && (
+                                    <div className="flex items-center text-zinc-400">
+                                        <Calendar className="w-5 h-5 text-blue-600 mr-2" />
+                                        <span className="text-sm font-medium">
+                                            {new Date(project.project_date).toLocaleDateString('en-US', {
+                                                year: 'numeric',
+                                                month: 'long'
+                                            })}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+
+
+
+                            {project.project_description && (
+                                <div className="prose prose-invert mb-12">
+                                    <h3 className="text-xl text-white mb-4">About This Project</h3>
+                                    <p className="text-zinc-400 leading-relaxed text-lg">
+                                        {project.project_description}
+                                    </p>
                                 </div>
-                            </div>
+                            )}
 
-                            {/* Action Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-[0_0_30px_-5px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_-5px_rgba(37,99,235,0.6)]">
-                                    Request Documentation
-                                </button>
-                                <button className="flex-1 bg-transparent border border-zinc-800 hover:bg-zinc-900 text-white font-bold py-5 rounded-2xl transition-all">
-                                    Contact Project Lead
-                                </button>
-                            </div>
+                            {/* Technology Section */}
+                            {(project.technologies?.length > 0 || project.technology_description) && (
+                                <div className="mb-12">
+                                    <h3 className="text-sm uppercase tracking-[0.2em] font-bold text-blue-500 mb-6">Technical Infrastructure</h3>
 
+                                    {/* Tech Tags */}
+                                    {project.technologies?.length > 0 && (
+                                        <div className="flex flex-wrap gap-3 mb-6">
+                                            {project.technologies.map((tech, idx) => (
+                                                <span
+                                                    key={idx}
+                                                    className="bg-blue-600/10 text-blue-500 border border-blue-600/20 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest"
+                                                >
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Tech Description */}
+                                    {project.technology_description && (
+                                        <p className="text-zinc-400 leading-relaxed">
+                                            {project.technology_description}
+                                        </p>
+                                    )}
+                                </div>
+                            )}
                             {/* Security & Reliability Badges */}
                             <div className="mt-10 pt-10 border-t border-zinc-800 grid grid-cols-3 gap-4">
                                 <div className="flex flex-col items-center">
@@ -167,11 +342,90 @@ export const ProjectDetail = () => {
                                     <span className="text-[10px] text-zinc-500 uppercase tracking-tighter">App Control</span>
                                 </div>
                             </div>
-
                         </motion.div>
                     </div>
                 </div>
             </div>
+
+            {/* Lightbox */}
+            <AnimatePresence>
+                {lightboxOpen && activeMedia && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-8"
+                        onClick={() => setLightboxOpen(false)}
+                    >
+                        <button
+                            onClick={() => setLightboxOpen(false)}
+                            className="absolute top-8 right-8 p-3 bg-zinc-900 rounded-full text-white/70 hover:text-white transition-colors border border-zinc-800"
+                        >
+                            <X className="w-6 h-6" />
+                        </button>
+
+                        <div className="max-w-6xl w-full max-h-full flex items-center justify-center rounded-3xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+                            {activeMedia.file_type === 'video' ? (
+                                <video
+                                    src={getCloudinaryUrl(activeMedia.file_path, 'video')}
+                                    controls
+                                    autoPlay
+                                    className="max-w-full max-h-[85vh] rounded-xl shadow-2xl"
+                                />
+                            ) : (
+                                <img
+                                    src={getImageUrl(activeMedia)}
+                                    alt=""
+                                    className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                                />
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Document Modal */}
+            <AnimatePresence>
+                {activeDoc && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/95 z-50 flex flex-col p-4 md:p-8"
+                        onClick={() => setActiveDoc(null)}
+                    >
+                        <div className="max-w-6xl mx-auto w-full h-full flex flex-col">
+                            <div className="flex justify-between items-center mb-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center">
+                                        <FileText className="w-5 h-5 text-blue-500" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-display italic text-xl">Document Preview</h3>
+                                        <p className="text-zinc-500 text-xs uppercase tracking-widest">Powered by Google Viewer</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setActiveDoc(null)}
+                                    className="p-3 bg-zinc-900 rounded-full text-white/70 hover:text-white transition-colors border border-zinc-800"
+                                >
+                                    <X className="w-6 h-6" />
+                                </button>
+                            </div>
+                            <div className="flex-1 bg-[#f8f9fa] rounded-3xl overflow-hidden shadow-2xl border border-zinc-800" onClick={(e) => e.stopPropagation()}>
+                                <iframe
+                                    src={`https://docs.google.com/viewer?url=${encodeURIComponent(activeDoc)}&embedded=true`}
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0 }}
+                                    title="Document Viewer"
+                                    className="w-full h-full"
+                                ></iframe>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

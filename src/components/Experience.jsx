@@ -1,13 +1,16 @@
+import { useMemo } from 'react'
 import { useScroll, Environment, ContactShadows } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Car } from './Car'
 import { ParkingEnvironment } from './ParkingEnvironment'
+import { RobotCamera } from './canvas/RobotCamera'
 
 export const Experience = () => {
     const scroll = useScroll()
     const { size } = useThree()
     const isMobile = size.width < 768
+
 
     useFrame((state, delta) => {
         if (!scroll) return
@@ -106,6 +109,13 @@ export const Experience = () => {
             <group position={[0, 0, 0]}>
                 <Car />
                 <ParkingEnvironment />
+                {/* Gate Security Robot */}
+                <RobotCamera
+                    position={[14.5, 4, 132]}
+                    scale={[3, 3, 3]}
+                    rotation={[0, Math.PI, 0]}
+                    showDisplay={true}
+                />
                 <ContactShadows
                     resolution={256} // Reduced from 512
                     scale={50}

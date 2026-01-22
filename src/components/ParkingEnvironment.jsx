@@ -356,9 +356,8 @@ export const ParkingEnvironment = () => {
             <ParkingSensors />
 
             {/* Hanging Aisle Signs for Every Row */}
-            {Array.from({ length: 6 }).map((_, i) => {
-                const zPos = -60 + i * 20
-                if (zPos > 105) return null // Consistent with ParkingRows limit
+            {Array.from({ length: 3 }).map((_, i) => {
+                const zPos = -20 + i * 40 // Spread them out more across the road
                 return (
                     <CentralAisleSign
                         key={i}
@@ -383,7 +382,6 @@ export const ParkingEnvironment = () => {
 
             {/* Infrastructure */}
             <ParkingGate position={[9.5, 0, 110]} />
-            <SecurityCamera position={[9, 5, 112]} rotation={[0.2, -Math.PI / 4, 0]} scale={1.2} />
             <ParkingSpacesSign position={[11.5, 0, 110]} rotation={[0, 0, 0]} />
         </group>
     )

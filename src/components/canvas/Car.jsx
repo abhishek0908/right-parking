@@ -232,14 +232,14 @@ export const CarModel = forwardRef((props, ref) => {
             )}
             {/* Fallback: if no tail lamps found, use default position */}
             {tailLamps.length < 2 && (
-                <group position={[0, 0.06, -1.55]}>
+                <group position={[0.1, 0.32, -1.40]}>
                     <Trail
                         width={0.1}
                         length={4}
                         color="#FF0000"
                         attenuation={(t) => t * t}
                     >
-                        <mesh position={[0.5, 0, 0]}>
+                        <mesh position={[0.25, 0, 0]}>
                             <boxGeometry args={[0.2, 0.05, 0.1]} />
                             <meshStandardMaterial
                                 color="#ff0000"
@@ -284,8 +284,9 @@ export function Car() {
         if (!carRef.current) return;
 
         const rawT = scroll.offset;
-        // Map scroll range [0, 1] to spiral range [startOffset, 1]
-        const adjustedT = startOffset + rawT * (1 - startOffset);
+        // Map scroll range [0, 1] to spiral range [startOffset, endLimit]
+        const endLimit = 0.86;
+        const adjustedT = startOffset + rawT * (endLimit - startOffset);
         const t = adjustedT * adjustedT * (3 - 2 * adjustedT);
 
         spiralCurve.getPointAt(t, _pos);
@@ -293,7 +294,7 @@ export function Car() {
 
         // Position car grounded on the ramp
         // With pivot at wheels, we need enough lift to clear the slope tilt
-        const liftOffset = 0.15;
+        const liftOffset = 0;
         carRef.current.position.copy(_pos);
         carRef.current.position.y += liftOffset;
 

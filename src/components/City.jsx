@@ -78,7 +78,7 @@ export const ParkingGate = ({ position }) => {
                             transition: 'all 0.5s ease-in-out'
                         }}
                     >
-                        {scroll.offset > 0.15 ? 'DL 3C AW 1234' : 'SCANNING...'}
+                        {scroll.offset > 0.15 ? 'KA016556' : 'SCANNING...'}
                     </div>
                 </Html>
             </group>

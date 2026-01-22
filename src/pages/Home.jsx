@@ -31,25 +31,30 @@ export const Home = () => {
                     intensity={1.2}
                     castShadow
                     shadow-mapSize={[1024, 1024]}
+                    shadow-bias={-0.0001}
                 />
 
                 <Suspense fallback={null}>
-                    <ScrollControls pages={5} damping={0.3}>
+                    <ScrollControls pages={7} damping={0.3}>
                         <Rig />
                         <Car />
                         <Ramp />
                         <HomeOverlay />
                     </ScrollControls>
 
-                    {/* Grid Mesh Background */}
+                    {/* Grid Mesh Background restored */}
                     <Grid
                         position={[0, 2, 0]}
                         rotation={[Math.PI / 2, 0, 0]}
-                        args={[20, 20]}
+                        args={[40, 40]}
                         cellColor="#3b82f6"
-                        sectionColor="#09090b"
-                        fadeDistance={15}
+                        sectionColor="#1e1e24"
+                        fadeDistance={25}
+                        fadeStrength={1}
+                        infiniteGrid
                     />
+
+
 
                     <ContactShadows
                         position={[8, -3, 0]}

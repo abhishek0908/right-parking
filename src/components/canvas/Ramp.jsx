@@ -268,14 +268,7 @@ export function Ramp() {
                 castShadow
             />
 
-            {/* Road Edge Lines for visual clarity */}
-            <mesh geometry={roadGeometry}>
-                <meshStandardMaterial
-                    color="#888888"
-                    wireframe={false}
-                    side={THREE.BackSide}
-                />
-            </mesh>
+
 
             {/* Side Walls for thickness */}
             <mesh

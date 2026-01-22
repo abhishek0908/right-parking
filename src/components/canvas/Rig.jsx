@@ -19,6 +19,12 @@ export function Rig() {
         // Camera descends as user scrolls
         const targetY = 11.1 - offset * 12;
 
+        // Zoom effect: Start zooming in after 70% scroll
+        const zoomProgress = Math.max(0, (scroll.offset - 0.7) / 0.3);
+        const targetFov = 50 - zoomProgress * 27; // Zoom from 50 to 35
+        state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, targetFov, 0.1);
+        state.camera.updateProjectionMatrix();
+
         state.camera.position.lerp(
             new THREE.Vector3(targetX, targetY, targetZ),
             0.08

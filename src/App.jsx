@@ -9,9 +9,16 @@ import { Contact } from './pages/Contact';
 import { Projects } from './pages/Projects';
 import { ProjectDetail } from './pages/ProjectDetail';
 
+// Admin Pages
+import { AdminLogin } from './pages/admin/AdminLogin';
+import { AdminDashboard } from './pages/admin/AdminDashboard';
+import { ProjectForm } from './pages/admin/ProjectForm';
+import { ProtectedRoute } from './components/ProtectedRoute';
+
 import { Loader } from './components/Loader';
 import { Header } from './components/layout/Header';
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 import { preloadServicesAssets, preloadServicesComponents } from './utils/preloadServices';
 
 const ScrollToTop = () => {
@@ -26,6 +33,7 @@ const ScrollToTop = () => {
 
 function AnimatedRoutes() {
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
     <AnimatePresence mode="wait">
@@ -62,6 +70,23 @@ function AnimatedRoutes() {
           </PageWrapper>
         } />
 
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/projects/new" element={
+          <ProtectedRoute>
+            <ProjectForm />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/projects/:id/edit" element={
+          <ProtectedRoute>
+            <ProjectForm />
+          </ProtectedRoute>
+        } />
 
         {/* Fallback */}
         <Route path="*" element={
@@ -87,7 +112,10 @@ const PageWrapper = ({ children }) => (
   </motion.div>
 );
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   // Preload Services page assets on app mount
   useEffect(() => {
     // Preload 3D models and components for Services page
@@ -99,13 +127,23 @@ function App() {
   }, []);
 
   return (
+    <>
+      <ScrollToTop />
+      {!isAdminRoute && <Loader />}
+      {!isAdminRoute && <Header />}
+      <AnimatedRoutes />
+    </>
+  );
+}
+
+function App() {
+  return (
     <ThemeProvider>
-      <Router>
-        <ScrollToTop />
-        <Loader />
-        <Header />
-        <AnimatedRoutes />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

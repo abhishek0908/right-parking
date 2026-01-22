@@ -1,10 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { projects } from '../data/projects';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, MapPin, Calendar, Car, Loader2 } from 'lucide-react';
+import { getProjects, getProjectFiles, getCloudinaryUrl } from '../lib/supabase';
+import { projects as staticProjects } from '../data/projects';
 
 export const Projects = () => {
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchProjects();
+    }, []);
+
+    const fetchProjects = async () => {
+        setLoading(true);
+        const { data, error } = await getProjects();
+
+        if (error || !data || data.length === 0) {
+            // Fallback to static projects if Supabase fails or is empty
+            setProjects(staticProjects.map(p => ({
+                id: p.id,
+                project_name: p.name,
+                project_description: p.description || p.summary,
+                mainImage: p.mainImage,
+                features: p.features
+            })));
+        } else {
+            // Fetch first photo as main image for each project
+            const projectsWithImages = await Promise.all(
+                data.map(async (project) => {
+                    const { data: files } = await getProjectFiles(project.id);
+                    const photo = files?.find(f => f.file_type === 'photo');
+                    return {
+                        ...project,
+                        mainImage: photo ? getCloudinaryUrl(photo.file_path) : null
+                    };
+                })
+            );
+            setProjects(projectsWithImages);
+        }
+        setLoading(false);
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-[#09090b] pt-32 flex items-center justify-center">
+                <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-[#09090b] pt-32 pb-20 px-6 md:px-12">
             {/* Header Section */}
@@ -42,8 +88,8 @@ export const Projects = () => {
                             {/* Image Container */}
                             <div className="relative h-64 overflow-hidden">
                                 <img
-                                    src={project.mainImage}
-                                    alt={project.name}
+                                    src={project.mainImage || '/project_1_main_parking_1768682799033.png'}
+                                    alt={project.project_name}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#121214] via-transparent to-transparent opacity-60" />
@@ -52,33 +98,51 @@ export const Projects = () => {
                                 <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                                     Featured
                                 </div>
+
+                                {/* Project Number */}
+                                <div className="absolute bottom-4 left-4 text-white/20 font-display italic text-4xl font-bold">
+                                    {String(index + 1).padStart(2, '0')}
+                                </div>
                             </div>
 
                             {/* Content */}
                             <div className="p-8">
                                 <h3 className="text-2xl font-display italic text-white mb-3 group-hover:text-blue-500 transition-colors">
-                                    {project.name}
+                                    {project.project_name}
                                 </h3>
-                                <p className="text-zinc-400 text-sm line-clamp-2 mb-6">
-                                    {project.summary}
-                                </p>
 
-                                {/* Features (Mini List) */}
-                                <div className="space-y-2 mb-8">
-                                    {project.features.slice(0, 3).map((feature, i) => (
-                                        <div key={i} className="flex items-center text-zinc-500 text-xs text-nowrap overflow-hidden">
-                                            <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 mr-2 flex-shrink-0" />
-                                            <span className="truncate">{feature}</span>
-                                        </div>
-                                    ))}
-                                    <div className="text-blue-500/60 text-[10px] font-medium pt-1">
-                                        + {project.features.length - 3} more exclusive features
-                                    </div>
+                                {/* Meta Info */}
+                                <div className="flex flex-wrap items-center gap-4 mb-4 text-zinc-500 text-xs">
+                                    {project.map_url && (
+                                        <span className="flex items-center gap-1">
+                                            <MapPin className="w-3 h-3 text-blue-500" />
+                                            Active Location
+                                        </span>
+                                    )}
+                                    {project.project_date && (
+                                        <span className="flex items-center gap-1">
+                                            <Calendar className="w-3 h-3" />
+                                            {new Date(project.project_date).toLocaleDateString('en-US', {
+                                                year: 'numeric',
+                                                month: 'short'
+                                            })}
+                                        </span>
+                                    )}
+                                    {project.total_parking_spots && (
+                                        <span className="flex items-center gap-1">
+                                            <Car className="w-3 h-3" />
+                                            {project.total_parking_spots} spots
+                                        </span>
+                                    )}
                                 </div>
+
+                                <p className="text-zinc-400 text-sm line-clamp-2 mb-6">
+                                    {project.project_description}
+                                </p>
 
                                 {/* Action */}
                                 <div className="flex items-center text-white text-sm font-bold group-hover:translate-x-2 transition-transform">
-                                    View Case Study <ArrowRight className="ml-2 w-4 h-4 text-blue-600" />
+                                    View Project <ArrowRight className="ml-2 w-4 h-4 text-blue-600" />
                                 </div>
                             </div>
                         </Link>

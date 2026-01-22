@@ -32,7 +32,6 @@ export const Footer = () => {
                     <div className="md:col-span-2 md:col-start-7">
                         <h4 className="text-[10px] font-mono tracking-[0.4em] uppercase text-blue-500 mb-8">Platform</h4>
                         <ul className="space-y-4 text-sm text-[var(--text-muted)]">
-                            <li><NavLink path="/" label="Overview" /></li>
                             <li><NavLink path="/services" label="Solutions" /></li>
                             <li><NavLink path="/technology" label="Core Tech" /></li>
                             <li><NavLink path="/about" label="Identity" /></li>
