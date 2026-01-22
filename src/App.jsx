@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { useLayoutEffect, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Home } from './pages/Home';
-import { Services } from './pages/Services';
+import { ExperiencePage } from './pages/ExperiencePage';
 import { About } from './pages/About';
 import { Technology } from './pages/Technology';
 import { Contact } from './pages/Contact';
@@ -19,7 +19,8 @@ import { Loader } from './components/Loader';
 import { Header } from './components/layout/Header';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
-import { preloadServicesAssets, preloadServicesComponents } from './utils/preloadServices';
+import { preloadExperienceAssets, preloadExperienceComponents } from './utils/preloadExperience';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -39,9 +40,9 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
-        <Route path="/services" element={
+        <Route path="/experience" element={
           <PageWrapper>
-            <Services />
+            <ExperiencePage />
           </PageWrapper>
         } />
         <Route path="/about" element={
@@ -116,13 +117,13 @@ function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
 
-  // Preload Services page assets on app mount
+  // Preload Experience page assets on app mount
   useEffect(() => {
-    // Preload 3D models and components for Services page
-    preloadServicesAssets();
+    // Preload 3D models and components for Experience page
+    preloadExperienceAssets();
     // Preload components after a short delay to not block initial render
     setTimeout(() => {
-      preloadServicesComponents();
+      preloadExperienceComponents();
     }, 1000);
   }, []);
 
@@ -136,12 +137,16 @@ function AppContent() {
   );
 }
 
+
+
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <AppContent />
+          <ErrorBoundary>
+            <AppContent />
+          </ErrorBoundary>
         </Router>
       </AuthProvider>
     </ThemeProvider>

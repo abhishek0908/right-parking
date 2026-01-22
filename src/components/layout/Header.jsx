@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
-import { preloadServicesComponents } from '../../utils/preloadServices';
+import { preloadExperienceComponents } from '../../utils/preloadExperience';
 import { Menu, X, ChevronRight } from 'lucide-react';
 
 export const Header = () => {
@@ -26,7 +26,7 @@ export const Header = () => {
 
     const navItems = [
         { path: "/", label: "Home" },
-        { path: "/services", label: "Services" },
+        { path: "/experience", label: "Experience" },
         { path: "/projects", label: "Projects" },
         { path: "/about", label: "About" },
         { path: "/technology", label: "Technology" },
@@ -50,8 +50,8 @@ export const Header = () => {
                             key={item.path}
                             to={item.path}
                             onMouseEnter={() => {
-                                if (item.path === '/services') {
-                                    preloadServicesComponents();
+                                if (item.path === '/experience') {
+                                    preloadExperienceComponents();
                                 }
                             }}
                             className={({ isActive }) =>

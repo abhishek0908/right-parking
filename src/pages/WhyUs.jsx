@@ -34,9 +34,9 @@ export const WhyUs = () => {
                     </motion.p>
                 </div>
 
-                {/* 3.2 End-to-End Services */}
+                {/* 3.2 End-to-End Experience */}
                 <div className="mb-48">
-                    <h2 className="text-3xl md:text-5xl font-display italic mb-12 leading-tight py-2">End-to-End Services</h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic mb-12 leading-tight py-2">End-to-End Experience</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
                             "Site assessment & planning",

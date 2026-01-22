@@ -2,7 +2,7 @@ import { useProgress } from '@react-three/drei'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
-export const ServicesPageLoader = () => {
+export const ExperiencePageLoader = () => {
     const { progress } = useProgress()
     const [isFinished, setIsFinished] = useState(false)
 
@@ -44,7 +44,7 @@ export const ServicesPageLoader = () => {
 
                         <div className="flex flex-col items-center gap-1">
                             <span className="text-white/40 font-mono text-[9px] tracking-[0.3em] uppercase">
-                                Initializing Simulation
+                                Initializing Experience
                             </span>
                             <span className="text-blue-500 font-mono text-[14px] font-bold">
                                 {Math.round(progress)}%

@@ -27,7 +27,7 @@ const invokeAssetFunction = async (action, payload, file = null) => {
         // Use JSON for metadata actions
         body = { action, payload };
     }
-    console.log(body);
+
     const { data, error } = await supabase.functions.invoke('rapid-action', {
         body
     });

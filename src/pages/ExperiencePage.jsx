@@ -2,9 +2,9 @@ import { Suspense, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { ScrollControls } from '@react-three/drei'
 import { Experience } from '../components/Experience'
-import { ServicesPageLoader } from '../components/ServicesPageLoader'
+import { ExperiencePageLoader } from '../components/ExperiencePageLoader'
 
-export const Services = () => {
+export const ExperiencePage = () => {
     useEffect(() => {
         // Disable body overflow for 3D scroll experience
         document.body.style.overflow = 'hidden';
@@ -16,7 +16,7 @@ export const Services = () => {
     return (
         <div style={{ width: '100vw', height: '100vh', position: 'relative' }} className="bg-[#09090b]">
             {/* The loader sits on top and only exits when internal assets are 100% ready */}
-            <ServicesPageLoader />
+            <ExperiencePageLoader />
 
             <Canvas
                 shadows

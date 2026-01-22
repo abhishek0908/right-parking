@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
@@ -11,20 +11,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const Technology = () => {
     const containerRef = useRef(null);
+    const [activeIndex, setActiveIndex] = useState(0);
 
     useGSAP(() => {
         const panels = gsap.utils.toArray(".technology-panel");
 
+        // Track active panel for indicators
         panels.forEach((panel, i) => {
-            const isLast = i === panels.length - 1;
-
             ScrollTrigger.create({
                 trigger: panel,
-                start: "top top",
-                end: "bottom top",
-                pin: true,
-                pinSpacing: isLast,
-                snap: isLast ? null : 1,
+                scroller: containerRef.current,
+                start: "top center",
+                end: "bottom center",
+                onToggle: (self) => self.isActive && setActiveIndex(i),
             });
         });
 
@@ -42,6 +41,7 @@ export const Technology = () => {
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: panel,
+                        scroller: containerRef.current,
                         start: "top 60%",
                         end: "top 10%",
                         toggleActions: "play none none reverse"
@@ -52,20 +52,26 @@ export const Technology = () => {
     }, { scope: containerRef });
 
     return (
-        <div ref={containerRef} className="bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden transition-colors duration-300">
+        <div
+            ref={containerRef}
+            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scroll-smooth scrollbar-hide"
+        >
             {/* Scroll Progress Indicator */}
             <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 hidden md:flex">
                 {[...Array(9)].map((_, i) => (
                     <div
                         key={i}
-                        className="w-1.5 h-1.5 rounded-full bg-blue-500/20 border border-blue-500/40 transition-all duration-300"
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 border ${activeIndex === i
+                            ? "bg-blue-500 scale-150 border-blue-500 shadow-[0_0_8px_#3b82f6]"
+                            : "bg-blue-500/20 border-blue-500/40"
+                            }`}
                     />
                 ))}
             </div>
 
             <main>
                 {/* 2.1 Hero Section - Panel 0 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center relative overflow-hidden z-[1]">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center relative overflow-hidden z-[1]">
                     {/* Background Image */}
                     <div className="absolute inset-0 z-0">
                         <img
@@ -82,7 +88,7 @@ export const Technology = () => {
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-blue-500 font-mono text-sm tracking-[0.4em] uppercase mb-6"
+                            className="text-blue-500 font-mono text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-6"
                         >
                             Invisible Systems. Total Control.
                         </motion.p>
@@ -90,7 +96,7 @@ export const Technology = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-tight text-gradient py-4"
+                            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-tight text-gradient py-2 sm:py-4"
                         >
                             Technology.
                         </motion.h1>
@@ -98,7 +104,7 @@ export const Technology = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
-                            className="text-base sm:text-lg md:text-2xl text-[var(--text-muted)] font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-4 md:pl-6"
+                            className="text-sm sm:text-base md:text-xl lg:text-2xl text-[var(--text-muted)] font-light max-w-xl md:max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-4 md:pl-6"
                         >
                             Parking works best when you don’t notice it at all.<br />
                             Right Parking’s technology disappears from sight—while delivering full operational control behind the scenes.
@@ -123,11 +129,11 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.2 Our Technology Philosophy - Panel 1 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center panel-content">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
+                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center panel-content">
                         <div>
-                            <h2 className="text-3xl md:text-6xl font-display italic mb-6 leading-tight py-2 uppercase tracking-tighter">Automation <br /><span className="text-blue-500 inline-block pb-1">by Design</span></h2>
-                            <p className="text-[var(--text-muted)] mb-8 text-lg md:text-xl font-light leading-relaxed">
+                            <h2 className="text-3xl sm:text-4xl md:text-6xl font-display italic mb-6 leading-tight py-2 uppercase tracking-tighter">Automation <br /><span className="text-blue-500 inline-block pb-1">by Design</span></h2>
+                            <p className="text-[var(--text-muted)] mb-8 text-sm sm:text-lg md:text-xl font-light leading-relaxed">
                                 Every site runs on redundant automation + centralized intelligence. Our systems operate independently and scale across cities.
                             </p>
                         </div>
@@ -140,10 +146,10 @@ export const Technology = () => {
                             ].map((item, i) => (
                                 <div
                                     key={i}
-                                    className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] flex items-center gap-6 group hover:border-blue-500/30 transition-all"
+                                    className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] flex items-center gap-4 sm:gap-6 group hover:border-blue-500/30 transition-all"
                                 >
-                                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 text-sm font-bold group-hover:bg-blue-500 group-hover:text-white transition-colors">0{i + 1}</div>
-                                    <span className="text-[var(--text-main)] font-mono text-xs uppercase tracking-widest leading-loose">{item}</span>
+                                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 text-xs sm:text-sm font-bold group-hover:bg-blue-500 group-hover:text-white transition-colors">0{i + 1}</div>
+                                    <span className="text-[var(--text-main)] font-mono text-[10px] sm:text-xs uppercase tracking-widest leading-loose">{item}</span>
                                 </div>
                             ))}
                         </div>
@@ -151,9 +157,9 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.3 Framework - Panel 2 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
                     <div className="max-w-7xl w-full panel-content">
-                        <h2 className="text-3xl md:text-6xl font-display italic mb-8 md:mb-16 text-center leading-tight py-2 uppercase tracking-tighter">Zero Downtime <span className="text-blue-500">Framework</span></h2>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-16 text-center leading-tight py-2 uppercase tracking-tighter">Zero Downtime <span className="text-blue-500">Framework</span></h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                             {[
                                 { name: "Tier 1: FASTag", role: "Primary Layer", desc: "Stop-free access. Real-time wallet verification. Instant session creation and closure.", color: "blue" },
@@ -167,7 +173,7 @@ export const Technology = () => {
                                     <div className={`absolute top-0 right-0 w-48 h-48 bg-blue-500/5 blur-[80px] group-hover:bg-blue-500/10 transition-colors`} />
                                     <span className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase mb-4 md:mb-6 block">{tier.role}</span>
                                     <h3 className="text-2xl md:text-3xl font-display italic mb-4 md:mb-6">{tier.name}</h3>
-                                    <p className="text-[var(--text-muted)] text-base md:text-lg font-light leading-relaxed">{tier.desc}</p>
+                                    <p className="text-[var(--text-muted)] text-sm sm:text-base md:text-lg font-light leading-relaxed">{tier.desc}</p>
                                 </div>
                             ))}
                         </div>
@@ -175,12 +181,12 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.4 ANPR Engine - Panel 3 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center panel-content">
-                        <div>
-                            <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-6 md:mb-8 leading-tight py-2 uppercase tracking-tighter">Cameras That <span className="text-blue-500">Decide</span></h2>
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
+                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center panel-content">
+                        <div className="order-2 lg:order-1">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-6 md:mb-8 leading-tight py-2 uppercase tracking-tighter">Cameras That <span className="text-blue-500">Decide</span></h2>
                             <p className="text-base sm:text-lg md:text-xl text-[var(--text-muted)] mb-8 md:mb-12 font-light">Inside the AI-OCR ANPR Engine.</p>
-                            <div className="space-y-10 relative">
+                            <div className="space-y-6 sm:space-y-10 relative">
                                 <div className="absolute left-[19px] top-4 bottom-4 w-[1px] bg-blue-500/20" />
                                 {[
                                     "Plate image captured",
@@ -192,21 +198,21 @@ export const Technology = () => {
                                         <div className="w-10 h-10 rounded-full bg-[var(--bg-dark)] border border-blue-500/50 flex items-center justify-center text-blue-500 text-sm font-bold shadow-[0_0_15px_rgba(37,99,235,0.2)]">
                                             {i + 1}
                                         </div>
-                                        <p className="text-[var(--text-main)] font-mono text-xs uppercase tracking-[0.2em]">{step}</p>
+                                        <p className="text-[var(--text-main)] font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em]">{step}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
-                        <div className="aspect-square bg-[var(--surface)] rounded-[4rem] border border-[var(--border)] relative overflow-hidden flex items-center justify-center shadow-2xl">
+                        <div className="order-1 lg:order-2 aspect-square bg-[var(--surface)] rounded-[2rem] md:rounded-[4rem] border border-[var(--border)] relative overflow-hidden flex items-center justify-center shadow-2xl">
                             <div className="absolute inset-0 bg-blue-500/5" />
                             <motion.div
                                 animate={{ top: ['0%', '100%', '0%'] }}
                                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                                 className="absolute left-0 right-0 h-1 bg-blue-500/50 blur-sm shadow-[0_0_20px_#3b82f6]"
                             />
-                            <div className="border border-white/10 p-12 rounded-3xl bg-black/40 backdrop-blur-2xl">
-                                <div className="font-mono text-3xl md:text-4xl tracking-[0.3em] text-white">HR 26 DQ 5555</div>
-                                <div className="mt-6 flex justify-between items-center text-[10px] font-mono uppercase text-green-400">
+                            <div className="border border-white/10 p-6 md:p-12 rounded-3xl bg-black/40 backdrop-blur-2xl">
+                                <div className="font-mono text-xl sm:text-3xl md:text-4xl tracking-[0.3em] text-white">HR 26 DQ 5555</div>
+                                <div className="mt-6 flex justify-between items-center text-[8px] sm:text-[10px] font-mono uppercase text-green-400">
                                     <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_5px_#22c55e]" /> Confidence: 99.8%</span>
                                     <span>Access: GRANTED</span>
                                 </div>
@@ -216,41 +222,41 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.5 Sensors & Guidance - Panel 4 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[5] bg-[#111114]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 panel-content">
-                        <div className="bg-[var(--surface)] p-16 rounded-[4rem] border border-[var(--border)] group hover:border-blue-500/30 transition-all shadow-2xl">
-                            <h3 className="text-4xl font-display italic mb-8">Every Spot Knows <br />Its Status</h3>
-                            <ul className="space-y-6 mb-12">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[5] bg-[#111114]">
+                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 panel-content">
+                        <div className="bg-[var(--surface)] p-8 md:p-16 rounded-[2rem] md:rounded-[4rem] border border-[var(--border)] group hover:border-blue-500/30 transition-all shadow-2xl">
+                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-display italic mb-6 md:mb-8">Every Spot Knows <br />Its Status</h3>
+                            <ul className="space-y-4 md:space-y-6 mb-8 md:mb-12">
                                 {["Detects vehicle presence", "Updates occupancy in real time", "Feeds dashboards & user apps"].map((li, i) => (
-                                    <li key={i} className="text-xl text-[var(--text-muted)] font-light flex items-center gap-4">
+                                    <li key={i} className="text-sm sm:text-lg md:text-xl text-[var(--text-muted)] font-light flex items-center gap-4">
                                         <span className="text-blue-500">✓</span> {li}
                                     </li>
                                 ))}
                             </ul>
                             <div className="flex gap-4">
-                                <span className="bg-green-500/10 text-green-500 px-6 py-2 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] border border-green-500/20">Accurate</span>
-                                <span className="bg-blue-500/10 text-blue-500 px-6 py-2 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] border border-blue-500/20">Real-Time</span>
+                                <span className="bg-green-500/10 text-green-500 px-4 md:px-6 py-2 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] border border-green-500/20">Accurate</span>
+                                <span className="bg-blue-500/10 text-blue-500 px-4 md:px-6 py-2 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] border border-blue-500/20">Real-Time</span>
                             </div>
                         </div>
-                        <div className="bg-[var(--surface)] p-16 rounded-[4rem] border border-[var(--border)] group hover:border-blue-500/30 transition-all shadow-2xl flex flex-col justify-center">
-                            <h3 className="text-4xl font-display italic mb-8">No Circling. <br />No Guessing.</h3>
-                            <p className="text-[var(--text-muted)] mb-12 text-xl font-light">LED vacancy displays, zone indicators, and in-app navigation working in absolute harmony.</p>
-                            <div className="bg-black/40 p-10 rounded-3xl border border-white/5 flex justify-between items-center group-hover:border-blue-500/20 transition-all">
-                                <span className="text-[var(--text-muted)] font-mono text-xs uppercase tracking-[0.3em]">Zone A Level 2</span>
-                                <span className="text-green-500 font-mono text-6xl font-bold">14 <span className="text-xs font-normal text-[var(--text-muted)] align-middle">SPOTS</span></span>
+                        <div className="bg-[var(--surface)] p-8 md:p-16 rounded-[2rem] md:rounded-[4rem] border border-[var(--border)] group hover:border-blue-500/30 transition-all shadow-2xl flex flex-col justify-center">
+                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-display italic mb-6 md:mb-8">No Circling. <br />No Guessing.</h3>
+                            <p className="text-[var(--text-muted)] mb-8 md:mb-12 text-sm sm:text-lg md:text-xl font-light">LED vacancy displays, zone indicators, and in-app navigation working in absolute harmony.</p>
+                            <div className="bg-black/40 p-6 md:p-10 rounded-3xl border border-white/5 flex justify-between items-center group-hover:border-blue-500/20 transition-all">
+                                <span className="text-[var(--text-muted)] font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em]">Zone A Level 2</span>
+                                <span className="text-green-500 font-mono text-4xl sm:text-5xl md:text-6xl font-bold">14 <span className="text-[10px] sm:text-xs font-normal text-[var(--text-muted)] align-middle">SPOTS</span></span>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 {/* 2.7 Visibility - Panel 5 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[6] bg-[#141417]">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[6] bg-[#141417]">
                     <div className="max-w-7xl w-full panel-content">
-                        <div className="bg-gradient-to-br from-[#1a1a1e] to-[var(--bg-dark)] p-20 md:p-32 rounded-[5rem] border border-white/5 relative overflow-hidden shadow-2xl text-center">
+                        <div className="bg-gradient-to-br from-[#1a1a1e] to-[var(--bg-dark)] p-8 md:p-20 lg:p-32 rounded-[3rem] md:rounded-[5rem] border border-white/5 relative overflow-hidden shadow-2xl text-center">
                             <div className="absolute inset-0 bg-blue-600/5 blur-[120px]" />
-                            <span className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-8 block relative z-10">Total Visibility</span>
-                            <h2 className="text-4xl md:text-7xl font-display italic mb-16 leading-tight py-2 uppercase tracking-tighter relative z-10">Real-Time Dashboards Across Every Site</h2>
-                            <div className="grid grid-cols-2 md:grid-cols-5 gap-12 text-center relative z-10">
+                            <span className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-4 md:mb-8 block relative z-10">Total Visibility</span>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display italic mb-8 md:mb-16 leading-tight py-2 uppercase tracking-tighter relative z-10">Real-Time Dashboards Across Every Site</h2>
+                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12 text-center relative z-10">
                                 {["Occupancy", "Entry Logs", "Revenue", "Health", "Violations"].map((metric, i) => (
                                     <div key={i} className="flex flex-col items-center gap-4 group">
                                         <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-[0_0_12px_#22c55e]" />
@@ -263,20 +269,20 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.8 Digital Payments - Panel 6 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[7] bg-[#16161a]">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[7] bg-[#16161a]">
                     <div className="max-w-7xl w-full text-center panel-content">
-                        <h2 className="text-4xl md:text-7xl font-display italic mb-16 leading-tight py-2 uppercase tracking-tighter">Frictionless <span className="text-blue-500">Finance</span></h2>
-                        <div className="flex flex-wrap justify-center gap-6 mb-16">
+                        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display italic mb-8 md:mb-16 leading-tight py-2 uppercase tracking-tighter">Frictionless <span className="text-blue-500">Finance</span></h2>
+                        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 md:mb-16">
                             {["FASTag", "UPI", "Credit Cards", "Debit Cards"].map((pay, i) => (
                                 <div
                                     key={i}
-                                    className="bg-[var(--surface)] px-12 py-6 rounded-full border border-[var(--border)] text-[var(--text-main)] font-mono text-sm uppercase tracking-[0.3em] hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default shadow-xl"
+                                    className="bg-[var(--surface)] px-8 md:px-12 py-4 md:py-6 rounded-full border border-[var(--border)] text-[var(--text-main)] font-mono text-xs md:text-sm uppercase tracking-[0.3em] hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-default shadow-xl"
                                 >
                                     {pay}
                                 </div>
                             ))}
                         </div>
-                        <p className="text-2xl md:text-3xl text-[var(--text-muted)] font-light max-w-4xl mx-auto border-t border-white/5 pt-12">
+                        <p className="text-xl sm:text-2xl md:text-3xl text-[var(--text-muted)] font-light max-w-4xl mx-auto border-t border-white/5 pt-8 md:pt-12">
                             Zero cash handling. Faster exits. <br />
                             <span className="text-blue-500 font-display italic">Complete digital audit trails.</span>
                         </p>
@@ -284,21 +290,21 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.9 Security - Panel 7 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[8] bg-[#18181d]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-24 items-center panel-content">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[8] bg-[#18181d]">
+                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center panel-content">
                         <div>
-                            <h2 className="text-4xl md:text-6xl font-display italic mb-10 leading-tight py-2 uppercase tracking-tighter">Parking That <span className="text-red-500">Protects</span></h2>
-                            <p className="text-[var(--text-muted)] mb-12 text-xl font-light leading-relaxed border-l-2 border-red-500/20 pl-8">
+                            <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-6 md:mb-10 leading-tight py-2 uppercase tracking-tighter">Parking That <span className="text-red-500">Protects</span></h2>
+                            <p className="text-[var(--text-muted)] mb-8 md:mb-12 text-lg md:text-xl font-light leading-relaxed border-l-2 border-red-500/20 pl-6 md:pl-8">
                                 AI analyzes live feeds, flags anomalies, and generates instant alerts before incidents escalate.
                             </p>
-                            <ul className="space-y-6">
+                            <ul className="space-y-4 md:space-y-6">
                                 {[
                                     "Loitering detection",
                                     "Wrong-way driving alerts",
                                     "Fall & Emergency detection",
                                     "Collision analysis"
                                 ].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-6 text-red-500/80 font-mono text-xs uppercase tracking-[0.2em] group">
+                                    <li key={i} className="flex items-center gap-6 text-red-500/80 font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] group">
                                         <div className="w-2 h-2 bg-red-500 rounded-full group-hover:animate-ping" />
                                         {item}
                                     </li>
@@ -324,12 +330,12 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.10 Built for Scale - Panel 8 */}
-                <section className="technology-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[9] bg-black">
+                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[9] bg-black">
                     <div className="max-w-7xl w-full text-center panel-content">
-                        <h2 className="text-5xl md:text-9xl font-display italic mb-10 leading-tight py-4 uppercase tracking-tighter">Built for <span className="text-blue-500">Scale</span></h2>
-                        <p className="text-[var(--text-muted)] text-2xl md:text-3xl font-light mb-16 max-w-4xl mx-auto">From a single site to city-wide deployments. Reliable. Resilient. Ready.</p>
+                        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-display italic mb-6 md:mb-10 leading-tight py-4 uppercase tracking-tighter">Built for <span className="text-blue-500">Scale</span></h2>
+                        <p className="text-[var(--text-muted)] text-lg sm:text-2xl md:text-3xl font-light mb-12 md:mb-16 max-w-4xl mx-auto">From a single site to city-wide deployments. Reliable. Resilient. Ready.</p>
 
-                        <div className="flex justify-center flex-wrap gap-12 text-blue-500 font-mono text-xs uppercase tracking-[0.4em] mb-20 opacity-70">
+                        <div className="flex justify-center flex-wrap gap-8 md:gap-12 text-blue-500 font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] mb-20 opacity-70">
                             <span>Modular Architecture</span>
                             <span className="opacity-30">•</span>
                             <span>Cloud Connected</span>
@@ -337,12 +343,7 @@ export const Technology = () => {
                             <span>Future Proof</span>
                         </div>
 
-                        <Link
-                            to="/services"
-                            className="inline-flex items-center gap-6 bg-white text-black px-16 py-8 rounded-full font-display italic font-bold hover:bg-blue-600 hover:text-white hover:scale-105 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-xl"
-                        >
-                            Explore Our Solutions <ArrowRight className="w-6 h-6" />
-                        </Link>
+
                     </div>
                 </section>
 

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,20 +9,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const Contact = () => {
     const containerRef = useRef(null);
+    const [activeIndex, setActiveIndex] = useState(0);
 
     useGSAP(() => {
         const panels = gsap.utils.toArray(".contact-panel");
 
+        // Track active panel for indicators
         panels.forEach((panel, i) => {
-            const isLast = i === panels.length - 1;
-
             ScrollTrigger.create({
                 trigger: panel,
-                start: "top top",
-                end: "bottom top",
-                pin: true,
-                pinSpacing: isLast,
-                snap: isLast ? null : 1,
+                scroller: containerRef.current,
+                start: "top center",
+                end: "bottom center",
+                onToggle: (self) => self.isActive && setActiveIndex(i),
             });
         });
 
@@ -40,6 +39,7 @@ export const Contact = () => {
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: panel,
+                        scroller: containerRef.current,
                         start: "top 60%",
                         end: "top 10%",
                         toggleActions: "play none none reverse"
@@ -50,20 +50,26 @@ export const Contact = () => {
     }, { scope: containerRef });
 
     return (
-        <div ref={containerRef} className="bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden transition-colors duration-300">
+        <div
+            ref={containerRef}
+            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scroll-smooth scrollbar-hide"
+        >
             {/* Scroll Progress Indicator */}
             <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 hidden md:flex">
                 {[...Array(5)].map((_, i) => (
                     <div
                         key={i}
-                        className="w-1.5 h-1.5 rounded-full bg-blue-500/20 border border-blue-500/40 transition-all duration-300"
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 border ${activeIndex === i
+                            ? "bg-blue-500 scale-150 border-blue-500 shadow-[0_0_8px_#3b82f6]"
+                            : "bg-blue-500/20 border-blue-500/40"
+                            }`}
                     />
                 ))}
             </div>
 
             <main>
                 {/* 4.1 Hero Section - Panel 0 */}
-                <section className="contact-panel h-screen w-full flex items-center justify-center relative overflow-hidden z-[1]">
+                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center relative overflow-hidden z-[1]">
                     {/* Background Image with Overlay */}
                     <div className="absolute inset-0 z-0">
                         <img
@@ -80,7 +86,7 @@ export const Contact = () => {
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-blue-500 font-mono text-xs tracking-[0.4em] uppercase mb-6"
+                            className="text-blue-500 font-mono text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-6"
                         >
                             Connect
                         </motion.p>
@@ -88,7 +94,7 @@ export const Contact = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-tight text-gradient py-4"
+                            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-tight text-gradient py-2 sm:py-4"
                         >
                             Let’s Build Smarter <br />
                             <span className="text-blue-500 font-display border-blue-500 inline-block pb-1">Parking</span> Together.
@@ -97,7 +103,7 @@ export const Contact = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
-                            className="text-base sm:text-lg md:text-2xl text-[var(--text-muted)] font-light max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-4 md:pl-6"
+                            className="text-sm sm:text-base md:text-xl lg:text-2xl text-[var(--text-muted)] font-light max-w-xl md:max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-4 md:pl-6"
                         >
                             Right Parking works best through long-term collaboration. We build infrastructure that lasts.
                         </motion.p>
@@ -121,9 +127,9 @@ export const Contact = () => {
                 </section>
 
                 {/* 4.2 Partner With Right Parking - Panel 1 */}
-                <section className="contact-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
+                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
                     <div className="max-w-7xl w-full panel-content">
-                        <h2 className="text-3xl md:text-6xl font-display italic mb-8 md:mb-16 uppercase tracking-tighter">Who We <span className="text-blue-500">Partner With</span></h2>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-16 uppercase tracking-tighter">Who We <span className="text-blue-500">Partner With</span></h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
                                 "Urban Local Bodies & Government",
@@ -146,10 +152,10 @@ export const Contact = () => {
                 </section>
 
                 {/* 4.3 What Happens Next - Panel 2 */}
-                <section className="contact-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
+                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
                     <div className="max-w-7xl w-full panel-content">
                         <div className="flex flex-col items-center text-center mb-12 md:mb-24">
-                            <h2 className="text-3xl md:text-7xl font-display italic mb-4 md:mb-6 leading-tight py-2 uppercase tracking-tighter">Roadmap to <span className="text-blue-500">Go-Live</span></h2>
+                            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display italic mb-4 md:mb-6 leading-tight py-2 uppercase tracking-tighter">Roadmap to <span className="text-blue-500">Go-Live</span></h2>
                             <p className="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-[0.4em] opacity-60">Clear Timelines. Clear Ownership.</p>
                         </div>
 
@@ -181,10 +187,10 @@ export const Contact = () => {
                 </section>
 
                 {/* 4.4 Form Section - Panel 3 */}
-                <section className="contact-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
+                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center panel-content">
-                        <div className="lg:col-span-8 bg-[var(--surface)] border border-[var(--border)] p-8 md:p-16 rounded-[2rem] md:rounded-[4rem] relative overflow-hidden shadow-2xl">
-                            <h3 className="text-2xl md:text-5xl font-display italic mb-8 md:mb-10 uppercase tracking-tighter">Start the <span className="text-blue-500">Conversation</span></h3>
+                        <div className="lg:col-span-8 bg-[var(--surface)] border border-[var(--border)] p-8 md:p-12 lg:p-16 rounded-[2rem] md:rounded-[4rem] relative overflow-hidden shadow-2xl">
+                            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display italic mb-8 md:mb-10 uppercase tracking-tighter">Start the <span className="text-blue-500">Conversation</span></h3>
                             <form className="space-y-6 md:space-y-8" onSubmit={(e) => e.preventDefault()}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                                     <div className="space-y-3">
@@ -215,30 +221,30 @@ export const Contact = () => {
                             </form>
                         </div>
 
-                        <div className="lg:col-span-4 flex flex-col justify-center space-y-16">
+                        <div className="lg:col-span-4 flex flex-col justify-center space-y-8 sm:space-y-16">
                             <div>
                                 <span className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-4 block">Corporate Office</span>
-                                <h4 className="text-3xl font-display italic mb-6">Right Parking</h4>
-                                <p className="text-[var(--text-muted)] text-lg leading-relaxed font-light border-l-2 border-blue-500/20 pl-8">
+                                <h4 className="text-2xl sm:text-3xl font-display italic mb-6">Right Parking</h4>
+                                <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed font-light border-l-2 border-blue-500/20 pl-6 sm:pl-8">
                                     Unit 508, 5th Floor,<br />
                                     Iris Tech Park, Sohna Road,<br />
                                     Gurgaon, Haryana 122018
                                 </p>
                             </div>
                             <div className="space-y-4">
-                                <p className="text-xl text-[var(--text-main)] font-light"><span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] mr-8 opacity-50">Email</span> admin@rightparking.com</p>
-                                <p className="text-xl text-[var(--text-main)] font-light"><span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] mr-8 opacity-50">Phone</span> +91 99999 99999</p>
+                                <p className="text-lg sm:text-xl text-[var(--text-main)] font-light"><span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] mr-8 opacity-50">Email</span> admin@rightparking.com</p>
+                                <p className="text-lg sm:text-xl text-[var(--text-main)] font-light"><span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] mr-8 opacity-50">Phone</span> +91 99999 99999</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 {/* 4.5 Closing - Panel 4 */}
-                <section className="contact-panel h-screen w-full flex items-center justify-center px-6 md:px-12 z-[5] bg-black">
+                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[5] bg-black">
                     <div className="max-w-7xl w-full panel-content">
-                        <div className="bg-gradient-to-br from-[#1a1a1e] to-black border border-white/5 p-12 md:p-32 rounded-[3rem] md:rounded-[5rem] text-center relative overflow-hidden shadow-3xl">
+                        <div className="bg-gradient-to-br from-[#1a1a1e] to-black border border-white/5 p-8 md:p-12 lg:p-32 rounded-[3rem] md:rounded-[5rem] text-center relative overflow-hidden shadow-3xl">
                             <div className="absolute inset-0 bg-blue-600/5 blur-[150px] pointer-events-none" />
-                            <h2 className="text-3xl sm:text-5xl md:text-8xl font-display italic mb-6 md:mb-10 leading-tight text-[var(--text-main)] py-2 md:py-4 uppercase tracking-tighter relative z-10">
+                            <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-display italic mb-6 md:mb-10 leading-tight text-[var(--text-main)] py-2 md:py-4 uppercase tracking-tighter relative z-10">
                                 Parking Is <br /><span className="text-blue-500">Infrastructure.</span>
                             </h2>
                             <p className="text-base sm:text-xl md:text-3xl font-light max-w-4xl mx-auto relative z-10 leading-relaxed text-[var(--text-muted)]">

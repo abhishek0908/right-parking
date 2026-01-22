@@ -122,9 +122,9 @@ export function HomeOverlay() {
                     align="right"
                 />
                 <Section
-                    headline="Management"
+                    headline="Experience"
                     description="Beyond hardware. We provide end-to-end management, revenue optimization, and custom business models tailored to your facility."
-                    onClick={() => handleNavigate("/services")}
+                    onClick={() => handleNavigate("/experience")}
                     align="left"
                 />
                 <Section
@@ -142,16 +142,13 @@ export function HomeOverlay() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                         >
-                            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-[var(--text-main)] mb-8 md:mb-12 leading-tight tracking-tighter">
-                                Next <span className="text-blue-500">Level?</span>
-                            </h2>
+
                             <button
-                                onClick={() => handleNavigate("/projects")}
-                                className="group relative px-12 py-6 bg-transparent text-white text-2xl font-black uppercase tracking-widest overflow-hidden transition-all duration-300"
+                                onClick={() => handleNavigate("/experience")}
+                                className="group relative px-12 py-5 bg-blue-600/90 text-white text-xl font-display font-bold uppercase tracking-[0.2em] overflow-hidden transition-all duration-300 hover:text-blue-600 shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:shadow-[0_0_60px_rgba(37,99,235,0.7)] rounded-full border border-blue-400/50 hover:border-blue-500 hover:scale-105 active:scale-95"
                             >
-                                <span className="relative z-10">View Projects</span>
-                                <div className="absolute inset-0 border-2 border-blue-500 scale-100 group-hover:scale-105 transition-transform duration-300" />
-                                <div className="absolute inset-0 bg-blue-600 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+                                <span className="relative z-10">Experience It</span>
+                                <div className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
                             </button>
                         </motion.div>
                     </div>
