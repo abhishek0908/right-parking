@@ -20,7 +20,7 @@ export const RobotCamera = ({ position, showDisplay = false, ...props }) => {
 
         // Reactive Text Update
         if (showDisplay && scroll) {
-            const currentStatus = scroll.offset < 0.1 ? "SCANNING CAR..." : "KA016556";
+            const currentStatus = scroll.offset < 0.1 ? "SCANNING CAR..." : "KA 41 MC 6555";
             if (status !== currentStatus) {
                 setStatus(currentStatus);
             }
