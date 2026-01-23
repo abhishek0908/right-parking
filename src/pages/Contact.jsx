@@ -40,23 +40,37 @@ export const Contact = () => {
                     scrollTrigger: {
                         trigger: panel,
                         scroller: containerRef.current,
-                        start: "top 85%",
-                        end: "bottom 15%",
+                        start: "top 95%",
+                        end: "bottom 5%",
                         toggleActions: "play reverse play reverse"
                     }
                 }
             );
+        });
+
+        // FORCE SNAP TO PANELS
+        ScrollTrigger.create({
+            scroller: containerRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            snap: {
+                snapTo: 1 / (panels.length - 1),
+                duration: { min: 0.2, max: 0.5 },
+                delay: 0,
+                ease: "power2.inOut"
+            }
         });
     }, { scope: containerRef });
 
     return (
         <div
             ref={containerRef}
-            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scroll-smooth scrollbar-hide"
+            style={{ scrollSnapType: 'y mandatory', scrollBehavior: 'auto' }}
+            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scrollbar-hide"
         >
             {/* Scroll Progress Indicator */}
             <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 hidden md:flex">
-                {[...Array(5)].map((_, i) => (
+                {[...Array(6)].map((_, i) => (
                     <div
                         key={i}
                         className={`w-1.5 h-1.5 rounded-full transition-all duration-300 border ${activeIndex === i
@@ -69,7 +83,7 @@ export const Contact = () => {
 
             <main>
                 {/* 4.1 Hero Section - Panel 0 */}
-                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center relative overflow-hidden z-[1]">
+                <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center relative overflow-hidden z-[1]">
                     {/* Background Image with Overlay */}
                     <div className="absolute inset-0 z-0">
                         <img
@@ -107,27 +121,27 @@ export const Contact = () => {
                         >
                             Right Parking works best through long-term collaboration. We build infrastructure that lasts.
                         </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: [0, 1, 0.4, 1] }}
-                            transition={{
-                                delay: 1,
-                                duration: 2,
-                                times: [0, 0.2, 0.5, 1],
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-blue-500/50"
-                        >
-                            <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll for Partnership</span>
-                            <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
-                        </motion.div>
                     </div>
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0.4, 1] }}
+                        transition={{
+                            delay: 1,
+                            duration: 2,
+                            times: [0, 0.2, 0.5, 1],
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-blue-500/50 z-20"
+                    >
+                        <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll for Partnership</span>
+                        <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
+                    </motion.div>
                 </section>
 
                 {/* 4.2 Partner With Right Parking - Panel 1 */}
-                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
+                <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
                     <div className="max-w-7xl w-full panel-content">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-16 uppercase tracking-tighter">Who We <span className="text-blue-500">Partner With</span></h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -152,7 +166,7 @@ export const Contact = () => {
                 </section>
 
                 {/* 4.3 What Happens Next - Panel 2 */}
-                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
+                <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
                     <div className="max-w-7xl w-full panel-content">
                         <div className="flex flex-col items-center text-center mb-12 md:mb-24">
                             <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display italic mb-4 md:mb-6 leading-tight py-2 uppercase tracking-tighter">Roadmap to <span className="text-blue-500">Go-Live</span></h2>
@@ -187,7 +201,7 @@ export const Contact = () => {
                 </section>
 
                 {/* 4.4 Form Section - Panel 3 */}
-                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
+                <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center panel-content">
                         <div className="lg:col-span-8 bg-[var(--surface)] border border-[var(--border)] p-8 md:p-12 lg:p-16 rounded-[2rem] md:rounded-[4rem] relative overflow-hidden shadow-2xl">
                             <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display italic mb-8 md:mb-10 uppercase tracking-tighter">Start the <span className="text-blue-500">Conversation</span></h3>
@@ -240,7 +254,7 @@ export const Contact = () => {
                 </section>
 
                 {/* 4.5 Closing - Panel 4 */}
-                <section className="contact-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[5] bg-black">
+                <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[5] bg-black">
                     <div className="max-w-7xl w-full panel-content">
                         <div className="bg-gradient-to-br from-[#1a1a1e] to-black border border-white/5 p-8 md:p-12 lg:p-32 rounded-[3rem] md:rounded-[5rem] text-center relative overflow-hidden shadow-3xl">
                             <div className="absolute inset-0 bg-blue-600/5 blur-[150px] pointer-events-none" />
@@ -255,7 +269,7 @@ export const Contact = () => {
                 </section>
 
                 {/* Footer Section */}
-                <div className="bg-black relative z-[6]">
+                <div className="contact-panel snap-start snap-always bg-black relative z-[6]">
                     <Footer />
                 </div>
             </main>

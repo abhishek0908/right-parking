@@ -42,23 +42,37 @@ export const Technology = () => {
                     scrollTrigger: {
                         trigger: panel,
                         scroller: containerRef.current,
-                        start: "top 85%",
-                        end: "bottom 15%",
+                        start: "top 95%",
+                        end: "bottom 5%",
                         toggleActions: "play reverse play reverse"
                     }
                 }
             );
+        });
+
+        // FORCE SNAP TO PANELS
+        ScrollTrigger.create({
+            scroller: containerRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            snap: {
+                snapTo: 1 / (panels.length - 1),
+                duration: { min: 0.2, max: 0.5 },
+                delay: 0,
+                ease: "power2.inOut"
+            }
         });
     }, { scope: containerRef });
 
     return (
         <div
             ref={containerRef}
-            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scroll-smooth scrollbar-hide"
+            style={{ scrollSnapType: 'y mandatory', scrollBehavior: 'auto' }}
+            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scrollbar-hide"
         >
             {/* Scroll Progress Indicator */}
             <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 hidden md:flex">
-                {[...Array(9)].map((_, i) => (
+                {[...Array(10)].map((_, i) => (
                     <div
                         key={i}
                         className={`w-1.5 h-1.5 rounded-full transition-all duration-300 border ${activeIndex === i
@@ -71,7 +85,7 @@ export const Technology = () => {
 
             <main>
                 {/* 2.1 Hero Section - Panel 0 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center relative overflow-hidden z-[1]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center relative overflow-hidden z-[1]">
                     {/* Background Image */}
                     <div className="absolute inset-0 z-0">
                         <img
@@ -109,27 +123,27 @@ export const Technology = () => {
                             Parking works best when you don’t notice it at all.<br />
                             Right Parking’s technology disappears from sight—while delivering full operational control behind the scenes.
                         </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: [0, 1, 0.4, 1] }}
-                            transition={{
-                                delay: 1,
-                                duration: 2,
-                                times: [0, 0.2, 0.5, 1],
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                            className="absolute bottom-[-12rem] left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-blue-500/50"
-                        >
-                            <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll for Core Tech</span>
-                            <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
-                        </motion.div>
                     </div>
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0.4, 1] }}
+                        transition={{
+                            delay: 1,
+                            duration: 2,
+                            times: [0, 0.2, 0.5, 1],
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-blue-500/50 z-20"
+                    >
+                        <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll for Core Tech</span>
+                        <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
+                    </motion.div>
                 </section>
 
                 {/* 2.2 Our Technology Philosophy - Panel 1 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
                     <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center panel-content">
                         <div>
                             <h2 className="text-3xl sm:text-4xl md:text-6xl font-display italic mb-6 leading-tight py-2 uppercase tracking-tighter">Automation <br /><span className="text-blue-500 inline-block pb-1">by Design</span></h2>
@@ -157,7 +171,7 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.3 Framework - Panel 2 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
                     <div className="max-w-7xl w-full panel-content">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-16 text-center leading-tight py-2 uppercase tracking-tighter">Zero Downtime <span className="text-blue-500">Framework</span></h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -181,7 +195,7 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.4 ANPR Engine - Panel 3 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center panel-content">
                         <div className="order-2 lg:order-1">
                             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-6 md:mb-8 leading-tight py-2 uppercase tracking-tighter">Cameras That <span className="text-blue-500">Decide</span></h2>
@@ -222,7 +236,7 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.5 Sensors & Guidance - Panel 4 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[5] bg-[#111114]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[5] bg-[#111114]">
                     <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 panel-content">
                         <div className="bg-[var(--surface)] p-8 md:p-16 rounded-[2rem] md:rounded-[4rem] border border-[var(--border)] group hover:border-blue-500/30 transition-all shadow-2xl">
                             <h3 className="text-2xl sm:text-3xl md:text-4xl font-display italic mb-6 md:mb-8">Every Spot Knows <br />Its Status</h3>
@@ -250,7 +264,7 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.7 Visibility - Panel 5 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[6] bg-[#141417]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[6] bg-[#141417]">
                     <div className="max-w-7xl w-full panel-content">
                         <div className="bg-gradient-to-br from-[#1a1a1e] to-[var(--bg-dark)] p-8 md:p-20 lg:p-32 rounded-[3rem] md:rounded-[5rem] border border-white/5 relative overflow-hidden shadow-2xl text-center">
                             <div className="absolute inset-0 bg-blue-600/5 blur-[120px]" />
@@ -269,7 +283,7 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.8 Digital Payments - Panel 6 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[7] bg-[#16161a]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[7] bg-[#16161a]">
                     <div className="max-w-7xl w-full text-center panel-content">
                         <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display italic mb-8 md:mb-16 leading-tight py-2 uppercase tracking-tighter">Frictionless <span className="text-blue-500">Finance</span></h2>
                         <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 md:mb-16">
@@ -290,7 +304,7 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.9 Security - Panel 7 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[8] bg-[#18181d]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[8] bg-[#18181d]">
                     <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center panel-content">
                         <div>
                             <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-6 md:mb-10 leading-tight py-2 uppercase tracking-tighter">Parking That <span className="text-red-500">Protects</span></h2>
@@ -330,7 +344,7 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.10 Built for Scale - Panel 8 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 z-[9] bg-black">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[9] bg-black">
                     <div className="max-w-7xl w-full text-center panel-content">
                         <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-display italic mb-6 md:mb-10 leading-tight py-4 uppercase tracking-tighter">Built for <span className="text-blue-500">Scale</span></h2>
                         <p className="text-[var(--text-muted)] text-lg sm:text-2xl md:text-3xl font-light mb-12 md:mb-16 max-w-4xl mx-auto">From a single site to city-wide deployments. Reliable. Resilient. Ready.</p>
@@ -348,7 +362,7 @@ export const Technology = () => {
                 </section>
 
                 {/* Footer Section */}
-                <div className="bg-black relative z-[10]">
+                <div className="technology-panel snap-start snap-always bg-black relative z-[10]">
                     <Footer />
                 </div>
             </main>

@@ -57,12 +57,25 @@ export const About = () => {
                         scrollTrigger: {
                             trigger: panel,
                             scroller: containerRef.current,
-                            start: "top 85%",
-                            end: "bottom 15%",
+                            start: "top 95%",
+                            end: "bottom 5%",
                             toggleActions: "play reverse play reverse"
                         }
                     }
                 );
+            }
+        });
+
+        // FORCE SNAP TO PANELS
+        ScrollTrigger.create({
+            scroller: containerRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            snap: {
+                snapTo: 1 / (panels.length - 1),
+                duration: { min: 0.2, max: 0.5 },
+                delay: 0,
+                ease: "power2.inOut"
             }
         });
     }, { scope: containerRef });
@@ -70,7 +83,8 @@ export const About = () => {
     return (
         <div
             ref={containerRef}
-            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scroll-smooth scrollbar-hide"
+            style={{ scrollSnapType: 'y mandatory', scrollBehavior: 'auto' }}
+            className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scrollbar-hide"
         >
             {/* Scroll Progress Indicator */}
             <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 hidden md:flex">
@@ -87,7 +101,7 @@ export const About = () => {
 
             <main className="w-full">
                 {/* 1.1 Hero Section - Panel 0 */}
-                <section className="about-panel h-screen w-full flex items-center justify-center px-6 md:px-12 snap-start snap-always sticky top-0 bg-[var(--bg-dark)]">
+                <section className="about-panel h-screen w-full flex items-center justify-center px-6 md:px-12 snap-start snap-always bg-[var(--bg-dark)] relative">
                     <div className="max-w-7xl w-full panel-content">
                         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-blue-500 font-mono text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-4 sm:mb-6">Reimagining Parking in India</motion.p>
                         <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-[1.1] md:leading-tight text-gradient py-2 sm:py-4">
@@ -98,10 +112,26 @@ export const About = () => {
                             Right Parking is transforming how India parks by building intelligent, automated parking infrastructure that operates without tickets, without cash, and without friction.
                         </motion.p>
                     </div>
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0.4, 1] }}
+                        transition={{
+                            delay: 1,
+                            duration: 2,
+                            times: [0, 0.2, 0.5, 1],
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-blue-500/50 z-20"
+                    >
+                        <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll for Vision</span>
+                        <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
+                    </motion.div>
                 </section>
 
                 {/* 1.1b CEO Section - Panel 1 */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center relative overflow-hidden">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0 z-0 ceo-bg-container">
                         <img src="/assets/kumar-ceo.jpeg" className="w-full h-full object-cover opacity-100 object-left-top contrast-[1.1] brightness-[0.8]" alt="CEO Background" />
                         <div className="absolute inset-0 bg-black/40" />
@@ -134,7 +164,7 @@ export const About = () => {
                 </section>
 
                 {/* 1.2 About Right Parking - Panel 2 */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#0a0a0c]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#0a0a0c]">
                     <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center panel-content">
                         <div>
                             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display italic mb-6 leading-tight py-2">Invisible Infrastructure That <span className="text-blue-500 inline-block pb-1">Simply Works</span></h2>
@@ -162,7 +192,7 @@ export const About = () => {
                 </section>
 
                 {/* 1.3 The Problem - Panel 3 */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#0c0c0e]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#0c0c0e]">
                     <div className="max-w-7xl w-full panel-content">
                         <div className="mb-6 md:mb-12 text-center md:text-left">
                             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-3 md:mb-4">India’s Parking <span className="text-red-500">Challenge</span></h2>
@@ -180,7 +210,7 @@ export const About = () => {
                 </section>
 
                 {/* 1.4 The Way - Panel 4 */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#0e0e11]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#0e0e11]">
                     <div className="max-w-7xl w-full panel-content">
                         <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-8 md:mb-16 text-center">Without <span className="text-blue-500 uppercase">Friction</span></h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
@@ -202,7 +232,7 @@ export const About = () => {
                 </section>
 
                 {/* Panel 5: Stats */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#111114]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#111114]">
                     <div className="max-w-7xl w-full panel-content">
                         <div className="bg-[var(--surface)] rounded-[2rem] md:rounded-[4rem] p-8 md:p-16 text-center border border-[var(--border)] relative overflow-hidden shadow-2xl">
                             <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-6">Proven on Ground</h2>
@@ -223,7 +253,7 @@ export const About = () => {
                 </section>
 
                 {/* Panel 6: Amenities */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#121215]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#121215]">
                     <div className="max-w-7xl w-full panel-content">
                         <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-12">Facilities & <span className="text-blue-500">Amenities</span></h2>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
@@ -238,7 +268,7 @@ export const About = () => {
                 </section>
 
                 {/* Panel 7: Ownership */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#131316]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#131316]">
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 bg-blue-900/10 p-8 md:p-16 rounded-[2rem] border border-blue-500/20 panel-content">
                         <div>
                             <h2 className="text-2xl sm:text-4xl md:text-5xl font-display italic mb-6 text-[var(--text-main)] leading-tight">From Empty Land to <br />Smart Asset</h2>
@@ -261,7 +291,7 @@ export const About = () => {
                 </section>
 
                 {/* Panel 8: Who We Serve */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#141418]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#141418]">
                     <div className="max-w-7xl w-full panel-content text-center">
                         <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-16">Who We <span className="text-blue-500">Serve</span></h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -280,7 +310,7 @@ export const About = () => {
                 </section>
 
                 {/* 1.9 App Experience - Panel 9 */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center px-6 md:px-12 bg-[#151519]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 bg-[#151519]">
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center panel-content">
                         <div className="order-2 lg:order-1">
                             <span className="text-blue-500 font-mono text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">The Right Parking App</span>
@@ -303,7 +333,7 @@ export const About = () => {
                 </section>
 
                 {/* Legacy & Future - Panel 10 */}
-                <section className="about-panel h-screen w-full snap-start snap-always sticky top-0 flex items-center justify-center relative bg-[#000]">
+                <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center relative bg-[#000]">
                     <div className="absolute inset-0">
                         <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-60">
                             <source src="/parking_video.mp4" type="video/mp4" />
