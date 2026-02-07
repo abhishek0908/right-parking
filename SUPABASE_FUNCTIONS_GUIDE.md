@@ -93,20 +93,37 @@ await deleteProject(projectId);
 
 ---
 
+### 4. `super-function`
+Sends an enquiry email via Brevo when the contact form is submitted.
+
+**Frontend Call:**
+```javascript
+const { data, error } = await supabase.functions.invoke('super-function', {
+  body: {
+    full_name,
+    email,
+    enquiry_type,
+    project_details
+  }
+});
+```
+
+---
+
 ## 🚀 Deployment & Configuration
 
 ### Deployment Command
-Because we use custom FormData parsing, the function must be deployed with the `--no-verify-jwt` flag:
+Because we use custom FormData parsing or specific external fetch logic, it's safer to deploy with the `--no-verify-jwt` flag if you aren't sending an auth token:
 ```bash
-npx supabase functions deploy rapid-action --no-verify-jwt
+npx supabase functions deploy super-function --no-verify-jwt
 ```
 
 ### Required Secrets
-The Edge Function requires the following secrets to be set in your Supabase Dashboard:
+The `super-function` requires the following secrets for Brevo:
 ```bash
-npx supabase secrets set CLOUDINARY_CLOUD_NAME=your_name
-npx supabase secrets set CLOUDINARY_API_KEY=your_key
-npx supabase secrets set CLOUDINARY_API_SECRET=your_secret
+npx supabase secrets set BREVO_API_KEY=your_brevo_key
+npx supabase secrets set FROM_EMAIL=your_sender_email
+npx supabase secrets set CONTACT_TO_EMAIL=your_admin_email
 ```
 
 ---

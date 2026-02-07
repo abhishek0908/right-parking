@@ -1,15 +1,18 @@
 import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { Footer } from '../components/layout/Footer';
+import { supabase } from '../lib/supabase';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Contact = () => {
     const containerRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [status, setStatus] = useState(null); // { type: 'success' | 'error', title: string, message: string }
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useGSAP(() => {
         const panels = gsap.utils.toArray(".contact-panel");
@@ -68,6 +71,60 @@ export const Contact = () => {
             style={{ scrollSnapType: 'y mandatory', scrollBehavior: 'auto' }}
             className="h-screen w-full overflow-y-auto snap-y snap-mandatory bg-[var(--bg-dark)] text-[var(--text-main)] overflow-x-hidden scrollbar-hide"
         >
+            {/* Status Popup */}
+            <AnimatePresence>
+                {status && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-md"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20, opacity: 0 }}
+                            animate={{ scale: 1, y: 0, opacity: 1 }}
+                            exit={{ scale: 0.9, y: 20, opacity: 0 }}
+                            className={`max-w-md w-full p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border shadow-2xl text-center relative overflow-hidden ${status.type === 'success'
+                                    ? 'bg-blue-950/20 border-blue-500/30 shadow-blue-500/10'
+                                    : 'bg-red-950/20 border-red-500/30 shadow-red-500/10'
+                                }`}
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-500/5 to-transparent pointer-events-none" />
+
+                            <div className={`w-16 h-16 md:w-20 md:h-20 mx-auto rounded-full flex items-center justify-center mb-6 md:mb-8 border-2 ${status.type === 'success' ? 'border-blue-500/30 text-blue-500' : 'border-red-500/30 text-red-500'
+                                }`}>
+                                {status.type === 'success' ? (
+                                    <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                ) : (
+                                    <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                )}
+                            </div>
+
+                            <h4 className="text-2xl md:text-3xl font-display italic mb-4 uppercase tracking-tight text-white">
+                                {status.title}
+                            </h4>
+                            <p className="text-[var(--text-muted)] text-sm md:text-base font-light leading-relaxed mb-8 md:mb-10">
+                                {status.message}
+                            </p>
+
+                            <button
+                                onClick={() => setStatus(null)}
+                                className={`w-full py-4 rounded-full font-display italic font-bold text-base md:text-lg transition-all ${status.type === 'success'
+                                        ? 'bg-blue-600 hover:bg-white hover:text-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.2)]'
+                                        : 'bg-red-600 hover:bg-white hover:text-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.2)]'
+                                    }`}
+                            >
+                                Continue
+                            </button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Scroll Progress Indicator */}
             <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 hidden md:flex">
                 {[...Array(6)].map((_, i) => (
@@ -205,20 +262,77 @@ export const Contact = () => {
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center panel-content">
                         <div className="lg:col-span-8 bg-[var(--surface)] border border-[var(--border)] p-8 md:p-12 lg:p-16 rounded-[2rem] md:rounded-[4rem] relative overflow-hidden shadow-2xl">
                             <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display italic mb-8 md:mb-10 uppercase tracking-tighter">Start the <span className="text-blue-500">Conversation</span></h3>
-                            <form className="space-y-6 md:space-y-8" onSubmit={(e) => e.preventDefault()}>
+                            <form className="space-y-6 md:space-y-8" onSubmit={async (e) => {
+                                e.preventDefault();
+                                if (isSubmitting) return;
+
+                                setIsSubmitting(true);
+                                const formData = new FormData(e.target);
+                                const full_name = formData.get('full_name');
+                                const email = formData.get('email');
+                                const enquiry_type = formData.get('enquiry_type');
+                                const project_details = formData.get('project_details');
+
+                                try {
+                                    const { data, error } = await supabase.functions.invoke('super-function', {
+                                        body: {
+                                            full_name,
+                                            email,
+                                            enquiry_type,
+                                            project_details
+                                        }
+                                    });
+
+                                    if (error) throw error;
+
+                                    setStatus({
+                                        type: 'success',
+                                        title: 'Message Sent',
+                                        message: 'Thank you for reaching out. Our team will get back to you shortly.'
+                                    });
+                                    e.target.reset();
+                                } catch (err) {
+                                    console.error('Error sending message:', err);
+                                    setStatus({
+                                        type: 'error',
+                                        title: 'Submission Failed',
+                                        message: 'We encountered an error while sending your message. Please try again or contact us directly via email.'
+                                    });
+                                } finally {
+                                    setIsSubmitting(false);
+                                }
+                            }}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                                     <div className="space-y-3">
                                         <label className="text-[10px] uppercase tracking-[0.3em] text-blue-500/60 font-mono">Full Name</label>
-                                        <input type="text" className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white font-light text-sm md:text-base" placeholder="Kumar ..." />
+                                        <input
+                                            name="full_name"
+                                            type="text"
+                                            required
+                                            disabled={isSubmitting}
+                                            className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white font-light text-sm md:text-base disabled:opacity-50"
+                                            placeholder="Kumar ..."
+                                        />
                                     </div>
                                     <div className="space-y-3">
                                         <label className="text-[10px] uppercase tracking-[0.3em] text-blue-500/60 font-mono">Email Address</label>
-                                        <input type="email" className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white font-light text-sm md:text-base" placeholder="ceo@..." />
+                                        <input
+                                            name="email"
+                                            type="email"
+                                            required
+                                            disabled={isSubmitting}
+                                            className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white font-light text-sm md:text-base disabled:opacity-50"
+                                            placeholder="ceo@..."
+                                        />
                                     </div>
                                 </div>
                                 <div className="space-y-3">
                                     <label className="text-[10px] uppercase tracking-[0.3em] text-blue-500/60 font-mono">Enquiry Type</label>
-                                    <select className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white appearance-none cursor-pointer font-light text-sm md:text-base">
+                                    <select
+                                        name="enquiry_type"
+                                        disabled={isSubmitting}
+                                        className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white appearance-none cursor-pointer font-light text-sm md:text-base disabled:opacity-50"
+                                    >
                                         <option>Partnerships</option>
                                         <option>Government Proposals</option>
                                         <option>Site Assessments</option>
@@ -227,10 +341,27 @@ export const Contact = () => {
                                 </div>
                                 <div className="space-y-3">
                                     <label className="text-[10px] uppercase tracking-[0.3em] text-blue-500/60 font-mono">Project Details</label>
-                                    <textarea className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white h-24 md:h-32 resize-none font-light text-sm md:text-base" placeholder="Tell us about your requirements..."></textarea>
+                                    <textarea
+                                        name="project_details"
+                                        required
+                                        disabled={isSubmitting}
+                                        className="w-full bg-black/40 border border-white/5 rounded-xl md:rounded-2xl px-6 py-3 md:py-4 focus:border-blue-500 outline-none transition-all text-white h-24 md:h-32 resize-none font-light text-sm md:text-base disabled:opacity-50"
+                                        placeholder="Tell us about your requirements..."
+                                    ></textarea>
                                 </div>
-                                <button className="w-full md:w-auto bg-blue-600 text-white px-12 py-4 md:py-5 rounded-full font-display italic font-bold text-lg md:text-xl hover:bg-white hover:text-blue-600 transition-all shadow-2xl">
-                                    Send Message
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full md:w-auto bg-blue-600 text-white px-12 py-4 md:py-5 rounded-full font-display italic font-bold text-lg md:text-xl hover:bg-white hover:text-blue-600 transition-all shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden"
+                                >
+                                    <span className={isSubmitting ? 'opacity-0' : ''}>
+                                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                                    </span>
+                                    {isSubmitting && (
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        </div>
+                                    )}
                                 </button>
                             </form>
                         </div>

@@ -55,7 +55,7 @@ export const Header = () => {
                                 }
                             }}
                             className={({ isActive }) =>
-                                `text-[10px] font-mono tracking-[0.2em] uppercase transition-all duration-300 hover:text-blue-400 relative py-1 ${isActive ? 'text-blue-500' : 'text-[var(--text-muted)]'
+                                `text-[12px] font-mono tracking-[0.2em] uppercase transition-all duration-300 hover:text-blue-400 relative py-1 ${isActive ? 'text-blue-500' : 'text-[var(--text-muted)]'
                                 }`
                             }
                         >
