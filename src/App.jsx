@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Home } from './pages/Home';
 import { ExperiencePage } from './pages/ExperiencePage';
 import { About } from './pages/About';
+import { UserJourney } from './pages/UserJourney';
 import { Technology } from './pages/Technology';
 import { Contact } from './pages/Contact';
 import { Projects } from './pages/Projects';
@@ -43,6 +44,11 @@ function AnimatedRoutes() {
         <Route path="/experience" element={
           <PageWrapper>
             <ExperiencePage />
+          </PageWrapper>
+        } />
+        <Route path="/journey" element={
+          <PageWrapper>
+            <UserJourney />
           </PageWrapper>
         } />
         <Route path="/about" element={
