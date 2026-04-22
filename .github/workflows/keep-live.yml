@@ -1,0 +1,14 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    - cron: '0 0 */2 * *'   # Runs every 2 days
+  workflow_dispatch:        # Allows manual run
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl Supabase
+        run: |
+          curl -I https://exyvlgmsjfuofgryykgf.supabase.co/rest/v1/

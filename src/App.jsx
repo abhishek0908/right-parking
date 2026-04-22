@@ -18,7 +18,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 
 import { Loader } from './components/Loader';
 import { Header } from './components/layout/Header';
-import { ThemeProvider } from './context/ThemeContext';
+
 import { AuthProvider } from './context/AuthContext';
 import { preloadExperienceAssets, preloadExperienceComponents } from './utils/preloadExperience';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -147,15 +147,13 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <Router>
-          <ErrorBoundary>
-            <AppContent />
-          </ErrorBoundary>
-        </Router>
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <Router>
+        <ErrorBoundary>
+          <AppContent />
+        </ErrorBoundary>
+      </Router>
+    </AuthProvider>
   );
 }
 

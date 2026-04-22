@@ -3,8 +3,8 @@ import { Footer } from '../components/layout/Footer';
 
 export const WhyUs = () => {
     return (
-        <div className="bg-[#09090b] min-h-screen text-white pt-32">
-            <main className="max-w-7xl mx-auto px-6 md:px-12 pb-24">
+        <div className="bg-[#09090b] min-h-screen text-white pt-24 md:pt-28">
+            <main className="max-w-7xl mx-auto px-5 md:px-10 pb-24">
 
                 {/* 3.1 Hero Section */}
                 <div className="mb-32">
@@ -19,7 +19,7 @@ export const WhyUs = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-6xl md:text-9xl font-display italic tracking-tighter mb-12 leading-tight py-4"
+                        className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display italic tracking-tight mb-12 leading-tight py-4"
                     >
                         Why Us.
                     </motion.h1>
@@ -63,7 +63,7 @@ export const WhyUs = () => {
                 {/* 3.3 Business Models */}
                 <div className="mb-48">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                        <h2 className="text-4xl md:text-6xl font-display italic leading-tight py-2">Business Models</h2>
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-display italic leading-tight py-2">Business Models</h2>
                         <div className="text-right">
                             <span className="block text-blue-500 font-mono text-sm uppercase tracking-widest mb-1">Zero CapEx Commitment</span>
                             <span className="text-zinc-500 text-sm">All technology costs are on us.</span>

@@ -43,8 +43,8 @@ const DotPattern = () => (
 
 const DiagramNode = ({ name, icon: Icon, highlight, className = "" }) => (
     <div className={`flex flex-col items-center gap-2 md:gap-4 ${className}`}>
-        <div className={`w-12 h-12 md:w-20 md:h-20 rounded-full flex items-center justify-center relative ${highlight ? 'bg-[#7c3aed]/20 border-[2px] md:border-[3px] border-[#7c3aed]' : 'bg-[#1e1b4b]/30 border border-zinc-700'} transition-all hover:scale-110 group`}>
-            {Icon && <Icon className={`${highlight ? 'text-white' : 'text-[#7c3aed]'} w-5 h-5 md:w-8 md:h-8 group-hover:scale-110 transition-transform`} strokeWidth={1.5} />}
+        <div className={`w-12 h-12 md:w-20 md:h-20 rounded-full flex items-center justify-center relative ${highlight ? 'bg-purple-500/20 border-2 md:border-3 border-purple-500' : 'bg-zinc-900 border border-zinc-700'} transition-all hover:scale-110 group`}>
+            {Icon && <Icon className={`${highlight ? 'text-white' : 'text-purple-400'} w-5 h-5 md:w-8 md:h-8 group-hover:scale-110 transition-transform`} strokeWidth={1.5} />}
             {highlight && <div className="absolute inset-0 rounded-full animate-pulse bg-purple-500/20" />}
         </div>
         <span className="text-[8px] md:text-[10px] text-zinc-500 font-mono text-center uppercase tracking-widest leading-tight max-w-[60px] md:max-w-[100px]">{name}</span>
@@ -52,44 +52,28 @@ const DiagramNode = ({ name, icon: Icon, highlight, className = "" }) => (
 );
 
 const SlideHeader = ({ title, subtitle, icon: Icon }) => (
-    <div className="absolute top-12 md:top-28 left-6 md:left-16 right-6 md:right-16 flex justify-between items-start z-30 pointer-events-none">
-        <div className="flex gap-4 md:gap-10">
-            <div className="flex items-start gap-3 md:gap-6">
-                {Icon && (
-                    <div className="text-zinc-600 mt-1 md:mt-2">
-                        <Icon size={24} md:size={36} strokeWidth={1} />
-                    </div>
-                )}
-                <div className="flex flex-col">
-                    <h2 className="text-xl md:text-4xl font-sans font-light text-white tracking-tight leading-none opacity-80">
-                        {title}
-                    </h2>
-                    <p className="text-xl md:text-4xl font-sans font-bold text-white tracking-tight mt-1">
-                        {subtitle}
-                    </p>
-                </div>
-            </div>
+    <div className="flex flex-col mb-4 md:mb-8 relative z-20">
+        <div className="flex items-center gap-3 mb-1">
+            {Icon && <Icon className="text-blue-500" size={18} />}
+            <h2 className="text-xs md:text-sm font-mono text-blue-500 uppercase tracking-[0.3em] opacity-80">
+                {title}
+            </h2>
         </div>
+        <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-display font-black italic text-white tracking-tighter">
+            {subtitle}
+        </p>
     </div>
 );
 
-const SlideFrame = ({ children }) => (
-    <div className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden pt-28 md:pt-20 px-6 md:px-20">
-        {/* Technical Markings - The 'Frame' */}
-        <div className="absolute inset-0 z-10 pointer-events-none hidden md:block">
-            {/* Left Vertical Line */}
-            <div className="absolute left-10 top-0 bottom-0 w-px bg-zinc-800/50" />
-            {/* Top Horizontal Line (below header) */}
-            <div className="absolute top-[200px] left-10 right-0 h-px bg-zinc-800/50" />
-            {/* Bottom Horizontal Line */}
-            <div className="absolute bottom-[100px] left-10 right-0 h-px bg-zinc-800/50" />
-            {/* Right Side Vertical Accent (Optional matching slide style) */}
-            <div className="absolute right-12 top-0 bottom-0 w-px bg-zinc-800/20" />
+const SectionWrapper = ({ children, className = "" }) => (
+    <section className={`journey-panel h-screen w-full snap-start snap-always relative overflow-hidden bg-[#06070d] flex flex-col ${className}`}>
+        <div className="absolute inset-0 z-0 pt-24 md:pt-32 px-6 md:px-12">
+            <DotPattern />
         </div>
-
-        <DotPattern />
-        {children}
-    </div>
+        <div className="max-w-7xl w-full mx-auto px-5 md:px-10 h-full flex flex-col relative z-10 pt-24 md:pt-28 pb-8 overflow-hidden">
+            {children}
+        </div>
+    </section>
 );
 
 export const UserJourney = () => {
@@ -110,11 +94,11 @@ export const UserJourney = () => {
 
             const elements = panel.querySelectorAll(".slide-content > *");
             gsap.fromTo(elements,
-                { opacity: 0, y: 40 },
+                { opacity: 0, y: 30 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 1,
+                    duration: 0.8,
                     stagger: 0.1,
                     ease: "power3.out",
                     scrollTrigger: {
@@ -161,502 +145,351 @@ export const UserJourney = () => {
 
             <main className="w-full">
                 {/* Panel 0: Hero Section */}
-                <section className="journey-panel h-screen w-full snap-start snap-always relative overflow-hidden">
-                    <div
-                        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
-                        style={{ backgroundImage: 'url("/assets/journey-hero.jpg")' }}
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-b from-[#06070d]/60 via-transparent to-[#06070d]" />
+                <section className="journey-panel h-screen w-full snap-start snap-always relative overflow-hidden flex items-center justify-center px-6 md:px-12">
+                    {/* Background Layer */}
+                    <div className="absolute inset-0 z-0">
+                        <img
+                            src="/assets/journey-hero.jpg"
+                            alt="User Journey Hero"
+                            className="w-full h-full object-cover opacity-60"
+                        />
+                        <div className="absolute inset-0 bg-black/40" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#06070d] via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#06070d]/80 via-[#06070d]/20 to-transparent" />
                     </div>
 
-                    <div className="relative h-full w-full flex flex-col items-center justify-center slide-content px-12 pt-20">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                            transition={{ duration: 1.5, ease: "easeOut" }}
-                            className="text-center"
+                    <div className="max-w-7xl w-full panel-content relative z-10 px-5 md:px-10 flex flex-col justify-center h-full pt-20 md:pt-24 pb-10">
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-blue-500 font-mono text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-4 sm:mb-8"
                         >
-                            <h1 className="text-5xl md:text-7xl lg:text-[12rem] font-display font-black tracking-tighter leading-none text-white italic">
-                                USER<br />
-                                <span className="text-blue-500 not-italic tracking-normal px-4 md:px-8 py-1 md:py-2 bg-blue-500/10 rounded-3xl border border-blue-500/20">JOURNEY</span>
-                            </h1>
-                            <p className="text-zinc-400 font-mono text-[10px] md:text-sm tracking-[0.3em] md:tracking-[0.5em] uppercase mt-8 md:mt-12 opacity-60">
-                                Seamless Tech Integration / 2025
-                            </p>
-                        </motion.div>
+                            End-to-End Excellence
+                        </motion.p>
 
-                        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40">
-                            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Scroll to Explore</span>
-                            <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
-                        </div>
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-10 leading-[1.1] md:leading-tight text-gradient py-2"
+                        >
+                            User <br /> <span className="text-blue-500 font-display inline-block pb-1 md:pb-2">Journey.</span>
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.4 }}
+                            className="text-[10px] md:text-sm lg:text-base text-zinc-400 font-light max-w-xl md:max-w-3xl leading-relaxed border-l-2 border-blue-500/30 pl-4 md:pl-6 mb-8 sm:mb-12"
+                        >
+                            Step into a frictionless parking ecosystem. From the moment you pre-book to the instant you retrieve your vehicle, every touchpoint is powered by intelligent automation designed for the modern urban driver.
+                        </motion.p>
                     </div>
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0.4, 1] }}
+                        transition={{
+                            delay: 1,
+                            duration: 2,
+                            times: [0, 0.2, 0.5, 1],
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-blue-500/50 z-20"
+                    >
+                        <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll for Experience</span>
+                        <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
+                    </motion.div>
                 </section>
 
                 {/* Panel 1: Pre-booked Parking Journey */}
-                <section className="journey-panel h-screen w-full snap-start snap-always bg-[#06070d] relative">
-                    <SlideFrame>
-                        <SlideHeader title="User Journey" subtitle="Pre-booked Parking" />
+                <SectionWrapper>
+                    <SlideHeader title="Flow Visualization" subtitle="Pre-booked Journey" icon={Car} />
 
-                        <div className="max-w-[110rem] w-full slide-content relative h-[75%] md:h-[70%] flex items-center justify-center pt-10 md:pt-20">
-                            {/* Desktop View: Horizontal Path */}
-                            <div className="absolute inset-0 hidden md:flex items-center justify-center">
-                                <svg className="w-full h-full opacity-40" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid meet">
-                                    <path
-                                        d="M50,400 C300,400 300,200 500,200 C700,200 700,400 900,400 C1100,400 1100,200 1300,200 C1500,200 1550,200 1550,200"
-                                        stroke="#1e293b"
-                                        strokeWidth="60"
-                                        strokeLinecap="round"
-                                        fill="none"
-                                    />
-                                    <path
-                                        d="M50,400 C300,400 300,200 500,200 C700,200 700,400 900,400 C1100,400 1100,200 1300,200 C1500,200 1550,200 1550,200"
-                                        stroke="white"
-                                        strokeWidth="2"
-                                        strokeDasharray="15 25"
-                                        fill="none"
-                                        className="opacity-30"
-                                    />
-                                </svg>
-                            </div>
+                    <div className="flex-1 flex flex-col justify-center slide-content overflow-hidden">
+                        {/* Desktop: Straight Road Flow */}
+                        <div className="hidden lg:flex flex-col items-center justify-center relative w-full h-[400px]">
+                            {/* The Road */}
+                            <div className="w-full h-24 bg-[#1a1a1e] border-y-2 border-zinc-800 relative shadow-[0_0_50px_rgba(0,0,0,0.5)] flex items-center">
+                                {/* Road Markings (Dashed Yellow Line) */}
+                                <div className="absolute left-0 right-0 h-[2px] border-t-2 border-dashed border-yellow-500/40 opacity-50 z-0" />
 
-                            <div className="relative w-full h-full z-20 hidden md:block">
-                                {[
-                                    { t: "User visits the Right Parking App to book a parking slot", i: Smartphone, x: 5, y: 65, up: false },
-                                    { t: "Enters vehicle details on the platform", i: FileText, x: 16, y: 35, up: true },
-                                    { t: "Makes payment online", i: CreditCard, x: 27, y: 65, up: false },
-                                    { t: "Parking slot is allocated to the vehicle", i: ParkingCircle, x: 38, y: 35, up: true, special: true },
-                                    { t: "User receives confirmation along with the allocated Parking Slot Number", i: CheckCircle2, x: 49, y: 65, up: false },
-                                    { t: "User visits the parking space at the scheduled date and time", i: MapPin, x: 60, y: 35, up: true },
-                                    { t: "Provides parking details to the executive", i: UserCheck, x: 71, y: 65, up: false },
-                                    { t: "Payment is made (if not already paid)", i: CreditCard, x: 82, y: 35, up: true },
-                                    { t: "User parks the vehicle at the reserved parking slot", i: Car, x: 93, y: 65, up: false }
-                                ].map((node, idx) => {
-                                    const yPos = node.up ? (node.special ? "40%" : "20%") : "80%";
-                                    return (
-                                        <div key={idx} className="absolute group" style={{ left: `${node.x}%`, top: yPos, transform: 'translateX(-50%)' }}>
-                                            <div className="absolute w-[1px] bg-blue-500/40" style={{ height: '160px', top: node.up ? '80px' : '-160px', left: '10%' }} />
-                                            <div className={`flex flex-col gap-4 max-w-[160px] ${node.up ? 'mb-8' : 'mt-8'}`}>
-                                                <div className="flex items-start gap-3">
-                                                    <div className="w-12 h-12 flex-shrink-0 bg-[#1e293b]/80 backdrop-blur-md rounded-xl flex items-center justify-center text-blue-400 border border-blue-500/20 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500">
-                                                        <node.i size={24} strokeWidth={1.5} />
+                                {/* Progress Indicator on Road */}
+                                <motion.div
+                                    className="absolute left-0 top-0 bottom-0 bg-blue-500/10 border-r-2 border-blue-500/50 z-10"
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: '100%' }}
+                                    transition={{ duration: 3, ease: "linear" }}
+                                />
+
+                                {/* Points on Road */}
+                                <div className="absolute inset-0 flex justify-between items-center px-12 z-20">
+                                    {[
+                                        { t: "Visit RP App", i: Smartphone },
+                                        { t: "Vehicle Info", i: FileText },
+                                        { t: "Quick Payment", i: CreditCard },
+                                        { t: "Slot Allocated", i: ParkingCircle },
+                                        { t: "Notification", i: CheckCircle2 },
+                                        { t: "Arrival", i: MapPin },
+                                        { t: "Verification", i: UserCheck },
+                                        { t: "Entry Gate", i: ArrowUpRight },
+                                        { t: "Park Vehicle", i: Car }
+                                    ].map((node, i) => (
+                                        <div key={i} className="relative flex flex-col items-center group/node">
+                                            {/* Node Marker on Road */}
+                                            <div className="w-4 h-4 rounded-full bg-zinc-900 border-2 border-blue-500 group-hover/node:scale-150 transition-transform shadow-[0_0_10px_#3b82f6] relative z-20">
+                                                <div className="absolute inset-0 rounded-full animate-ping bg-blue-500/20" />
+                                            </div>
+
+                                            {/* Alternating Labels & Icons */}
+                                            <div className={`absolute whitespace-nowrap flex flex-col items-center ${i % 2 === 0 ? 'bottom-12' : 'top-12'}`}>
+                                                {i % 2 !== 0 && (
+                                                    <div className="w-[1px] h-12 md:h-16 bg-gradient-to-b from-blue-500/50 to-transparent mb-2" />
+                                                )}
+
+                                                <div className="flex flex-col items-center gap-2 group-hover/node:-translate-y-2 transition-transform duration-300">
+                                                    <div className="w-10 h-10 md:w-14 md:h-14 rounded-2xl bg-[#0c0c0e] border border-zinc-800 flex items-center justify-center text-blue-400 shadow-xl group-hover/node:border-blue-500 group-hover/node:text-white transition-all">
+                                                        <node.i size={20} md:size={24} strokeWidth={1.5} />
                                                     </div>
-                                                    <div className="flex flex-col pt-1">
-                                                        <p className="text-zinc-300 text-[13px] font-normal leading-snug tracking-tight">{node.t}</p>
+                                                    <div className="text-center">
+                                                        <span className="text-[10px] md:text-xs text-white font-display font-medium uppercase tracking-widest">{node.t}</span>
+                                                        <div className="h-[2px] w-0 bg-blue-500 group-hover/node:w-full transition-all duration-300 mx-auto mt-1" />
                                                     </div>
                                                 </div>
+
+                                                {i % 2 === 0 && (
+                                                    <div className="w-[1px] h-12 md:h-16 bg-gradient-to-t from-blue-500/50 to-transparent mt-2" />
+                                                )}
                                             </div>
-                                            <div className="absolute w-5 h-5 rounded-full bg-[#06070d] border-2 border-blue-500 flex items-center justify-center z-30" style={{ top: node.up ? '230px' : '-5px', left: '10%', transform: 'translateX(-50%)' }}>
-                                                <div className="w-2 h-2 rounded-full bg-blue-400 group-hover:scale-150 transition-transform" />
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Mobile View: Vertical Timeline */}
-                            <div className="md:hidden flex flex-col gap-6 w-full max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
-                                {[
-                                    { t: "User visits the Right Parking App to book a parking slot", i: Smartphone },
-                                    { t: "Enters vehicle details on the platform", i: FileText },
-                                    { t: "Makes payment online", i: CreditCard },
-                                    { t: "Parking slot is allocated to the vehicle", i: ParkingCircle },
-                                    { t: "User receives confirmation along with the allocated Parking Slot Number", i: CheckCircle2 },
-                                    { t: "User visits the parking space at the scheduled date and time", i: MapPin },
-                                    { t: "Provides parking details to the executive", i: UserCheck },
-                                    { t: "Payment is made (if not already paid)", i: CreditCard },
-                                    { t: "User parks the vehicle at the reserved parking slot", i: Car }
-                                ].map((node, idx) => (
-                                    <div key={idx} className="flex gap-4 items-start relative pb-6 border-l border-blue-500/30 pl-6 ml-2 last:pb-0">
-                                        <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]" />
-                                        <div className="w-10 h-10 flex-shrink-0 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400 border border-blue-500/20">
-                                            <node.i size={20} strokeWidth={1.5} />
-                                        </div>
-                                        <p className="text-zinc-300 text-sm leading-snug">{node.t}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </SlideFrame>
-                </section>
-
-                {/* Panel 2: 4-Wheeler Entry Process */}
-                <section className="journey-panel h-screen w-full snap-start snap-always bg-[#06070d] relative">
-                    <SlideFrame>
-                        <SlideHeader title="Parking Entry Process" subtitle="for 4 Wheelers" icon={Car} />
-
-                        <div className="max-w-7xl w-full slide-content relative h-[70%] md:h-[60%] mt-10 md:mt-20">
-                            {/* Desktop View */}
-                            <div className="hidden md:block relative h-full w-full">
-                                <div className="absolute top-1/2 left-0 right-0 h-24 bg-[#111116] border-y-[2px] border-zinc-800 flex items-center">
-                                    <div className="w-full h-[1px] border-t-2 border-dashed border-zinc-700 mx-4 opacity-50" />
-                                </div>
-
-                                <motion.div initial={{ x: -100, opacity: 0 }} whileInView={{ x: 100, opacity: 1 }} transition={{ duration: 1 }} className="absolute left-0 top-1/2 -translate-y-1/2 z-20">
-                                    <Car size={180} className="text-[#a855f7] opacity-90" strokeWidth={1} />
-                                </motion.div>
-
-                                <div className="relative w-full h-full">
-                                    {[
-                                        { id: 1, x: "15%", y: "20%", t: "Vehicle arrives at the 4-wheeler entry lane." },
-                                        { id: 2, x: "35%", y: "20%", t: "Induction Loop detects the presence of the vehicle." },
-                                        { id: 4, x: "60%", y: "20%", t: "Boom barrier opens, and a digital display guides the vehicle to the parking spot." },
-                                        { id: 6, x: "85%", y: "20%", t: "Customer proceeds to the designated parking spot." },
-                                        { id: 3, x: "53%", y: "78%", t: "Power Gate button is pressed manually or automatically for a ticket.", sub: "Ticketing / RFID FastTag Reader Integration" },
-                                        { id: 5, x: "80%", y: "78%", t: "Automatically recognize and log vehicle details for a seamless and efficient parking experience." }
-                                    ].map((step) => (
-                                        <div key={step.id} className="absolute flex flex-col gap-3 max-w-[220px]" style={{ left: step.x, top: step.y }}>
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/20">{step.id}</div>
-                                                {step.sub && <span className="text-[10px] text-zinc-500 font-mono font-bold tracking-[0.1em]">{step.sub}</span>}
-                                            </div>
-                                            <p className="text-zinc-300 text-[14px] leading-snug font-light">{step.t}</p>
                                         </div>
                                     ))}
-                                    <div className="absolute left-[54%] top-1/2 -translate-y-[80px] w-[5px] h-[70px] bg-blue-500 rounded-full z-10 shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-                                </div>
-                            </div>
-
-                            {/* Mobile View */}
-                            <div className="md:hidden flex flex-col gap-4 overflow-y-auto max-h-[65vh] pr-2 custom-scrollbar">
-                                <div className="flex justify-center mb-4">
-                                    <Car size={80} className="text-[#a855f7] opacity-90" strokeWidth={1} />
-                                </div>
-                                {[
-                                    { id: 1, t: "Vehicle arrives at the 4-wheeler entry lane." },
-                                    { id: 2, t: "Induction Loop detects the presence of the vehicle." },
-                                    { id: 3, t: "Power Gate button is pressed manually or automatically for a ticket.", sub: "Ticketing / RFID FastTag Reader Integration" },
-                                    { id: 4, t: "Boom barrier opens, and a digital display guides the vehicle to the parking spot." },
-                                    { id: 5, t: "Automatically recognize and log vehicle details for a seamless and efficient parking experience." },
-                                    { id: 6, t: "Customer proceeds to the designated parking spot." }
-                                ].map((step) => (
-                                    <div key={step.id} className="bg-[#111116] p-4 rounded-xl border border-zinc-800 flex gap-4 items-start">
-                                        <div className="w-8 h-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">{step.id}</div>
-                                        <div className="flex flex-col gap-1">
-                                            {step.sub && <span className="text-[10px] text-zinc-500 font-mono font-bold uppercase tracking-wider">{step.sub}</span>}
-                                            <p className="text-zinc-300 text-sm leading-snug">{step.t}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </SlideFrame>
-                </section>
-
-                {/* Panel 3: 2-Wheeler Entry Process */}
-                <section className="journey-panel h-screen w-full snap-start snap-always bg-[#06070d] relative">
-                    <SlideFrame>
-                        <SlideHeader title="Parking Entry Process" subtitle="for 2 Wheelers" icon={Bike} />
-
-                        <div className="max-w-7xl w-full slide-content relative h-[70%] md:h-[60%] mt-10 md:mt-20">
-                            {/* Desktop View */}
-                            <div className="hidden md:block relative h-full w-full">
-                                <div className="absolute top-1/2 left-0 right-0 h-24 bg-[#111116] border-y-[2px] border-zinc-800 flex items-center">
-                                    <div className="w-full h-[1px] border-t-2 border-dashed border-zinc-700 mx-4 opacity-50" />
-                                </div>
-
-                                <motion.div initial={{ x: -100, opacity: 0 }} whileInView={{ x: 100, opacity: 1 }} transition={{ duration: 1.2 }} className="absolute left-0 top-1/2 -translate-y-1/2 z-20">
-                                    <Bike size={160} className="text-zinc-400 opacity-80" strokeWidth={1} />
-                                </motion.div>
-
-                                <div className="relative w-full h-full">
-                                    {[
-                                        { id: 1, x: "15%", y: "20%", t: "Vehicle arrives at the 2-wheeler entry lane." },
-                                        { id: 2, x: "40%", y: "20%", t: "Induction Loop detects the presence of the vehicle." },
-                                        { id: 4, x: "65%", y: "20%", t: "Boom barrier opens, and a digital display guides the vehicle to the parking spot." },
-                                        { id: 5, x: "85%", y: "20%", t: "Customer proceeds to the designated parking spot." },
-                                        { id: 3, x: "55%", y: "78%", t: "Customer presses the Power Gate button for a ticket.", sub: "Ticketing/RFID Reader Integration" }
-                                    ].map((step) => (
-                                        <div key={step.id} className="absolute flex flex-col gap-3 max-w-[240px]" style={{ left: step.x, top: step.y }}>
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/20">{step.id}</div>
-                                                {step.sub && <span className="text-[10px] text-zinc-500 font-mono font-bold tracking-[0.1em]">{step.sub}</span>}
-                                            </div>
-                                            <p className="text-zinc-300 text-[14px] leading-snug font-light">{step.t}</p>
-                                        </div>
-                                    ))}
-                                    <div className="absolute left-[56%] top-1/2 -translate-y-[80px] w-[5px] h-[70px] bg-blue-500 rounded-full z-10 shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-                                </div>
-                            </div>
-
-                            {/* Mobile View */}
-                            <div className="md:hidden flex flex-col gap-4 overflow-y-auto max-h-[65vh] pr-2 custom-scrollbar">
-                                <div className="flex justify-center mb-4">
-                                    <Bike size={70} className="text-zinc-400 opacity-80" strokeWidth={1} />
-                                </div>
-                                {[
-                                    { id: 1, t: "Vehicle arrives at the 2-wheeler entry lane." },
-                                    { id: 2, t: "Induction Loop detects the presence of the vehicle." },
-                                    { id: 3, t: "Customer presses the Power Gate button for a ticket.", sub: "Ticketing/RFID Reader Integration" },
-                                    { id: 4, t: "Boom barrier opens, and a digital display guides the vehicle to the parking spot." },
-                                    { id: 5, t: "Customer proceeds to the designated parking spot." }
-                                ].map((step) => (
-                                    <div key={step.id} className="bg-[#111116] p-4 rounded-xl border border-zinc-800 flex gap-4 items-start">
-                                        <div className="w-8 h-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">{step.id}</div>
-                                        <div className="flex flex-col gap-1">
-                                            {step.sub && <span className="text-[10px] text-zinc-500 font-mono font-bold uppercase tracking-wider">{step.sub}</span>}
-                                            <p className="text-zinc-300 text-sm leading-snug">{step.t}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </SlideFrame>
-                </section>
-
-
-                {/* Panel: Fasttag Entry System (Slide 107) */}
-                <section className="journey-panel h-screen w-full snap-start snap-always bg-[#06070d] relative">
-                    <SlideFrame>
-                        <div className="absolute top-12 md:top-28 left-6 md:left-16 z-30">
-                            <span className="px-3 md:px-4 py-1 md:py-1.5 bg-[#4c1d95]/50 border border-[#7c3aed]/30 text-[#a78bfa] text-base md:text-xl font-bold rounded-lg mb-4 md:mb-8 inline-block">
-                                Fastag Entry System
-                            </span>
-                        </div>
-
-                        <div className="max-w-[110rem] w-full slide-content flex flex-col md:grid md:grid-cols-12 gap-6 md:gap-12 mt-28 md:mt-32 px-4 md:px-16 h-[80%] md:h-[75%] items-start md:items-center overflow-y-auto md:overflow-visible custom-scrollbar">
-                            {/* Left Side: Features */}
-                            <div className="w-full md:col-span-4 flex flex-col gap-3 md:gap-6">
-                                {[
-                                    { text: "ANPR System captures the entry of vehicle along with license plate number", icon: "C-321" },
-                                    { text: "Boom Barriers integrated with ANPR System", icon: Waypoints },
-                                    { text: "ANPR System implementation on parking entry", icon: ParkingCircle }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="p-4 md:p-8 bg-[#111116] border border-zinc-800/80 rounded-xl md:rounded-[2rem] flex items-center gap-4 md:gap-10 hover:border-blue-500/50 transition-all group">
-                                        <div className="w-10 h-10 md:w-16 md:h-16 flex-shrink-0 bg-[#06070d] border border-zinc-800 rounded-lg md:rounded-xl flex items-center justify-center text-zinc-500 group-hover:text-blue-500 group-hover:border-blue-500/50 transition-colors">
-                                            {typeof item.icon === 'string' ? (
-                                                <span className="text-sm md:text-xl font-black font-mono tracking-tighter">{item.icon}</span>
-                                            ) : (
-                                                <item.icon className="w-5 h-5 md:w-8 md:h-8" strokeWidth={1} />
-                                            )}
-                                        </div>
-                                        <p className="text-zinc-300 text-xs md:text-lg leading-snug font-normal opacity-90">{item.text}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Right Side: Network Diagram Card */}
-                            <div className="w-full md:col-span-8 h-auto md:h-full">
-                                <div className="bg-[#111116] border border-zinc-800/80 rounded-2xl md:rounded-[3rem] p-6 md:p-12 h-full relative overflow-hidden flex flex-col justify-center">
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,_rgba(76,29,149,0.05)_0%,_transparent_50%)]" />
-
-                                    <div className="grid grid-cols-4 gap-y-8 md:gap-y-16 gap-x-2 md:gap-x-8 relative z-10 scale-[0.85] md:scale-100">
-                                        {/* Top Row */}
-                                        <div className="col-span-4 flex justify-center">
-                                            <DiagramNode name="RFID Tag Date" icon={SmartphoneNfc} />
-                                        </div>
-
-                                        {/* Row 2 */}
-                                        <DiagramNode name="UHF Reader" icon={Activity} />
-                                        <div className="col-span-2 flex justify-center">
-                                            <DiagramNode name="SKIDATA FASTag middleware" icon={Cpu} highlight />
-                                        </div>
-                                        <div className="flex flex-col items-center gap-3">
-                                            <div className="w-12 h-20 md:w-20 md:h-32 bg-zinc-900 border border-zinc-700/50 rounded-lg md:rounded-2xl flex flex-col items-center justify-center gap-2 md:gap-4 text-zinc-500 relative">
-                                                <div className="w-6 md:w-12 h-px md:h-0.5 bg-zinc-700 rounded-full" />
-                                                <div className="w-6 md:w-12 h-px md:h-0.5 bg-zinc-700 rounded-full" />
-                                                <div className="w-6 md:w-12 h-px md:h-0.5 bg-zinc-700 rounded-full" />
-                                                <span className="text-[5px] md:text-[7px] uppercase font-mono tracking-tighter px-1 md:px-2 text-center absolute -bottom-6 md:-bottom-8 w-16 md:w-24 left-1/2 -translate-x-1/2 text-zinc-600 font-bold leading-tight">SKIDATA Local PMS Server</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Row 3 */}
-                                        <DiagramNode name="Optional IP Camera" icon={Search} />
-                                        <div className="col-span-2 flex justify-center py-2 md:py-4">
-                                            <div className="flex flex-col items-center justify-center px-4 md:px-8 py-2 md:py-4 bg-white rounded-lg md:rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                                                <span className="text-[#06070d] font-black text-sm md:text-2xl tracking-tighter italic">NPCI</span>
-                                                <div className="h-[1px] md:h-[2px] w-full bg-[#1c3e98] my-0.5 md:my-1" />
-                                                <span className="text-[4px] md:text-[6px] text-[#06070d] uppercase font-bold text-center leading-tight">National Payments Corporation of India</span>
-                                            </div>
-                                        </div>
-                                        <DiagramNode name="Acquiring Bank cloud Server" icon={ShieldCheck} />
-                                    </div>
-
-                                    {/* Connectivity Lines */}
-                                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20 hidden md:block">
-                                        <path d="M400,100 L400,300 M200,250 L600,250" fill="none" stroke="white" strokeWidth="1" strokeDasharray="5 5" />
-                                    </svg>
                                 </div>
                             </div>
                         </div>
-                    </SlideFrame>
-                </section>
 
-                {/* Panel: Fasttag Exit System (Slide 108) */}
-                <section className="journey-panel h-screen w-full snap-start snap-always bg-[#06070d] relative">
-                    <SlideFrame>
-                        <div className="absolute top-12 md:top-28 left-6 md:left-16 z-30">
-                            <span className="px-3 md:px-4 py-1 md:py-1.5 bg-[#4c1d95]/50 border border-[#7c3aed]/30 text-[#a78bfa] text-base md:text-xl font-bold rounded-lg mb-4 md:mb-8 inline-block">
-                                Fastag Exit System
-                            </span>
-                        </div>
-
-                        <div className="max-w-[110rem] w-full slide-content flex flex-col md:grid md:grid-cols-12 gap-6 md:gap-12 mt-28 md:mt-32 px-4 md:px-16 h-[80%] md:h-[75%] items-start md:items-center overflow-y-auto md:overflow-visible custom-scrollbar">
-                            {/* Left Side: Features */}
-                            <div className="w-full md:col-span-4 flex flex-col gap-3 md:gap-6 p-6 md:p-12 bg-[#111116] border border-zinc-800/80 rounded-xl md:rounded-[3rem]">
-                                <ul className="space-y-4 md:space-y-8">
-                                    {[
-                                        "Automated payments with no need for manual intervention.",
-                                        "ANPR system captures license plate numbers for accurate fare calculation.",
-                                        "The system automatically calculates the applicable parking fee and communicates it to the FASTag system.",
-                                        "Minimal stopping time required to process parking payments.",
-                                        "Seamless integration with banks to receive FASTag payments."
-                                    ].map((point, i) => (
-                                        <li key={i} className="flex gap-4 md:gap-6 text-zinc-300 text-xs md:text-lg leading-relaxed font-normal opacity-90">
-                                            <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-blue-500 mt-1.5 md:mt-3 flex-shrink-0" />
-                                            {point}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            {/* Right Side: Network Diagram Card */}
-                            <div className="w-full md:col-span-8 h-auto md:h-full">
-                                <div className="bg-[#111116] border border-zinc-800/80 rounded-2xl md:rounded-[3rem] p-6 md:p-12 h-full relative overflow-hidden flex flex-col justify-center">
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,_rgba(76,29,149,0.05)_0%,_transparent_50%)]" />
-
-                                    <div className="grid grid-cols-4 gap-y-8 md:gap-y-16 gap-x-2 md:gap-x-8 relative z-10 scale-[0.85] md:scale-100">
-                                        {/* Top Row */}
-                                        <div className="col-span-4 flex justify-center">
-                                            <DiagramNode name="RFID Tag Date" icon={SmartphoneNfc} />
-                                        </div>
-
-                                        {/* Row 2 */}
-                                        <DiagramNode name="UHF Reader" icon={Activity} />
-                                        <div className="col-span-2 flex justify-center">
-                                            <DiagramNode name="SKIDATA FASTag middleware" icon={Cpu} highlight />
-                                        </div>
-                                        <div className="flex flex-col items-center gap-3">
-                                            <div className="w-12 h-20 md:w-20 md:h-32 bg-zinc-900 border border-zinc-700/50 rounded-lg md:rounded-2xl flex flex-col items-center justify-center gap-2 md:gap-4 text-zinc-500 relative">
-                                                <div className="w-6 md:w-12 h-px md:h-0.5 bg-zinc-700 rounded-full" />
-                                                <div className="w-6 md:w-12 h-px md:h-0.5 bg-zinc-700 rounded-full" />
-                                                <div className="w-6 md:w-12 h-px md:h-0.5 bg-zinc-700 rounded-full" />
-                                                <span className="text-[5px] md:text-[7px] uppercase font-mono tracking-tighter px-1 md:px-2 text-center absolute -bottom-6 md:-bottom-8 w-16 md:w-24 left-1/2 -translate-x-1/2 text-zinc-600 font-bold leading-tight">SKIDATA Local PMS Server</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Row 3 */}
-                                        <DiagramNode name="Optional IP Camera" icon={Search} />
-                                        <div className="col-span-2 flex justify-center py-2 md:py-4">
-                                            <div className="flex flex-col items-center justify-center px-4 md:px-8 py-2 md:py-4 bg-white rounded-lg md:rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                                                <span className="text-[#06070d] font-black text-sm md:text-2xl tracking-tighter italic">NPCI</span>
-                                                <div className="h-[1px] md:h-[2px] w-full bg-[#1c3e98] my-0.5 md:my-1" />
-                                                <span className="text-[4px] md:text-[6px] text-[#06070d] uppercase font-bold text-center leading-tight">National Payments Corporation of India</span>
-                                            </div>
-                                        </div>
-                                        <DiagramNode name="Acquiring Bank cloud Server" icon={ShieldCheck} />
-                                    </div>
-
-                                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20 hidden md:block">
-                                        <path d="M400,100 L400,300 M200,250 L600,250" fill="none" stroke="white" strokeWidth="1" strokeDasharray="5 5" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </SlideFrame>
-                </section>
-
-                {/* Panel: Valet/Instant Car Request (Slide 112) */}
-                <section className="journey-panel h-screen w-full snap-start snap-always bg-[#06070d] relative overflow-hidden">
-                    <SlideFrame>
-                        <SlideHeader title="Don't Wait, Just Tap!" subtitle="Get Your Car Instantly!" icon={Smartphone} />
-
-                        <div className="max-w-[100rem] w-full slide-content relative h-[85%] md:h-[70%] mt-24">
-                            <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-30">
-                                <svg width="100%" height="80%" viewBox="0 0 1200 600" preserveAspectRatio="none">
-                                    <path d="M100,500 C400,500 400,100 800,100 C1100,100 1200,100 1200,100" fill="none" stroke="white" strokeWidth="60" strokeLinecap="round" className="opacity-10" />
-                                    <path d="M100,500 C400,500 400,100 800,100 C1100,100 1200,100 1200,100" fill="none" stroke="white" strokeWidth="2" strokeDasharray="20 30" />
-                                </svg>
-                                {[200, 450, 700, 950].map(x => (
-                                    <div key={x} className="absolute bottom-[20%] w-1 h-32 bg-zinc-800" style={{ left: `${x}px` }}>
-                                        <div className="absolute -top-1 -right-4 w-6 h-2 bg-blue-500 shadow-[0_0_15px_#3b82f6]" />
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="flex flex-col md:grid md:grid-cols-12 gap-8 items-center h-full relative z-20 overflow-y-auto md:overflow-visible custom-scrollbar px-4 pt-4">
-                                <div className="md:col-span-4 flex flex-col items-center gap-4 md:gap-8 order-2 md:order-1">
-                                    <div className="p-4 md:p-8 bg-white rounded-2xl md:rounded-[2.5rem] shadow-2xl scale-90 md:scale-110">
-                                        <QrCode className="w-24 h-24 md:w-[180px] md:h-[180px] text-[#06070d]" strokeWidth={1.5} />
-                                    </div>
-                                    <p className="text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase">Scan to Request</p>
-                                </div>
-
-                                <div className="md:col-span-4 flex flex-col items-center order-1 md:order-2">
-                                    <div className="w-[240px] md:w-[300px] h-[480px] md:h-[600px] bg-[#0c0c14] border-[6px] md:border-[8px] border-zinc-800 rounded-[2.5rem] md:rounded-[3rem] p-4 md:p-6 shadow-2xl relative">
-                                        <div className="w-16 md:w-24 h-4 md:h-6 bg-zinc-800 rounded-full mx-auto mb-4 md:mb-8" />
-                                        <div className="flex flex-col items-center text-center">
-                                            <img src="/logo.svg" alt="Logo" className="h-8 md:h-12 w-auto mb-6 md:mb-12 opacity-80" />
-                                            <span className="text-zinc-400 text-xs md:text-sm mb-1 md:mb-2">Welcome, Guest</span>
-                                            <span className="text-white text-lg md:text-xl font-bold mb-8 md:mb-12 uppercase tracking-tighter">KA07N5556</span>
-
-                                            <button className="w-full py-4 md:py-5 bg-blue-600 rounded-xl md:rounded-2xl text-white font-bold text-sm md:text-lg shadow-[0_10px_30px_rgba(37,99,235,0.4)] hover:bg-blue-500 transition-all uppercase tracking-tight">
-                                                Request My Car
-                                            </button>
-
-                                            <div className="mt-8 md:mt-16 w-full px-2 md:px-4 text-left">
-                                                <div className="h-px bg-zinc-800 w-full mb-4 md:mb-6" />
-                                                <span className="text-[8px] md:text-[10px] text-zinc-500 uppercase tracking-widest">Valet PIN</span>
-                                                <div className="text-blue-500 font-mono text-xl md:text-2xl mt-1 tracking-widest">01-1234</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="md:col-span-4 flex flex-col gap-4 md:gap-6 md:pl-12 text-center md:text-left order-3 pb-8">
-                                    <div className="w-12 h-12 md:w-20 md:h-20 bg-blue-600/10 rounded-full flex items-center justify-center text-blue-500 border border-blue-500/20 mx-auto md:ml-0">
-                                        <Smartphone className="w-6 h-6 md:w-8 md:h-8" />
-                                    </div>
-                                    <h2 className="text-3xl md:text-5xl font-display font-black text-white leading-tight uppercase italic underline decoration-blue-500/30 underline-offset-8">
-                                        Tap <br className="hidden md:block" />
-                                        <span className="text-zinc-500">to</span> <br className="hidden md:block" />
-                                        Retrieve
-                                    </h2>
-                                    <p className="text-zinc-400 text-sm md:text-lg font-light leading-relaxed max-w-sm">
-                                        Our instant valet retrieval system ensures your vehicle is ready the moment you reach the exit.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </SlideFrame>
-                </section>
-
-                {/* Panel 7: Technology Features */}
-                <section className="journey-panel h-screen w-full snap-start snap-always bg-[#06070d] relative">
-                    <SlideFrame>
-                        <SlideHeader title="Customer-Facing Technology" subtitle="Features" icon={Smartphone} />
-
-                        <div className="max-w-[105rem] w-full slide-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-y-16 gap-x-10 md:gap-x-20 relative z-20 px-6 md:px-24 mt-28 md:mt-32 overflow-y-auto md:overflow-visible custom-scrollbar pb-10">
+                        {/* Tablet/Mobile: Vertical Grid (Simplified) */}
+                        <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto max-h-full pr-2 custom-scrollbar">
                             {[
-                                { name: "Parking Guidance System (PGS)", desc: "Provides map-based navigation to guide users to their designated parking area.", i: MapPin },
-                                { name: "Parking Slot Counting System", desc: "Employs cameras and sensors to track and display available and occupied parking slots in real-time.", i: BarChart3 },
-                                { name: "Parking Management System", desc: "A comprehensive system designed to enhance convenience and provide essential controls for seamless parking management.", i: Zap },
-                                { name: "Find My Car", desc: "Utilizes map-based navigation to help locate parked vehicles effortlessly.", i: Search },
-                                { name: "Flexible Payment Options", desc: "Accepts various digital payment methods, including UPI, digital wallets, and credit/debit cards, all approved by RBI.", i: CreditCard },
-                                { name: "RFID Authentication", desc: "Implements RFID technology for secure authentication of all staff vehicles.", i: SmartphoneNfc },
-                                { name: "Reserve My Parking Slot", desc: "Allows users to reserve a parking space in advance via the app before arriving at the airport.", i: ParkingCircle },
-                                { name: "Technology and Operations Management", desc: "Utilizes both on-premises and cloud-based solutions for efficient operations management.", i: Settings }
-                            ].map((item, idx) => {
-                                const Icon = item.i;
-                                return (
-                                    <div key={idx} className="flex gap-4 md:gap-8 group">
-                                        <div className="relative flex-shrink-0">
-                                            <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-[#0a0b14] border-[3px] md:border-[5px] border-purple-900 flex items-center justify-center relative overflow-hidden group-hover:border-purple-500 transition-all duration-500 shadow-[0_0_20px_rgba(168,85,247,0.1)] group-hover:shadow-purple-500/30">
-                                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent" />
-                                                <Icon className="w-6 h-6 md:w-10 md:h-10 text-white relative z-10" strokeWidth={1.2} />
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-col justify-center">
-                                            <h4 className="text-white font-bold text-lg md:text-xl mb-1 md:mb-3 leading-tight tracking-tight">{item.name}</h4>
-                                            <p className="text-zinc-500 text-[12px] md:text-[14px] font-normal leading-snug max-w-[320px]">{item.desc}</p>
-                                        </div>
+                                { t: "Visit RP App", i: Smartphone },
+                                { t: "Vehicle Info", i: FileText },
+                                { t: "Quick Payment", i: CreditCard },
+                                { t: "Slot Allocated", i: ParkingCircle },
+                                { t: "Notification", i: CheckCircle2 },
+                                { t: "Arrival", i: MapPin },
+                                { t: "Verification", i: UserCheck },
+                                { t: "Entry Gate", i: ArrowUpRight },
+                                { t: "Park vehicle", i: Car }
+                            ].map((node, i) => (
+                                <div key={i} className="p-4 bg-zinc-900/40 border border-zinc-800 rounded-2xl flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex-shrink-0 flex items-center justify-center text-blue-400">
+                                        <node.i size={20} strokeWidth={1.5} />
                                     </div>
-                                );
-                            })}
+                                    <p className="text-xs md:text-sm text-zinc-300 font-mono uppercase tracking-widest">{node.t}</p>
+                                </div>
+                            ))}
                         </div>
-                    </SlideFrame>
-                </section>
+                    </div>
+                </SectionWrapper>
 
-                <div className="snap-start">
+                {/* Panel 2: 4-Wheeler Entry */}
+                <SectionWrapper>
+                    <SlideHeader title="Flow Control" subtitle="4-Wheeler Process" icon={Car} />
+
+                    <div className="flex-1 flex flex-col justify-center slide-content overflow-hidden">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
+                            {[
+                                { id: 1, t: "Arrival at entry lane." },
+                                { id: 2, t: "Detection loop active." },
+                                { id: 3, t: "Power Gate integration.", sub: "FASTag / RFID" },
+                                { id: 4, t: "Boom barrier release." },
+                                { id: 5, t: "Data logging & sync." },
+                                { id: 6, t: "Proceed to slot." }
+                            ].map((step) => (
+                                <div key={step.id} className="p-4 md:p-6 bg-zinc-900/40 border border-zinc-800 rounded-2xl hover:border-blue-500/50 transition-all flex gap-4">
+                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white font-bold">{step.id}</div>
+                                    <div className="flex flex-col justify-center">
+                                        {step.sub && <span className="text-[9px] text-zinc-500 font-mono font-bold uppercase mb-1">{step.sub}</span>}
+                                        <p className="text-sm text-zinc-300 leading-snug">{step.t}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </SectionWrapper>
+
+                {/* Panel 3: 2-Wheeler Entry */}
+                <SectionWrapper>
+                    <SlideHeader title="Flow Control" subtitle="2-Wheeler Process" icon={Bike} />
+
+                    <div className="flex-1 flex flex-col justify-center slide-content overflow-hidden">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
+                            {[
+                                { id: 1, t: "Arrival at entry lane." },
+                                { id: 2, t: "Sensor detection." },
+                                { id: 3, t: "Manual power gate.", sub: "Ticket / Token" },
+                                { id: 4, t: "Barrier clearance." },
+                                { id: 5, t: "Navigate to zone." }
+                            ].map((step) => (
+                                <div key={step.id} className="p-4 md:p-6 bg-zinc-900/40 border border-zinc-800 rounded-2xl hover:border-blue-500/50 transition-all flex gap-4">
+                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white font-bold">{step.id}</div>
+                                    <div className="flex flex-col justify-center">
+                                        {step.sub && <span className="text-[9px] text-zinc-500 font-mono font-bold uppercase mb-1">{step.sub}</span>}
+                                        <p className="text-sm text-zinc-300 leading-snug">{step.t}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </SectionWrapper>
+
+                {/* Panel 4: Fasttag Entry */}
+                <SectionWrapper>
+                    <SlideHeader title="Infrastructure" subtitle="FASTag Entry" icon={Cpu} />
+
+                    <div className="flex-1 flex flex-col lg:grid lg:grid-cols-12 gap-6 md:gap-8 slide-content overflow-hidden">
+                        <div className="lg:col-span-4 flex flex-col gap-3 overflow-y-auto pr-2 custom-scrollbar">
+                            {[
+                                "ANPR plate scanning",
+                                "Barrier integration",
+                                "Real-time verification",
+                                "Anti-passback checks"
+                            ].map((t, idx) => (
+                                <div key={idx} className="p-4 bg-zinc-900/40 border border-zinc-800 rounded-xl flex items-center gap-4 group hover:border-blue-500/30">
+                                    <div className="w-8 h-8 rounded-lg bg-zinc-950 flex items-center justify-center text-zinc-500 group-hover:text-blue-500">
+                                        <CheckCircle2 size={16} />
+                                    </div>
+                                    <p className="text-xs text-zinc-400 group-hover:text-zinc-200">{t}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="lg:col-span-8 bg-zinc-900/30 border border-zinc-800 rounded-3xl p-4 sm:p-6 flex items-center justify-center overflow-hidden">
+                            <div className="grid grid-cols-4 gap-y-8 sm:gap-y-12 md:gap-y-16 gap-x-2 scale-[0.6] sm:scale-[0.75] lg:scale-[0.8] xl:scale-[0.9] 2xl:scale-100 origin-center">
+                                <div className="col-span-4 flex justify-center">
+                                    <DiagramNode name="FASTag Tag" icon={SmartphoneNfc} />
+                                </div>
+                                <DiagramNode name="Scanner" icon={Activity} />
+                                <div className="col-span-2 flex justify-center">
+                                    <DiagramNode name="Middleware" icon={Cpu} highlight />
+                                </div>
+                                <DiagramNode name="PMS" icon={Settings} />
+                                <DiagramNode name="ANPR" icon={Search} />
+                                <div className="col-span-2 flex justify-center">
+                                    <div className="bg-white px-6 py-2 rounded-lg flex flex-col items-center">
+                                        <span className="text-black font-black italic text-xl">NPCI</span>
+                                    </div>
+                                </div>
+                                <DiagramNode name="Cloud" icon={ShieldCheck} />
+                            </div>
+                        </div>
+                    </div>
+                </SectionWrapper>
+
+                {/* Panel 5: Fasttag Exit */}
+                <SectionWrapper>
+                    <SlideHeader title="Infrastructure" subtitle="FASTag Exit" icon={Cpu} />
+
+                    <div className="flex-1 flex flex-col lg:grid lg:grid-cols-12 gap-6 md:gap-8 slide-content overflow-hidden">
+                        <div className="lg:col-span-4 flex flex-col gap-3 p-4 bg-zinc-900/40 border border-zinc-800 rounded-2xl overflow-y-auto custom-scrollbar">
+                            {[
+                                "Automated account debit",
+                                "Fare calculation engine",
+                                "Exit barrier sync",
+                                "Transaction logging"
+                            ].map((t, idx) => (
+                                <div key={idx} className="flex gap-4 text-zinc-400 text-xs">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
+                                    {t}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="lg:col-span-8 bg-zinc-900/30 border border-zinc-800 rounded-3xl p-4 sm:p-6 flex items-center justify-center overflow-hidden">
+                            <div className="grid grid-cols-4 gap-y-8 sm:gap-y-12 md:gap-y-16 gap-x-2 scale-[0.6] sm:scale-[0.75] lg:scale-[0.8] xl:scale-[0.9] 2xl:scale-100 origin-center">
+                                <div className="col-span-4 flex justify-center">
+                                    <DiagramNode name="RFID Tag" icon={SmartphoneNfc} />
+                                </div>
+                                <DiagramNode name="Exit Reader" icon={Activity} />
+                                <div className="col-span-2 flex justify-center">
+                                    <DiagramNode name="Middleware" icon={Cpu} highlight />
+                                </div>
+                                <DiagramNode name="Control" icon={Settings} />
+                                <DiagramNode name="ANPR" icon={Search} />
+                                <div className="col-span-2 flex justify-center">
+                                    <div className="bg-white px-6 py-2 rounded-lg flex flex-col items-center">
+                                        <span className="text-black font-black italic text-xl">NPCI</span>
+                                    </div>
+                                </div>
+                                <DiagramNode name="Bank" icon={ShieldCheck} />
+                            </div>
+                        </div>
+                    </div>
+                </SectionWrapper>
+
+                {/* Panel 6: Valet Request */}
+                <SectionWrapper>
+                    <SlideHeader title="Mobile First" subtitle="Valet Retrieval" icon={Smartphone} />
+
+                    <div className="flex-1 flex flex-col lg:grid lg:grid-cols-12 gap-8 items-center slide-content overflow-hidden">
+                        <div className="lg:col-span-4 flex flex-col items-center gap-4 order-2 lg:order-1">
+                            <div className="p-4 bg-white rounded-2xl shadow-xl">
+                                <QrCode size={100} className="text-zinc-900" />
+                            </div>
+                            <h4 className="text-lg font-bold text-white uppercase italic underline decoration-blue-500 underline-offset-4">Instant Pickup</h4>
+                        </div>
+
+                        <div className="lg:col-span-4 flex justify-center order-1 lg:order-2">
+                            <div className="w-[180px] h-[360px] sm:w-[220px] sm:h-[440px] bg-zinc-950 border-[4px] border-zinc-800 rounded-[2rem] p-4 relative shadow-2xl flex flex-col items-center">
+                                <div className="w-10 h-3 bg-zinc-800 rounded-full mb-6" />
+                                <img src="/logo.svg" alt="logo" className="h-4 w-auto opacity-30 mb-6" />
+                                <div className="w-full text-center">
+                                    <span className="text-[10px] text-zinc-500 uppercase">Vehicle</span>
+                                    <p className="text-white font-bold text-base">KA-05-AB-1234</p>
+                                    <div className="w-full mt-6 py-2 bg-blue-600 rounded-lg text-white font-bold text-[10px] uppercase">Retrieving</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-4 flex flex-col gap-4 text-center lg:text-left order-3">
+                            <h3 className="text-4xl md:text-6xl font-display font-black text-white italic leading-tight">PUSH<br /><span className="text-zinc-600">to</span><br />PARK</h3>
+                            <p className="text-xs md:text-sm text-zinc-500 font-light leading-relaxed">
+                                Avoid the exit queue. Request your vehicle via the app and have it waiting for you at the gate.
+                            </p>
+                        </div>
+                    </div>
+                </SectionWrapper>
+
+                {/* Panel 7: Systems Grid */}
+                <SectionWrapper>
+                    <SlideHeader title="Holistic Tech" subtitle="Key Features" icon={Zap} />
+
+                    <div className="flex-1 slide-content overflow-y-auto custom-scrollbar pb-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+                            {[
+                                { n: "PGS", d: "Nav-based guidance system.", i: MapPin },
+                                { n: "Counting", d: "Real-time slot tracking sensors.", i: BarChart3 },
+                                { n: "PMS", d: "End-to-end management console.", i: Settings },
+                                { n: "Search", d: "Locate your parked vehicle.", i: Search },
+                                { n: "Digital Pay", d: "RBI approved payment gateway.", i: CreditCard },
+                                { n: "RFID", d: "Staff and VIP authentication.", i: SmartphoneNfc },
+                                { n: "Bookings", d: "App-based parking reservations.", i: Calendar },
+                                { n: "Cloud Ops", d: "24/7 remote monitoring.", i: Zap }
+                            ].map((item, idx) => (
+                                <div key={idx} className="p-5 bg-zinc-900/40 border border-zinc-800 rounded-2xl group hover:border-blue-500/30 transition-all">
+                                    <div className="w-10 h-10 rounded-xl bg-zinc-950 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all mb-4">
+                                        <item.i size={20} strokeWidth={1.5} />
+                                    </div>
+                                    <h4 className="text-white font-bold text-sm mb-1">{item.n}</h4>
+                                    <p className="text-[10px] text-zinc-500 leading-snug">{item.d}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </SectionWrapper>
+
+                <div className="snap-start relative z-10">
                     <Footer />
                 </div>
             </main>

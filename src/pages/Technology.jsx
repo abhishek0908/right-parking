@@ -85,7 +85,7 @@ export const Technology = () => {
 
             <main>
                 {/* 2.1 Hero Section - Panel 0 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center relative overflow-hidden z-[1]">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center relative overflow-hidden z-[1] px-6 md:px-12">
                     {/* Background Image */}
                     <div className="absolute inset-0 z-0">
                         <img
@@ -98,11 +98,11 @@ export const Technology = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-[var(--bg-dark)]/80 via-[var(--bg-dark)]/20 to-transparent" />
                     </div>
 
-                    <div className="max-w-7xl w-full panel-content relative z-10 px-6 md:px-12">
+                    <div className="max-w-7xl w-full panel-content relative z-10 px-5 md:px-10 pt-20 md:pt-24 pb-10">
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-blue-500 font-mono text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-6"
+                            className="text-blue-500 font-mono text-[10px] md:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-6"
                         >
                             Invisible Systems. Total Control.
                         </motion.p>
@@ -110,7 +110,7 @@ export const Technology = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-tight text-gradient py-2 sm:py-4"
+                            className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-display italic tracking-tighter-premium mb-6 md:mb-8 leading-tight text-gradient py-2"
                         >
                             Technology.
                         </motion.h1>
@@ -143,10 +143,10 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.2 Our Technology Philosophy - Panel 1 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[2] bg-[#0a0a0c]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center panel-content">
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center z-[2] bg-[#0a0a0c] px-6 md:px-12">
+                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center panel-content px-5 md:px-10 pt-24 md:pt-28 pb-10">
                         <div>
-                            <h2 className="text-3xl sm:text-4xl md:text-6xl font-display italic mb-6 leading-tight py-2 uppercase tracking-tighter">Automation <br /><span className="text-blue-500 inline-block pb-1">by Design</span></h2>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-4 md:mb-6 leading-tight py-2 uppercase tracking-tighter">Automation <br /><span className="text-blue-500 inline-block pb-1">by Design</span></h2>
                             <p className="text-[var(--text-muted)] mb-8 text-sm sm:text-lg md:text-xl font-light leading-relaxed">
                                 Every site runs on redundant automation + centralized intelligence. Our systems operate independently and scale across cities.
                             </p>
@@ -171,9 +171,9 @@ export const Technology = () => {
                 </section>
 
                 {/* 2.3 Framework - Panel 2 */}
-                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[3] bg-[#0c0c0e]">
-                    <div className="max-w-7xl w-full panel-content">
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-16 text-center leading-tight py-2 uppercase tracking-tighter">Zero Downtime <span className="text-blue-500">Framework</span></h2>
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center z-[3] bg-[#0c0c0e] px-6 md:px-12">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-24 md:pt-28 pb-10 flex flex-col justify-center">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display italic mb-8 md:mb-12 text-center leading-tight py-2 uppercase tracking-tighter">Zero Downtime <span className="text-blue-500">Framework</span></h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                             {[
                                 { name: "Tier 1: FASTag", role: "Primary Layer", desc: "Stop-free access. Real-time wallet verification. Instant session creation and closure.", color: "blue" },
@@ -196,10 +196,10 @@ export const Technology = () => {
 
                 {/* 2.4 ANPR Engine - Panel 3 */}
                 <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[4] bg-[#0e0e11]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center panel-content">
-                        <div className="order-2 lg:order-1">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-6 md:mb-8 leading-tight py-2 uppercase tracking-tighter">Cameras That <span className="text-blue-500">Decide</span></h2>
-                            <p className="text-base sm:text-lg md:text-xl text-[var(--text-muted)] mb-8 md:mb-12 font-light">Inside the AI-OCR ANPR Engine.</p>
+                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center panel-content pt-24 md:pt-28 pb-10">
+                        <div className="order-2 lg:order-1 flex flex-col justify-center">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-display italic mb-4 md:mb-6 leading-tight py-2 uppercase tracking-tighter">Cameras That <span className="text-blue-500">Decide</span></h2>
+                            <p className="text-sm sm:text-lg md:text-xl text-[var(--text-muted)] mb-6 md:mb-10 font-light">Inside the AI-OCR ANPR Engine.</p>
                             <div className="space-y-6 sm:space-y-10 relative">
                                 <div className="absolute left-[19px] top-4 bottom-4 w-[1px] bg-blue-500/20" />
                                 {[
@@ -217,7 +217,7 @@ export const Technology = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="order-1 lg:order-2 aspect-square bg-[var(--surface)] rounded-[2rem] md:rounded-[4rem] border border-[var(--border)] relative overflow-hidden flex items-center justify-center shadow-2xl">
+                        <div className="order-1 lg:order-2 aspect-square max-h-[300px] md:max-h-[400px] lg:max-h-none bg-[var(--surface)] rounded-[2rem] md:rounded-[4rem] border border-[var(--border)] relative overflow-hidden flex items-center justify-center shadow-2xl">
                             <div className="absolute inset-0 bg-blue-500/5" />
                             <motion.div
                                 animate={{ top: ['0%', '100%', '0%'] }}
@@ -237,7 +237,7 @@ export const Technology = () => {
 
                 {/* 2.5 Sensors & Guidance - Panel 4 */}
                 <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[5] bg-[#111114]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 panel-content">
+                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 panel-content pt-24 md:pt-28 pb-10">
                         <div className="bg-[var(--surface)] p-8 md:p-16 rounded-[2rem] md:rounded-[4rem] border border-[var(--border)] group hover:border-blue-500/30 transition-all shadow-2xl">
                             <h3 className="text-2xl sm:text-3xl md:text-4xl font-display italic mb-6 md:mb-8">Every Spot Knows <br />Its Status</h3>
                             <ul className="space-y-4 md:space-y-6 mb-8 md:mb-12">
@@ -265,7 +265,7 @@ export const Technology = () => {
 
                 {/* 2.7 Visibility - Panel 5 */}
                 <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[6] bg-[#141417]">
-                    <div className="max-w-7xl w-full panel-content">
+                    <div className="max-w-7xl w-full panel-content pt-24 md:pt-28 pb-10 flex items-center justify-center">
                         <div className="bg-gradient-to-br from-[#1a1a1e] to-[var(--bg-dark)] p-8 md:p-20 lg:p-32 rounded-[3rem] md:rounded-[5rem] border border-white/5 relative overflow-hidden shadow-2xl text-center">
                             <div className="absolute inset-0 bg-blue-600/5 blur-[120px]" />
                             <span className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-4 md:mb-8 block relative z-10">Total Visibility</span>
@@ -284,7 +284,7 @@ export const Technology = () => {
 
                 {/* 2.8 Digital Payments - Panel 6 */}
                 <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[7] bg-[#16161a]">
-                    <div className="max-w-7xl w-full text-center panel-content">
+                    <div className="max-w-7xl w-full text-center panel-content pt-24 md:pt-28 pb-10">
                         <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display italic mb-8 md:mb-16 leading-tight py-2 uppercase tracking-tighter">Frictionless <span className="text-blue-500">Finance</span></h2>
                         <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 md:mb-16">
                             {["FASTag", "UPI", "Credit Cards", "Debit Cards"].map((pay, i) => (
@@ -305,7 +305,7 @@ export const Technology = () => {
 
                 {/* 2.9 Security - Panel 7 */}
                 <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[8] bg-[#18181d]">
-                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center panel-content">
+                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-20 items-center panel-content pt-24 md:pt-28 pb-10">
                         <div>
                             <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-6 md:mb-10 leading-tight py-2 uppercase tracking-tighter">Parking That <span className="text-red-500">Protects</span></h2>
                             <p className="text-[var(--text-muted)] mb-8 md:mb-12 text-lg md:text-xl font-light leading-relaxed border-l-2 border-red-500/20 pl-6 md:pl-8">

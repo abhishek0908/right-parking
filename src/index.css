@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Safe area for full-screen snap panels to avoid header overlap */
+.safe-panel-content {
+  padding-top: max(4.5rem, env(safe-area-inset-top, 4.5rem));
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .safe-panel-content {
+    padding-top: 5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+
 :root {
   --primary: #3b82f6;
   --primary-hover: #2563eb;
@@ -18,32 +32,7 @@
   --card-bg: rgba(24, 24, 27, 0.4);
 }
 
-:root.light {
-  --bg-dark: #f8fafc;
-  --bg-home: #f8fafc;
-  --surface: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --text-gradient-end: #64748b;
-  --hero-glow: rgba(59, 130, 246, 0.1);
-  --card-bg: rgba(255, 255, 255, 0.8);
-}
 
-/* Force Dark Core for Experience/3D Part */
-.force-dark {
-  --bg-dark: #09090b !important;
-  --bg-home: #09090b !important;
-  --surface: #18181b !important;
-  --border: rgba(255, 255, 255, 0.1) !important;
-  --text-main: #f4f4f5 !important;
-  --text-muted: #a1a1aa !important;
-  --glass-bg: rgba(9, 9, 11, 0.7) !important;
-  --text-gradient-end: #a1a1aa !important;
-  --hero-glow: rgba(59, 130, 246, 0.05) !important;
-  --card-bg: rgba(24, 24, 27, 0.4) !important;
-}
 
 body {
   margin: 0;
@@ -146,12 +135,4 @@ h6 {
 
 .blue-glow {
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-}
-
-/* Theme Toggle Button Styles */
-.theme-toggle {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  transition: all 0.3s ease;
 }
