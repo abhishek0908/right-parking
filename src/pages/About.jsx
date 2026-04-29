@@ -125,7 +125,7 @@ export const About = () => {
             <main className="w-full">
                 {/* 1.1 Hero Section - Panel 0 */}
                 <section className="about-panel h-screen w-full flex items-center justify-center snap-start snap-always bg-[var(--bg-dark)] relative px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-12 md:pb-16">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-12 md:pb-16">
                         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-blue-500 font-mono text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-4 sm:mb-6">Reimagining Parking in India</motion.p>
                         <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-display italic tracking-tighter-premium mb-4 md:mb-8 leading-[1.1] md:leading-tight text-gradient py-2">
                             Building India’s <br /> Future of <span className="text-blue-500 font-display inline-block pb-1 md:pb-2">Parking</span>
@@ -160,7 +160,7 @@ export const About = () => {
                         <div className="absolute inset-0 bg-black/40" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#17171a] via-transparent to-transparent" />
                     </div>
-                    <div className="max-w-[100rem] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center panel-content relative z-10 px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-[100rem] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center panel-content relative z-10 px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <div className="lg:col-span-4 space-y-4 sm:space-y-6 ceo-heading-col">
                             <div className="flex flex-col">
                                 <span className="text-blue-500 font-mono text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-2">Founder's Vision</span>
@@ -188,7 +188,7 @@ export const About = () => {
 
                 {/* 1.1c Vision & Mission - Panel 2 */}
                 <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center relative bg-[#09090b] overflow-hidden px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-8">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-8">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 md:mb-10 gap-4">
                             <div>
                                 <h2 className="text-3xl md:text-5xl lg:text-6xl font-display italic tracking-tighter-premium text-white leading-tight uppercase">
@@ -274,7 +274,7 @@ export const About = () => {
 
                 {/* 1.2 About Right Parking - Panel 3 */}
                 <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center bg-[#0a0a0c] px-6 md:px-12">
-                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-center panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-center panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <div>
                             <h2 className="text-2xl sm:text-4xl md:text-5xl font-display italic mb-4 leading-tight py-2">Invisible Infrastructure That <span className="text-blue-500 inline-block pb-1">Simply Works</span></h2>
                             <p className="text-[var(--text-muted)] text-[10px] sm:text-sm md:text-base lg:text-lg leading-relaxed mb-4">Right Parking replaces outdated parking systems with self-operating infrastructure. Just seamless entry, guided parking, automatic billing, and real-time control.</p>
@@ -302,7 +302,7 @@ export const About = () => {
 
                 {/* 1.3 The Problem - Panel 4 */}
                 <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center bg-[#0c0c0e] px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <div className="mb-4 md:mb-6 text-center md:text-left">
                             <h2 className="text-2xl md:text-4xl lg:text-5xl font-display italic mb-2">India’s Parking <span className="text-red-500">Challenge</span></h2>
                             <p className="text-xs md:text-base lg:text-lg mb-2 text-[var(--text-muted)] font-light">Parking is treated as an afterthought—yet it directly impacts traffic flow, safety, and city efficiency.</p>
@@ -320,7 +320,7 @@ export const About = () => {
 
                 {/* 1.4 The Way - Panel 5 */}
                 <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center bg-[#0e0e11] px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <h2 className="text-2xl md:text-4xl lg:text-5xl font-display italic mb-6 md:mb-12 text-center text-gradient">Without <span className="text-blue-500 uppercase not-italic">Friction</span></h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 lg:gap-8">
                             {[
@@ -342,14 +342,14 @@ export const About = () => {
 
                 {/* Panel 6: Stats */}
                 <section className="about-panel h-screen w-full snap-start snap-always flex items-center justify-center bg-[#111114] px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <div className="bg-[var(--surface)] rounded-[2rem] md:rounded-[3rem] p-6 md:p-16 text-center border border-[var(--border)] relative overflow-hidden shadow-2xl">
                             <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-4 md:mb-6">Proven on Ground</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-12 mt-6 md:mt-16">
                                 {[
-                                    { label: "Cities", val: "12+" },
-                                    { label: "Active Sites", val: "50+" },
-                                    { label: "Parking Bays", val: "10,000+" }
+                                    { label: "Cities", val: "1" },
+                                    { label: "Active Sites", val: "3" },
+                                    { label: "Parking Bays", val: "3000+" }
                                 ].map((stat, i) => (
                                     <div key={i}>
                                         <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-black text-white mb-2 leading-none">{stat.val}</div>

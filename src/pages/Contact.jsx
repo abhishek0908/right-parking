@@ -153,7 +153,7 @@ export const Contact = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-[var(--bg-dark)] via-[var(--bg-dark)]/80 to-transparent" />
                     </div>
 
-                    <div className="max-w-7xl w-full panel-content relative z-10 px-5 md:px-10 flex flex-col justify-center h-full pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content relative z-10 px-5 md:px-10 flex flex-col justify-center h-full pt-28 md:pt-32 pb-10">
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -199,7 +199,7 @@ export const Contact = () => {
 
                 {/* 4.2 Partner With Right Parking - Panel 1 */}
                 <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center z-[2] bg-[#0a0a0c] px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic mb-8 md:mb-16 uppercase tracking-tighter">Who We <span className="text-blue-500">Partner With</span></h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
@@ -224,7 +224,7 @@ export const Contact = () => {
 
                 {/* 4.3 What Happens Next - Panel 2 */}
                 <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center z-[3] bg-[#0c0c0e] px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <div className="flex flex-col items-center text-center mb-12 md:mb-24">
                             <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display italic mb-4 md:mb-6 leading-tight py-2 uppercase tracking-tighter">Roadmap to <span className="text-blue-500">Go-Live</span></h2>
                             <p className="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-[0.4em] opacity-60">Clear Timelines. Clear Ownership.</p>
@@ -258,8 +258,8 @@ export const Contact = () => {
                 </section>
 
                 {/* 4.4 Form Section - Panel 3 */}
-                <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center z-[4] bg-[#0e0e11] px-6 md:px-12">
-                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                <section className="contact-panel h-screen w-full snap-start snap-always flex items-start md:items-center justify-center z-[4] bg-[#0e0e11] px-6 md:px-12">
+                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start lg:items-center panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <div className="lg:col-span-8 bg-[var(--surface)] border border-[var(--border)] p-8 md:p-12 lg:p-16 rounded-[2rem] md:rounded-[4rem] relative overflow-hidden shadow-2xl">
                             <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display italic mb-8 md:mb-10 uppercase tracking-tighter">Start the <span className="text-blue-500">Conversation</span></h3>
                             <form className="space-y-6 md:space-y-8" onSubmit={async (e) => {
@@ -395,7 +395,7 @@ export const Contact = () => {
 
                 {/* 4.5 Closing - Panel 4 */}
                 <section className="contact-panel h-screen w-full snap-start snap-always flex items-center justify-center z-[5] bg-black px-6 md:px-12">
-                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content px-5 md:px-10 pt-28 md:pt-32 pb-10">
                         <div className="bg-gradient-to-br from-[#1a1a1e] to-black border border-white/5 p-8 md:p-12 lg:p-32 rounded-[3rem] md:rounded-[5rem] text-center relative overflow-hidden shadow-3xl">
                             <div className="absolute inset-0 bg-blue-600/5 blur-[150px] pointer-events-none" />
                             <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-display italic mb-6 md:mb-10 leading-tight text-[var(--text-main)] py-2 md:py-4 uppercase tracking-tighter relative z-10">

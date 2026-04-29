@@ -158,7 +158,7 @@ export const UserJourney = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-[#06070d]/80 via-[#06070d]/20 to-transparent" />
                     </div>
 
-                    <div className="max-w-7xl w-full panel-content relative z-10 px-5 md:px-10 flex flex-col justify-center h-full pt-20 md:pt-24 pb-10">
+                    <div className="max-w-7xl w-full panel-content relative z-10 px-5 md:px-10 flex flex-col justify-center h-full pt-28 md:pt-32 pb-10">
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
