@@ -366,28 +366,25 @@ export const Contact = () => {
                             </form>
                         </div>
 
-                        <div className="lg:col-span-4 flex flex-col justify-center space-y-6 sm:space-y-10">
+                        <div className="lg:col-span-4 flex flex-col justify-center space-y-10">
                             <div>
-                                <span className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-4 block">Corporate Office</span>
-                                <h4 className="text-2xl sm:text-3xl font-display italic mb-6">Right Parking</h4>
+                                <span className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-4 block">Headquarters</span>
+                                <h4 className="text-2xl sm:text-3xl font-display italic mb-6">Right Parking — Freedom Park</h4>
                                 <p className="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed font-light border-l-2 border-blue-500/20 pl-6 sm:pl-8">
-                                    Unit 508, 5th Floor,<br />
-                                    Iris Tech Park, Sohna Road,<br />
-                                    Gurgaon, Haryana 122018
-                                </p>
-                            </div>
-                            <div>
-                                <span className="text-blue-500 font-mono text-[10px] tracking-[0.4em] uppercase mb-4 block">Site Office</span>
-                                <h4 className="text-xl sm:text-2xl font-display italic mb-4">Right Parking — KR Market</h4>
-                                <p className="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed font-light border-l-2 border-blue-500/20 pl-6 sm:pl-8">
-                                    Basement Parking, Flower Market,<br />
-                                    KR Market, Avenue Rd, Chickpet,<br />
-                                    Bengaluru, Karnataka 560002
+                                    Freedom Park MLCP, Seshadri Rd,<br />
+                                    Gandhi Nagar, Bengaluru,<br />
+                                    Karnataka 560009
                                 </p>
                             </div>
                             <div className="space-y-3">
-                                <p className="text-sm sm:text-base text-[var(--text-main)] font-light"><span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] mr-6 opacity-50">Email</span> admin@rightparking.com</p>
-                                <p className="text-sm sm:text-base text-[var(--text-main)] font-light"><span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] mr-6 opacity-50">Phone</span> +91 99999 99999</p>
+                                <p className="text-sm sm:text-base text-[var(--text-main)] font-light flex items-center gap-4">
+                                    <span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] opacity-50 w-24">Email</span> 
+                                    admin@rightparking.com
+                                </p>
+                                <p className="text-sm sm:text-base text-[var(--text-main)] font-light flex items-center gap-4">
+                                    <span className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.3em] opacity-50 w-24">WhatsApp</span> 
+                                    +91 91089 90899
+                                </p>
                             </div>
                         </div>
                     </div>

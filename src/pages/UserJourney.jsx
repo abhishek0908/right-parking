@@ -469,13 +469,13 @@ export const UserJourney = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
                             {[
                                 { n: "PGS", d: "Nav-based guidance system.", i: MapPin },
-                                { n: "Counting", d: "Real-time slot tracking sensors.", i: BarChart3 },
-                                { n: "PMS", d: "End-to-end management console.", i: Settings },
+                                { n: "EV Charging", d: "Integrated charging ecosystem.", i: Zap },
+                                { n: "ANPR Invoicing", d: "AI-based automated billing.", i: FileText },
                                 { n: "Search", d: "Locate your parked vehicle.", i: Search },
                                 { n: "Digital Pay", d: "RBI approved payment gateway.", i: CreditCard },
                                 { n: "RFID", d: "Staff and VIP authentication.", i: SmartphoneNfc },
                                 { n: "Bookings", d: "App-based parking reservations.", i: Calendar },
-                                { n: "Cloud Ops", d: "24/7 remote monitoring.", i: Zap }
+                                { n: "Cloud Ops", d: "24/7 remote monitoring.", i: Activity }
                             ].map((item, idx) => (
                                 <div key={idx} className="p-5 bg-zinc-900/40 border border-zinc-800 rounded-2xl group hover:border-blue-500/30 transition-all">
                                     <div className="w-10 h-10 rounded-xl bg-zinc-950 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all mb-4">

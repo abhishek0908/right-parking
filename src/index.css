@@ -92,6 +92,10 @@ body {
   }
 }
 
+.animate-shimmer {
+  animation: shimmer 2.5s infinite;
+}
+
 .shimmer-effect {
   position: relative;
   overflow: hidden;

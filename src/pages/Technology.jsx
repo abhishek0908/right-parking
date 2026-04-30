@@ -72,7 +72,7 @@ export const Technology = () => {
         >
             {/* Scroll Progress Indicator */}
             <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 hidden md:flex">
-                {[...Array(10)].map((_, i) => (
+                {[...Array(11)].map((_, i) => (
                     <div
                         key={i}
                         className={`w-1.5 h-1.5 rounded-full transition-all duration-300 border ${activeIndex === i
@@ -337,6 +337,60 @@ export const Technology = () => {
                                     <div className="absolute w-32 h-48 border-2 border-red-500/40 rounded-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_30px_rgba(239,68,68,0.2)]">
                                         <div className="absolute -top-4 left-4 bg-red-600 text-white text-[8px] px-2 py-0.5 rounded-sm font-bold uppercase tracking-widest whitespace-nowrap">Wrong Way Identified</div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 2.10 EV Charging & Invoicing - Panel 8 */}
+                <section className="technology-panel h-screen w-full snap-start snap-always flex items-center justify-center px-6 md:px-12 z-[9] bg-[#1a1a1f]">
+                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center panel-content pt-24 md:pt-28 pb-10">
+                        <div className="order-2 lg:order-1 flex flex-col justify-center">
+                            <h2 className="text-3xl sm:text-5xl md:text-6xl font-display italic mb-6 md:mb-8 leading-tight py-2 uppercase tracking-tighter">Unified <br /><span className="text-blue-500">Ecosystem</span></h2>
+                            <p className="text-[var(--text-muted)] mb-8 md:mb-12 text-sm sm:text-lg md:text-xl font-light leading-relaxed">
+                                We bridge the gap between parking and power. Integrated EV charging and AI-driven invoicing create a single, seamless transaction for every visitor.
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="bg-[var(--surface)] p-6 rounded-3xl border border-blue-500/20 group hover:border-blue-500/50 transition-all">
+                                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                                        <div className="w-5 h-5 bg-current mask-zap" style={{ maskImage: 'url(/zap.svg)', maskRepeat: 'no-repeat', maskPosition: 'center' }} />
+                                        <span className="font-bold text-lg leading-none">⚡</span>
+                                    </div>
+                                    <h4 className="text-white font-bold text-sm mb-2 uppercase tracking-widest">Smart EV Charging</h4>
+                                    <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">Automated slot allocation for EV vehicles with integrated charging control and status monitoring.</p>
+                                </div>
+                                <div className="bg-[var(--surface)] p-6 rounded-3xl border border-blue-500/20 group hover:border-blue-500/50 transition-all">
+                                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                                        <span className="font-bold text-lg leading-none">📄</span>
+                                    </div>
+                                    <h4 className="text-white font-bold text-sm mb-2 uppercase tracking-widest">AI Invoicing</h4>
+                                    <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">ANPR-based billing that automatically calculates parking + charging fees into a single digital invoice.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="order-1 lg:order-2 bg-[var(--surface)] rounded-[3rem] p-8 md:p-12 border border-[var(--border)] relative overflow-hidden shadow-2xl">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[100px]" />
+                            <div className="space-y-6">
+                                <div className="flex justify-between items-end border-b border-white/5 pb-4">
+                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Session Summary</span>
+                                    <span className="text-blue-500 font-mono text-[10px]">ACTIVE</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-light text-zinc-400">Parking Fee</span>
+                                    <span className="text-white font-mono">₹ 120.00</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-light text-zinc-400">EV Charging (12.4 kWh)</span>
+                                    <span className="text-white font-mono">₹ 186.00</span>
+                                </div>
+                                <div className="flex justify-between items-center pt-4 border-t border-blue-500/20">
+                                    <span className="text-lg font-display italic text-white">Total Amount</span>
+                                    <span className="text-2xl font-mono text-blue-500">₹ 306.00</span>
+                                </div>
+                                <div className="mt-8 pt-6 flex flex-col items-center gap-4">
+                                    <div className="w-full h-12 bg-blue-600 rounded-xl flex items-center justify-center font-display italic font-bold uppercase tracking-widest text-sm">Automated Invoice Sent</div>
+                                    <p className="text-[8px] font-mono text-zinc-600 uppercase tracking-widest">Linked to HR 26 DQ 5555</p>
                                 </div>
                             </div>
                         </div>
