@@ -17,7 +17,7 @@ export const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     const socials = [
-        { icon: Instagram, href: 'https://www.instagram.com/right.parkin', label: 'Instagram' },
+        { icon: Instagram, href: 'https://www.instagram.com/right.parking', label: 'Instagram' },
         { icon: XIcon, href: 'https://x.com/right_parking', label: 'X' },
         { icon: Facebook, href: 'https://www.facebook.com/p/Right-Parking-61559916825440', label: 'Facebook' },
         { icon: Youtube, href: 'https://www.youtube.com/@RightParking', label: 'YouTube' },
@@ -40,10 +40,10 @@ export const Footer = () => {
                     </p>
                     <div className="flex gap-6">
                         {socials.map((social) => (
-                            <a 
-                                key={social.label} 
-                                href={social.href} 
-                                target="_blank" 
+                            <a
+                                key={social.label}
+                                href={social.href}
+                                target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-12 h-12 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] hover:text-blue-400 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all shadow-sm"
                                 aria-label={social.label}
